@@ -15,22 +15,20 @@ void menu(){
 
 }
 
-void init_userlist(UserList *userlist){
-    read_user();
 
-}
 
 void run_interface(){
     menu();
     UserList userlist;
-    init_userlist(&userlist);
+//    init_userlist(&userlist);
     int choice;
+    read_user(&userlist);
     choice = optionChoice();
 
     switch (choice) {
         case 1:
-            register_user();
-            read_user();
+            register_user(&userlist);
+            read_user(&userlist);
             break;
         case 2:
             puts("Login");

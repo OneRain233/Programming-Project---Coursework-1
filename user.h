@@ -17,6 +17,7 @@ typedef struct _User {
 
 typedef struct _UserList {
     User *user[100];
+    int userNum;
 //    struct _UserList *next;
 } UserList;
 

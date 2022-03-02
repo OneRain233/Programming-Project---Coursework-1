@@ -20,10 +20,10 @@ void read_user(UserList *userlist){
     char username[20];
     char password[20];
     int user_cnt = 0;
-    User *user;
+//    User *user;
 
     while(fscanf(fp, "%s", username) != EOF){
-
+        User *user;
 //        strcpy(user->username, username);
         fscanf(fp, "%s", password);
 //        strcpy(user->password, password);
@@ -36,12 +36,13 @@ void read_user(UserList *userlist){
 
         userlist->user[user_cnt] = user;
         user_cnt++;
+
     }
 
-
+    userlist->userNum = user_cnt;
     fclose(fp);
 
-
+    return;
 }
 
 
@@ -59,7 +60,7 @@ void write2file(User *user){
 }
 
 
-void register_user(){
+void register_user(UserList *userlist){
 
     char username[20];
     char password[20];
@@ -87,6 +88,9 @@ void register_user(){
 
     write2file(new_user);
     free(new_user);
+//    userlist->user[userlist->userNum] = new_user;
+//    free(new_user);
+//    userlist->userNum++;
 
 
 }

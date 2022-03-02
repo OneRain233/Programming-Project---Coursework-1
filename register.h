@@ -4,6 +4,6 @@
 
 #ifndef PROJECT1_REGISTER_H
 #define PROJECT1_REGISTER_H
-void register_user();
-void read_user();
+void register_user(UserList *userlist);
+void read_user(UserList *userlist);
 #endif //PROJECT1_REGISTER_H
