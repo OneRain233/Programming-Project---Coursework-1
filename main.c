@@ -1,6 +1,9 @@
 #include "book_management.h"
 
+#include "interface.h"
+
+
 int main() {
-    printf("Hello, World!\n");
+    run_interface();
     return 0;
 }
