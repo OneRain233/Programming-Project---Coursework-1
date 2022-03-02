@@ -7,7 +7,15 @@
 #include <stdlib.h>
 
 
-
+int check_exist(UserList *userlist, char *username) {
+    int size = userlist->userNum;
+    for(int i = 0; i < size; i++) {
+        if(strcmp(userlist->user[i]->username, username) == 0) {
+            return 1;
+        }
+    }
+    return 0;
+}
 
 void read_user(UserList *userlist){
     FILE *fp;
@@ -68,6 +76,12 @@ void register_user(UserList *userlist){
 
     printf("Please enter your username: ");
     scanf("%s", username);
+
+    if(check_exist(userlist, username)) {
+        printf("The username has been registered!\n");
+        return;
+    }
+
     printf("Please enter your password: ");
     scanf("%s", password);
     printf("Please enter your password again: ");
