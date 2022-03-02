@@ -6,6 +6,7 @@
 #include "interface.h"
 #include "utils.h"
 #include "register.h"
+#include "login.h"
 
 void menu(){
     printf("Welcome to Book Management System!\n");
@@ -32,6 +33,7 @@ void run_interface(){
             break;
         case 2:
             puts("Login");
+            login(&userlist);
             break;
         case 3:
             exit(0);
