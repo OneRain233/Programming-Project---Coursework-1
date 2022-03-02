@@ -9,15 +9,15 @@
 
 int check_exist(UserList *userlist, char *username) {
     int size = userlist->userNum;
-    for(int i = 0; i < size; i++) {
-        if(strcmp(userlist->user[i]->username, username) == 0) {
+    for (int i = 0; i < size; i++) {
+        if (strcmp(userlist->user[i]->username, username) == 0) {
             return 1;
         }
     }
     return 0;
 }
 
-void read_user(UserList *userlist){
+void read_user(UserList *userlist) {
     FILE *fp;
     fp = fopen("user.txt", "rb");
     if (fp == NULL) {
@@ -30,15 +30,15 @@ void read_user(UserList *userlist){
     int user_cnt = 0;
 //    User *user;
 
-    while(fscanf(fp, "%s", username) != EOF){
+    while (fscanf(fp, "%s", username) != EOF) {
         User *user;
 //        strcpy(user->username, username);
         fscanf(fp, "%s", password);
 //        strcpy(user->password, password);
 
-        user = (User *)malloc(sizeof(User));
-        user->username = (char *)malloc(sizeof(char) * 20);
-        user->password = (char *)malloc(sizeof(char) * 20);
+        user = (User *) malloc(sizeof(User));
+        user->username = (char *) malloc(sizeof(char) * 20);
+        user->password = (char *) malloc(sizeof(char) * 20);
         strcpy(user->username, username);
         strcpy(user->password, password);
 
@@ -54,7 +54,7 @@ void read_user(UserList *userlist){
 }
 
 
-void write2file(User *user){
+void write2file(User *user) {
     FILE *fp;
     fp = fopen("user.txt", "a");
     if (fp == NULL) {
@@ -68,7 +68,7 @@ void write2file(User *user){
 }
 
 
-void register_user(UserList *userlist){
+void register_user(UserList *userlist) {
 
     char username[20];
     char password[20];
@@ -77,7 +77,7 @@ void register_user(UserList *userlist){
     printf("Please enter your username: ");
     scanf("%s", username);
 
-    if(check_exist(userlist, username)) {
+    if (check_exist(userlist, username)) {
         printf("The username has been registered!\n");
         return;
     }
@@ -93,12 +93,12 @@ void register_user(UserList *userlist){
     }
 
     User *new_user;
-    new_user = (User *)malloc(sizeof(User));
-    new_user -> username = (char *)malloc(sizeof(char) * 20);
-    new_user -> password = (char *)malloc(sizeof(char) * 20);
+    new_user = (User *) malloc(sizeof(User));
+    new_user->username = (char *) malloc(sizeof(char) * 20);
+    new_user->password = (char *) malloc(sizeof(char) * 20);
 
-    strcpy(new_user -> username, username);
-    strcpy(new_user -> password, password);
+    strcpy(new_user->username, username);
+    strcpy(new_user->password, password);
 
     write2file(new_user);
     free(new_user);
