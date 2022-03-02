@@ -15,9 +15,15 @@ void menu(){
 
 }
 
+void init_userlist(UserList *userlist){
+    read_user();
+
+}
 
 void run_interface(){
     menu();
+    UserList userlist;
+    init_userlist(&userlist);
     int choice;
     choice = optionChoice();
 

@@ -9,7 +9,7 @@
 
 
 
-void read_user(){
+void read_user(UserList *userlist){
     FILE *fp;
     fp = fopen("user.txt", "rb");
     if (fp == NULL) {
@@ -19,11 +19,23 @@ void read_user(){
 
     char username[20];
     char password[20];
+    int user_cnt = 0;
+    User *user;
 
     while(fscanf(fp, "%s", username) != EOF){
+
+//        strcpy(user->username, username);
         fscanf(fp, "%s", password);
-        puts(username);
-        puts(password);
+//        strcpy(user->password, password);
+
+        user = (User *)malloc(sizeof(User));
+        user->username = (char *)malloc(sizeof(char) * 20);
+        user->password = (char *)malloc(sizeof(char) * 20);
+        strcpy(user->username, username);
+        strcpy(user->password, password);
+
+        userlist->user[user_cnt] = user;
+        user_cnt++;
     }
 
 
