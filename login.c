@@ -4,10 +4,10 @@
 
 #include "login.h"
 #include <stdio.h>
-#include "user.h"
+#include "datastructure.h"
 #include <string.h>
 
-void login(UserList *userlist)
+User *login(UserList *userlist)
 {
     char username[20];
     char password[20];
@@ -20,10 +20,11 @@ void login(UserList *userlist)
     for(int i = 0; i < size; i++){
         if(strcmp(username, userlist->user[i]->username) == 0 && strcmp(password, userlist->user[i]->password) == 0){
             printf("login success\n");
-            return;
+            User *user = userlist->user[i];
+            return user;
         }
     }
     printf("login failed\n");
-
+    return NULL;
 
 }

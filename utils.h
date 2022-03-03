@@ -5,7 +5,7 @@
 #ifndef PROJECT1_UTILS_H
 #define PROJECT1_UTILS_H
 
-#include "user.h"
+#include "datastructure.h"
 
 int optionChoice( void );
 void removeNewLine(char* string);

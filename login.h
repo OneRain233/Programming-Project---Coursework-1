@@ -4,5 +4,7 @@
 
 #ifndef PROJECT1_LOGIN_H
 #define PROJECT1_LOGIN_H
-void login();
+#include "datastructure.h"
+
+User *login(UserList *userlist);
 #endif //PROJECT1_LOGIN_H
