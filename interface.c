@@ -8,18 +8,19 @@
 #include "register.h"
 #include "login.h"
 #include "user.h"
+#include "library.h"
 
-void menu(){
+void menu() {
     printf("Welcome to Book Management System!\n");
     printf("1. Register\n");
     printf("2. Login\n");
     printf("3. Exit\n");
+    printf("4. test");
     printf("Please input your choice: ");
 }
 
 
-
-void run_interface(){
+void run_interface() {
     menu();
     UserList userlist;
 //    init_userlist(&userlist);
@@ -37,10 +38,15 @@ void run_interface(){
             User *user = login(&userlist);
             if (user != NULL) {
                 printf("Welcome %s!\n", user->username);
+                read_borrow_books(user);
                 user_menu(user);
             } else {
                 puts("Login Failed!");
             }
+            break;
+        case 4:
+            puts("test");
+            read_books("books.txt");
             break;
         case 3:
             exit(0);

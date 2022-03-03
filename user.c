@@ -4,13 +4,7 @@
 
 #include "user.h"
 #include "utils.h"
-
-
-void user_info(User *pUser);
-
-void user_book_list(User *pUser);
-
-void user_borrowed_book_list(User *pUser);
+#include <string.h>
 
 void user_menu(User *user) {
     puts("Welcome to user menu!");
@@ -19,8 +13,8 @@ void user_menu(User *user) {
     puts("3. View user's borrowed book list");
 
     int choice = optionChoice();
-    while(choice != 1 && choice !=2 && choice !=3) {
-        puts("Please input a valid choice!");
+    while (choice != 1 && choice != 2 && choice != 3) {
+        puts("Please input a choice!");
         choice = optionChoice();
     }
     switch (choice) {
@@ -48,11 +42,33 @@ void user_book_list(User *pUser) {
 }
 
 void user_info(User *pUser) {
-    puts("User info:");
+    puts("-----User info-----");
     printf("Name: %s\n", pUser->username);
-//    printf("ID: %d\n", pUser->id);
-//    printf("Email: %s\n", pUser->email);
-//    printf("Phone: %s\n", pUser->phone);
-//    printf("Address: %s\n", pUser->address);
-//    printf("
+}
+
+
+void read_borrow_books(User *user) {
+
+    FILE *fp = fopen("borrow.txt", "r");
+    if (fp == NULL){
+        puts("File open error!");
+        return;
+    }
+
+    char line[1024];
+    while(fgets(line, 1024, fp) != NULL) {
+        char *p = strtok(line, "-");
+//        puts(p);
+        if(strcmp(p, user->username) == 0){
+//            puts(p);
+            p = strtok(NULL, "-");
+            int size = (int) *p - '0';
+            printf("%d\n", size);
+            for(int i = 0; i < size; i++){
+                p = strtok(NULL, "-");
+                printf("%s\n", p);
+            }
+        }
+    }
+
 }

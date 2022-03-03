@@ -4,8 +4,16 @@
 
 #ifndef PROJECT1_USER_H
 #define PROJECT1_USER_H
+
 #include "datastructure.h"
 
 
+void user_info(User *pUser);
+
+void user_book_list(User *pUser);
+
+void user_borrowed_book_list(User *pUser);
+
 void user_menu(User *user);
+void read_borrow_books(User *user);
 #endif //PROJECT1_USER_H

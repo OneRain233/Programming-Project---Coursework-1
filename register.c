@@ -49,8 +49,6 @@ void read_user(UserList *userlist) {
 
     userlist->userNum = user_cnt;
     fclose(fp);
-
-    return;
 }
 
 

@@ -26,5 +26,4 @@ User *login(UserList *userlist)
     }
     printf("login failed\n");
     return NULL;
-
 }
