@@ -65,6 +65,23 @@ void write2file(User *user) {
     fclose(fp);
 }
 
+int check_valid(char *username){
+    char invalid_char[] = "!@#$%^&*()_+-=[]{}|;':\",./<>?`~";
+    for (int i = 0; i < strlen(username); i++) {
+        for (int j = 0; j < strlen(invalid_char); j++) {
+            if (username[i] == invalid_char[j]) {
+                printf("Username cannot contain special char！\n");
+                return 0;
+            }
+        }
+    }
+
+    if (strlen(username) < 6 || strlen(username) > 20) {
+        printf("Username length should be between 6 and 20！\n");
+        return 0;
+    }
+    return 1;
+}
 
 void register_user(UserList *userlist) {
 
@@ -79,7 +96,9 @@ void register_user(UserList *userlist) {
         printf("The username has been registered!\n");
         return;
     }
-
+    if(check_valid(username) == 0){
+        return;
+    }
     printf("Please enter your password: ");
     scanf("%s", password);
     printf("Please enter your password again: ");
