@@ -38,3 +38,30 @@ void listBook(BookList *booklist) {
 
     }
 }
+
+void insertBook(Book *dummyhead, int id, char *authors, char *title, int year, int copies) {
+    Book *newbook = createBook(id, authors, title, year, copies);
+    newbook->next = NULL;
+    if (dummyhead->next == NULL) {
+        dummyhead->next = newbook;
+    } else {
+        Book *cur = dummyhead;
+        while (cur->next != NULL) {
+
+            cur = cur->next;
+        }
+        cur->next = newbook;
+    }
+
+}
+
+Book *createBook(int id, char *authors, char *title, int year, int copies) {
+    Book *book = (Book *) malloc(sizeof(Book));
+    book->id = id;
+    book->authors = authors;
+    book->title = title;
+    book->year = year;
+    book->copies = copies;
+    return book;
+}
+
