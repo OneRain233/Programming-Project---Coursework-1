@@ -72,7 +72,7 @@ void deleteBook(BookList *booklist, unsigned int id) {
     while (cur != NULL) {
         if (cur->id == id) {
             prev->next = cur->next;
-            free(cur);
+//            free(cur);
             break;
         }
         prev = cur;
@@ -110,4 +110,13 @@ Book *findBookByID(BookList *booklist, unsigned int id){
         cur = cur -> next;
     }
     return NULL;
+}
+
+
+BookList *createBooklist(void) {
+    BookList *booklist = (BookList *) malloc(sizeof(BookList));
+    booklist->list = (Book *) malloc(sizeof(Book));
+    Book *dummyhead = createBook(0, "", "", 0, 0);
+    booklist->list = dummyhead;
+    return booklist;
 }

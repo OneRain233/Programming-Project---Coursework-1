@@ -37,6 +37,7 @@ void run_interface() {
 
     wholebooklist = malloc(sizeof(BookList));
     read_books("books.txt", wholebooklist);
+
     read_user(&userlist);
     listBook(wholebooklist);
     menu();
@@ -56,8 +57,12 @@ void run_interface() {
                 User *user = login(&userlist);
                 if (user != NULL) {
                     printf("Welcome %s!\n", user->username);
-                    read_borrow_books(user);
+//                    read_borrow_books(user);
+                    user->borrowMax = 10;
+                    printf("%d", user->borrowNum);
+                    borrow_book(user, 1, wholebooklist);
                     user_menu(user);
+
                 } else {
                     puts("Login Failed!");
                 }

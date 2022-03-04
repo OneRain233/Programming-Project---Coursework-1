@@ -6,6 +6,7 @@
 #include "utils.h"
 #include <string.h>
 
+
 void user_menu_hint(){
     puts("Welcome to user menu!");
     puts("1. View user info");
@@ -97,7 +98,17 @@ void borrow_book(User *user, unsigned int id, BookList *wholeBookList) {
     }
 
     user->borrowNum++;
-//    insertBookByPointer(user->bookList, book);
-//    deleteBook(wholeBookList, book->id);
+    Book *book = findBookByID(wholeBookList, id);
+    if (book == NULL) {
+        puts("Book not found!");
+        return;
+    }
+
+
+    if(user->bookList == NULL){
+        user->bookList = createBooklist();
+    }
+    insertBookByPointer(user->bookList, book);
+    deleteBook(wholeBookList, id);
     puts("Borrow success!");
 }
