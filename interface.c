@@ -57,13 +57,14 @@ void run_interface() {
                 User *user = login(&userlist);
                 if (user != NULL) {
                     printf("Welcome %s!\n", user->username);
+                    printf("%d\n", user->borrowMax);
 //                    read_borrow_books(user);
-                    user->borrowMax = 10;
-                    printf("%d", user->borrowNum);
-                    borrow_book(user, 1, wholebooklist);
-                    listBook(wholebooklist);
-                    return_book(user, 1, wholebooklist);
-                    listBook(wholebooklist);
+//                    user->borrowMax = 10;
+//                    printf("%d", user->borrowNum);
+//                    borrow_book(user, 1, wholebooklist);
+//                    listBook(wholebooklist);
+//                    return_book(user, 1, wholebooklist);
+//                    listBook(wholebooklist);
                     user_menu(user);
 
                 } else {

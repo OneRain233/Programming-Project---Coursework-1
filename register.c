@@ -35,12 +35,18 @@ void read_user(UserList *userlist) {
 //        strcpy(user->username, username);
         fscanf(fp, "%s", password);
 //        strcpy(user->password, password);
+        int borrowNum = 0;
+        int borrowMax = 10;
+        fscanf(fp, "%d", &borrowNum);
+        fscanf(fp, "%d", &borrowMax);
 
         user = (User *) malloc(sizeof(User));
         user->username = (char *) malloc(sizeof(char) * 20);
         user->password = (char *) malloc(sizeof(char) * 20);
         strcpy(user->username, username);
         strcpy(user->password, password);
+        user->borrowMax = borrowMax;
+        user->borrowNum = borrowNum;
 
         userlist->user[user_cnt] = user;
         user_cnt++;
@@ -60,8 +66,9 @@ void write2file(User *user) {
         exit(0);
     }
     fprintf(fp, "%s\t", user->username);
-    fprintf(fp, "%s\n", user->password);
-
+    fprintf(fp, "%s\t", user->password);
+    fprintf(fp, "%d\t", user->borrowNum);
+    fprintf(fp, "%d\n", user->borrowMax);
     fclose(fp);
 }
 
@@ -116,6 +123,10 @@ void register_user(UserList *userlist) {
 
     strcpy(new_user->username, username);
     strcpy(new_user->password, password);
+    new_user->borrowMax = 10;
+    new_user->borrowNum = 0;
+
+
 
     write2file(new_user);
     free(new_user);
