@@ -61,6 +61,9 @@ void run_interface() {
                     user->borrowMax = 10;
                     printf("%d", user->borrowNum);
                     borrow_book(user, 1, wholebooklist);
+                    listBook(wholebooklist);
+                    return_book(user, 1, wholebooklist);
+                    listBook(wholebooklist);
                     user_menu(user);
 
                 } else {

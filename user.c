@@ -112,3 +112,16 @@ void borrow_book(User *user, unsigned int id, BookList *wholeBookList) {
     deleteBook(wholeBookList, id);
     puts("Borrow success!");
 }
+
+void return_book(User *user, unsigned int id, BookList *wholeBookList){
+    Book *book = findBookByID(user->bookList, id);
+    if (book == NULL) {
+        puts("Book not found!");
+        return;
+    }
+
+    insertBookByPointer(wholeBookList, book);
+    deleteBook(user->bookList, id);
+    user->borrowNum--;
+    puts("Return success!");
+}
