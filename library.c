@@ -9,8 +9,6 @@
 #include "utils.h"
 
 
-
-
 void read_books(char *filename, BookList *booklist) {
     FILE *fp = fopen(filename, "r");
     if (fp == NULL) {
@@ -18,7 +16,7 @@ void read_books(char *filename, BookList *booklist) {
         return;
     }
     Book *dummyhead = createBook(999, " ", " ", 0, 0);
-
+    booklist->list = dummyhead;
     int cnt = 0;
 
     char line[1024];
@@ -42,11 +40,15 @@ void read_books(char *filename, BookList *booklist) {
         p = strtok(NULL, "-");
         unsigned int copies = atoi(p);
 
-        insertBook(dummyhead, id, authors, title, year, copies);
+        insertBook(booklist, id, authors, title, year, copies);
 //        printf("%d, %s, %s, %d, %d\n\n", id, authors, title, year, copies);
         cnt++;
+//        booklist -> list = dummyhead;
+        booklist -> length = cnt;
+
     }
-    booklist->list = dummyhead;
-    booklist->length = cnt;
-    listBook(booklist);
+//    booklist->list = dummyhead;
+//    booklist->length = cnt;
+    printf("%d books read from file %s\n\n", cnt, filename);
+//    listBook(booklist);
 }

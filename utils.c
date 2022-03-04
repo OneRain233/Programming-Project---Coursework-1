@@ -39,7 +39,8 @@ void listBook(BookList *booklist) {
     }
 }
 
-void insertBook(Book *dummyhead, int id, char *authors, char *title, int year, int copies) {
+void insertBook(BookList *booklist, int id, char *authors, char *title, int year, int copies) {
+    Book *dummyhead = booklist->list;
     Book *newbook = createBook(id, authors, title, year, copies);
     newbook->next = NULL;
     if (dummyhead->next == NULL) {
@@ -47,7 +48,7 @@ void insertBook(Book *dummyhead, int id, char *authors, char *title, int year, i
     } else {
         Book *cur = dummyhead;
         while (cur->next != NULL) {
-
+            puts(cur->authors);
             cur = cur->next;
         }
         cur->next = newbook;
@@ -65,3 +66,48 @@ Book *createBook(int id, char *authors, char *title, int year, int copies) {
     return book;
 }
 
+void deleteBook(BookList *booklist, unsigned int id) {
+    Book *cur = booklist->list->next;
+    Book *prev = booklist->list;
+    while (cur != NULL) {
+        if (cur->id == id) {
+            prev->next = cur->next;
+            free(cur);
+            break;
+        }
+        prev = cur;
+        cur = cur->next;
+    }
+}
+
+void insertBookByPointer(BookList *booklist, Book *book) {
+    Book *dummyhead = booklist->list;
+    book->next = NULL;
+    if (dummyhead->next == NULL) {
+        dummyhead->next = book;
+    } else {
+        Book *cur = dummyhead;
+        while (cur->next != NULL) {
+
+            cur = cur->next;
+        }
+        cur->next = book;
+    }
+
+}
+
+Book *findBookByID(BookList *booklist, unsigned int id){
+    puts("findBookByID");
+    Book *dummyhead = booklist -> list;
+//    Book *cur = dummyhead -> next;
+    Book *cur = dummyhead;
+    while (cur != NULL){
+//        puts("finding");
+//        printf("%d", cur -> id);
+        if (cur -> id == id){
+            return cur;
+        }
+        cur = cur -> next;
+    }
+    return NULL;
+}

@@ -16,4 +16,6 @@ void user_borrowed_book_list(User *pUser);
 
 void user_menu(User *user);
 void read_borrow_books(User *user);
+
+void borrow_book(User *user, unsigned int id, BookList *wholeBookList);
 #endif //PROJECT1_USER_H

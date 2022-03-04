@@ -7,10 +7,22 @@
 
 #include "datastructure.h"
 
-int optionChoice( void );
-void removeNewLine(char* string);
+int optionChoice(void);
+
+void removeNewLine(char *string);
+
 void formatUser(User *user, char *result);
+
 void listBook(BookList *booklist);
-void insertBook(Book *dummyhead, int id, char *authors, char *title, int year, int copies);
+
+void insertBook(BookList *booklist, int id, char *authors, char *title, int year, int copies);
+
 Book *createBook(int id, char *authors, char *title, int year, int copies);
+
+void deleteBook(BookList *booklist, unsigned int id);
+
+void insertBookByPointer(BookList *booklist, Book *book);
+
+Book *findBookByID(BookList *booklist, unsigned int id);
+
 #endif //PROJECT1_UTILS_H

@@ -6,13 +6,18 @@
 #include "utils.h"
 #include <string.h>
 
-void user_menu(User *user) {
+void user_menu_hint(){
     puts("Welcome to user menu!");
     puts("1. View user info");
     puts("2. View user's book list");
 //    puts("3. View user's borrowed book list");
     puts("4. Exit");
+}
 
+
+void user_menu(User *user) {
+
+    user_menu_hint();
     int choice = optionChoice();
     while (choice != 1 && choice != 2 && choice != 3 && choice != 4) {
         puts("Please input a choice!");
@@ -34,7 +39,7 @@ void user_menu(User *user) {
                 puts("Invalid choice!");
                 break;
         }
-        user_menu(user);
+        user_menu_hint();
         choice = optionChoice();
     }
 
@@ -83,4 +88,16 @@ void read_borrow_books(User *user) {
         }
     }
 
+}
+
+void borrow_book(User *user, unsigned int id, BookList *wholeBookList) {
+    if (user->borrowNum >= user->borrowMax) {
+        puts("You have borrowed the max num of books!");
+        return;
+    }
+
+    user->borrowNum++;
+//    insertBookByPointer(user->bookList, book);
+//    deleteBook(wholeBookList, book->id);
+    puts("Borrow success!");
 }

@@ -19,17 +19,33 @@ void menu() {
     printf("4. Test\n");
     printf("Please input your choice: ");
 }
-
+//
+//void init(BookList *booklist, UserList *userlist) {
+//    puts("Initializing...");
+//    booklist = malloc(sizeof(BookList));
+//    booklist->list = NULL;
+//    read_books("books.txt", booklist);
+//    read_user(userlist);
+//    puts("Initialization finished.");
+//}
 
 void run_interface() {
-    menu();
+
     UserList userlist;
-//    init_userlist(&userlist);
-    int choice;
+    BookList *wholebooklist;
+//    init(&booklist, &userlist);
+
+    wholebooklist = malloc(sizeof(BookList));
+    read_books("books.txt", wholebooklist);
     read_user(&userlist);
+    listBook(wholebooklist);
+    menu();
+
+
+    int choice;
     choice = optionChoice();
-    while(choice != 3){
-        printf("%d\n", choice);
+    while (choice != 3) {
+//        printf("%d\n", choice);
         switch (choice) {
             case 1:
                 register_user(&userlist);
@@ -48,8 +64,12 @@ void run_interface() {
                 break;
             case 4:
                 puts("test");
-                BookList *booklist = malloc(sizeof(BookList));
-                read_books("books.txt", booklist);
+                Book *a = findBookByID(wholebooklist, 1);
+                printf("%s\n", a->title);
+//                Book *book = findBookByID(&booklist, 1);
+//                if(book != NULL) {
+//                    printf("%s\n", book->title);
+//                }
                 break;
             case 3:
                 exit(0);
