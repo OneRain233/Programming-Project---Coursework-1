@@ -29,3 +29,12 @@ void removeNewLine(char *string) {
     }
 }
 
+void listBook(BookList *booklist) {
+    Book *cur = booklist->list->next;
+    while (cur != NULL) {
+
+        printf("%d %s %s %d %d\n", cur->id, cur->authors, cur->title, cur->year, cur->copies);
+        cur = cur->next;
+
+    }
+}

@@ -6,7 +6,7 @@
 #include <stdio.h>
 #include <string.h>
 #include <stdlib.h>
-
+#include "utils.h"
 
 Book *createBook(int id, char *authors, char *title, int year, int copies) {
     Book *book = (Book *) malloc(sizeof(Book));
@@ -34,18 +34,8 @@ void insertBook(Book *dummyhead, int id, char *authors, char *title, int year, i
 
 }
 
-void listBook(Book *dummyhead) {
-    Book *cur = dummyhead;
-    while (cur != NULL) {
 
-        printf("%d %s %s %d %d\n", cur->id, cur->authors, cur->title, cur->year, cur->copies);
-        cur = cur->next;
-
-    }
-}
-
-
-void read_books(char *filename) {
+void read_books(char *filename, BookList *booklist) {
     FILE *fp = fopen(filename, "r");
     if (fp == NULL) {
         printf("Error opening file!\n");
@@ -53,6 +43,7 @@ void read_books(char *filename) {
     }
     Book *dummyhead = createBook(999, " ", " ", 0, 0);
 
+    int cnt = 0;
 
     char line[1024];
     while (fgets(line, 1024, fp) != NULL) {
@@ -77,8 +68,9 @@ void read_books(char *filename) {
 
         insertBook(dummyhead, id, authors, title, year, copies);
 //        printf("%d, %s, %s, %d, %d\n\n", id, authors, title, year, copies);
-
+        cnt++;
     }
-
-    listBook(dummyhead);
+    booklist->list = dummyhead;
+    booklist->length = cnt;
+    listBook(booklist);
 }

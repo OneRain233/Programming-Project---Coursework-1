@@ -3,6 +3,7 @@
 //
 
 #include <stdio.h>
+#include <malloc.h>
 #include "interface.h"
 #include "utils.h"
 #include "register.h"
@@ -15,7 +16,7 @@ void menu() {
     printf("1. Register\n");
     printf("2. Login\n");
     printf("3. Exit\n");
-    printf("4. test");
+    printf("4. Test\n");
     printf("Please input your choice: ");
 }
 
@@ -27,32 +28,40 @@ void run_interface() {
     int choice;
     read_user(&userlist);
     choice = optionChoice();
+    while(choice != 3){
+        printf("%d\n", choice);
+        switch (choice) {
+            case 1:
+                register_user(&userlist);
+                read_user(&userlist);
+                break;
+            case 2:
+                puts("Login");
+                User *user = login(&userlist);
+                if (user != NULL) {
+                    printf("Welcome %s!\n", user->username);
+                    read_borrow_books(user);
+                    user_menu(user);
+                } else {
+                    puts("Login Failed!");
+                }
+                break;
+            case 4:
+                puts("test");
+                BookList *booklist = malloc(sizeof(BookList));
+                read_books("books.txt", booklist);
+                break;
+            case 3:
+                exit(0);
+                break;
+            default:
+                printf("Invalid choice!\n");
+                break;
+        }
+        menu();
+        choice = optionChoice();
 
-    switch (choice) {
-        case 1:
-            register_user(&userlist);
-            read_user(&userlist);
-            break;
-        case 2:
-            puts("Login");
-            User *user = login(&userlist);
-            if (user != NULL) {
-                printf("Welcome %s!\n", user->username);
-                read_borrow_books(user);
-                user_menu(user);
-            } else {
-                puts("Login Failed!");
-            }
-            break;
-        case 4:
-            puts("test");
-            read_books("books.txt");
-            break;
-        case 3:
-            exit(0);
-            break;
-        default:
-            printf("Invalid choice!\n");
-            break;
+
     }
+
 }

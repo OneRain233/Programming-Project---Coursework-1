@@ -7,7 +7,7 @@
 #include "book_management.h"
 
 
-void read_books(char *filename);
+void read_books(char *filename, BookList *booklist);
 
 
 #endif //PROJECT1_LIBRARY_H

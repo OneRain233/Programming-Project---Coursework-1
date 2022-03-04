@@ -10,6 +10,6 @@
 int optionChoice( void );
 void removeNewLine(char* string);
 void formatUser(User *user, char *result);
-
+void listBook(BookList *booklist);
 
 #endif //PROJECT1_UTILS_H
