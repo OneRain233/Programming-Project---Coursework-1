@@ -116,6 +116,7 @@ void borrow_book(User *user, unsigned int id, BookList *wholeBookList) {
 //    book->next = NULL;
     deleteBook(wholeBookList, id);
     insertBookByPointer(user->bookList, book);
+    rec2db(book, user);
     puts("Borrow success!");
 }
 
@@ -130,6 +131,7 @@ void return_book(User *user, unsigned int id, BookList *wholeBookList){
     deleteBook(user->bookList, id);
     insertBookByPointer(wholeBookList, book);
     user->borrowNum--;
+    delFromDB(id);
     puts("Return success!");
 }
 

@@ -24,6 +24,11 @@ void deleteBook(BookList *booklist, unsigned int id);
 void insertBookByPointer(BookList *booklist, Book *book);
 
 Book *findBookByID(BookList *booklist, unsigned int id);
+
 BookList *createBooklist(void);
+
+void delFromDB(unsigned int id);
+
+void rec2db(Book *book, User *user);
 
 #endif //PROJECT1_UTILS_H
