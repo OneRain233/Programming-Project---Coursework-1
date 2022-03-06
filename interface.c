@@ -15,8 +15,11 @@ void menu() {
     printf("Welcome to Book Management System!\n");
     printf("1. Register\n");
     printf("2. Login\n");
-    printf("3. Exit\n");
-    printf("4. Test\n");
+    printf("999. Test\n");
+    printf("3. Find books by name\n");
+    printf("4. Find books by author\n");
+    printf("5. Find books by year\n");
+    printf("0. Exit\n");
     printf("Please input your choice: ");
 }
 //
@@ -39,13 +42,13 @@ void run_interface() {
     read_books("books.txt", wholebooklist);
 
     read_user(&userlist);
-    listBook(wholebooklist);
+//    listBook(wholebooklist);
     menu();
 
 
     int choice;
     choice = optionChoice();
-    while (choice != 3) {
+    while (choice != 0) {
 //        printf("%d\n", choice);
         switch (choice) {
             case 1:
@@ -71,7 +74,7 @@ void run_interface() {
                     puts("Login Failed!");
                 }
                 break;
-            case 4:
+            case 999:
                 puts("test");
                 Book *a = findBookByID(wholebooklist, 1);
                 printf("%s\n", a->title);
@@ -81,13 +84,38 @@ void run_interface() {
 //                }
                 break;
             case 3:
-                exit(0);
+                puts("Find books by name");
+                char name[100];
+                printf("Please input the name: ");
+                scanf("%s", name);
+                BookList res1 = find_book_by_title( name);
+                listBook(&res1);
+                printf("\n");
+                break;
+            case 4:
+                puts("Find books by author");
+                char author[100];
+                printf("Please input the author: ");
+                scanf("%s", author);
+                BookList res2 = find_book_by_author(author);
+                listBook(&res2);
+                printf("\n");
+                break;
+            case 5:
+                puts("Find books by year");
+                unsigned int year;
+                printf("Please input the year: ");
+                scanf("%d", &year);
+                BookList res3 = find_book_by_year(year);
+                listBook(&res3);
                 break;
             default:
                 printf("Invalid choice!\n");
                 break;
         }
         menu();
+        printf("\n");
+        fflush(stdin);
         choice = optionChoice();
 
 

@@ -9,13 +9,15 @@
 
 
 int optionChoice(void) {
+//    fflush(stdin);
+//    int option = -1;
+//    char line[80];
+//
+//    fgets(line, 80, stdin);
+//
+//    option = (int) atoi(line);
     int option = -1;
-    char line[80];
-
-    fgets(line, 80, stdin);
-
-    option = (int) atoi(line);
-
+    scanf("%d", &option);
     return option;
 }
 

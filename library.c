@@ -51,6 +51,6 @@ void read_books(char *filename, BookList *booklist) {
 
 //    booklist->list = dummyhead;
 //    booklist->length = cnt;
-    printf("%d books read from file %s\n\n", cnt, filename);
-    listBook(booklist);
+//    printf("%d books read from file %s\n\n", cnt, filename);
+//    listBook(booklist);
 }
