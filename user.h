@@ -14,10 +14,15 @@ void user_book_list(User *pUser);
 
 void user_borrowed_book_list(User *pUser);
 
-void user_menu(User *user);
+void user_menu(User *user, BookList *wholebooklist);
+
 void read_borrow_books(User *user);
 
 void borrow_book(User *user, unsigned int id, BookList *wholeBookList);
 
 void return_book(User *user, unsigned int id, BookList *wholeBookList);
+
+void return_book_interface(BookList *wholetBookList, User *user);
+
+void borrow_book_interface(BookList *wholetBookList, User *user);
 #endif //PROJECT1_USER_H

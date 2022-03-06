@@ -11,12 +11,13 @@ void user_menu_hint(){
     puts("Welcome to user menu!");
     puts("1. View user info");
     puts("2. View user's book list");
-//    puts("3. View user's borrowed book list");
-    puts("4. Exit");
+    puts("3. Borrow a book");
+    puts("4. Return a book");
+    puts("5. Exit");
 }
 
 
-void user_menu(User *user) {
+void user_menu(User *user, BookList *wholebooklist) {
 
     user_menu_hint();
     int choice = optionChoice();
@@ -24,7 +25,7 @@ void user_menu(User *user) {
         puts("Please input a choice!");
         choice = optionChoice();
     }
-    while (choice != 4) {
+    while (choice != 5) {
         switch (choice) {
             case 1:
                 user_info(user);
@@ -34,7 +35,10 @@ void user_menu(User *user) {
                 user_borrowed_book_list(user);
                 break;
             case 3:
-                user_borrowed_book_list(user);
+                borrow_book_interface(wholebooklist, user);
+                break;
+            case 4:
+                return_book_interface(wholebooklist, user);
                 break;
             default:
                 puts("Invalid choice!");
@@ -108,8 +112,10 @@ void borrow_book(User *user, unsigned int id, BookList *wholeBookList) {
     if(user->bookList == NULL){
         user->bookList = createBooklist();
     }
-    insertBookByPointer(user->bookList, book);
+
+//    book->next = NULL;
     deleteBook(wholeBookList, id);
+    insertBookByPointer(user->bookList, book);
     puts("Borrow success!");
 }
 
@@ -120,8 +126,26 @@ void return_book(User *user, unsigned int id, BookList *wholeBookList){
         return;
     }
 
-    insertBookByPointer(wholeBookList, book);
+
     deleteBook(user->bookList, id);
+    insertBookByPointer(wholeBookList, book);
     user->borrowNum--;
     puts("Return success!");
+}
+
+void borrow_book_interface(BookList *wholetBookList, User *user) {
+    puts("-----Borrow book interface-----");
+    listBook(wholetBookList);
+    puts("Please input the book id:");
+    unsigned int id = optionChoice();
+    borrow_book(user, id, wholetBookList);
+
+}
+
+void return_book_interface(BookList *wholetBookList, User *user) {
+    puts("-----Return book interface-----");
+    listBook(user->bookList);
+    puts("Please input the book id:");
+    unsigned int id = optionChoice();
+    return_book(user, id, wholetBookList);
 }

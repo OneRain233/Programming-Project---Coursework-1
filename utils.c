@@ -88,11 +88,12 @@ void insertBookByPointer(BookList *booklist, Book *book) {
     } else {
         Book *cur = dummyhead;
         while (cur->next != NULL) {
-
             cur = cur->next;
         }
         cur->next = book;
+        book->next = NULL;
     }
+
 
 }
 
@@ -116,7 +117,7 @@ Book *findBookByID(BookList *booklist, unsigned int id){
 BookList *createBooklist(void) {
     BookList *booklist = (BookList *) malloc(sizeof(BookList));
     booklist->list = (Book *) malloc(sizeof(Book));
-    Book *dummyhead = createBook(0, "", "", 0, 0);
+    Book *dummyhead = createBook(999, "", "", 0, 0);
     booklist->list = dummyhead;
     return booklist;
 }

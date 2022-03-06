@@ -65,7 +65,7 @@ void run_interface() {
 //                    listBook(wholebooklist);
 //                    return_book(user, 1, wholebooklist);
 //                    listBook(wholebooklist);
-                    user_menu(user);
+                    user_menu(user, wholebooklist);
 
                 } else {
                     puts("Login Failed!");
