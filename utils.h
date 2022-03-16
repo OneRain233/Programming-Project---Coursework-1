@@ -17,7 +17,7 @@ void listBook(BookList *booklist);
 
 void insertBook(BookList *booklist, int id, char *authors, char *title, int year, int copies);
 
-Book *createBook(int id, char *authors, char *title, int year, int copies);
+Book *createBook(int id, char *authors, char *title, unsigned int year, unsigned int copies);
 
 void deleteBook(BookList *booklist, unsigned int id);
 

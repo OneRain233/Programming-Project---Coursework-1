@@ -4,12 +4,15 @@
 
 #include <stdio.h>
 #include <malloc.h>
+#include <string.h>
 #include "interface.h"
 #include "utils.h"
 #include "register.h"
 #include "login.h"
 #include "user.h"
 #include "library.h"
+#include "admin.h"
+
 
 void menu() {
     printf("Welcome to Book Management System!\n");
@@ -47,7 +50,7 @@ void run_interface() {
 
 
     int choice;
-    choice = optionChoice();
+    choice = optionChoice   ();
     while (choice != 0) {
 //        printf("%d\n", choice);
         switch (choice) {
@@ -76,27 +79,35 @@ void run_interface() {
                 break;
             case 999:
                 puts("test");
-                Book *a = findBookByID(wholebooklist, 1);
-                printf("%s\n", a->title);
+//                Book *a = findBookByID(wholebooklist, 1);
+//                printf("%s\n", a->title);
+//                printf("%s\n", a->author);
 //                Book *book = findBookByID(&booklist, 1);
 //                if(book != NULL) {
 //                    printf("%s\n", book->title);
 //                }
+                add_books();
                 break;
             case 3:
                 puts("Find books by name");
                 char name[100];
                 printf("Please input the name: ");
-                scanf("%s", name);
-                BookList res1 = find_book_by_title( name);
-                listBook(&res1);
-                printf("\n");
+                getc(stdin);
+                fgets(name, 100, stdin);
+                name[strlen(name) - 1] = '\0';
+
+                BookList booklist = find_book_by_title(name);
+                listBook(&booklist);
+
                 break;
             case 4:
-                puts("Find books by author");
+                puts("Find books by author\n");
                 char author[100];
                 printf("Please input the author: ");
-                scanf("%s", author);
+                getc(stdin);
+                fgets(author, 100, stdin);
+
+                author[strlen(author) - 1] = '\0';
                 BookList res2 = find_book_by_author(author);
                 listBook(&res2);
                 printf("\n");
@@ -115,7 +126,7 @@ void run_interface() {
         }
         menu();
         printf("\n");
-        fflush(stdin);
+//        fflush(stdin);
         choice = optionChoice();
 
 

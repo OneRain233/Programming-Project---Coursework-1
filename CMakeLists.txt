@@ -3,4 +3,4 @@ project(Project1 C)
 
 set(CMAKE_C_STANDARD 99)
 
-add_executable(Project1 main.c register.c datastructure.h interface.c interface.h utils.c utils.h register.h login.c login.h user.c user.h library.c library.h book_management.c)
+add_executable(Project1 main.c register.c datastructure.h interface.c interface.h utils.c utils.h register.h login.c login.h user.c user.h library.c library.h book_management.c admin.c admin.h)

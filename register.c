@@ -21,7 +21,7 @@ void read_user(UserList *userlist) {
     FILE *fp;
     fp = fopen("user.txt", "rb");
     if (fp == NULL) {
-        printf("文件打开失败！\n");
+        printf("Open file error！\n");
         exit(0);
     }
 

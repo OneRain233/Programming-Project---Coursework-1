@@ -58,7 +58,7 @@ void insertBook(BookList *booklist, int id, char *authors, char *title, int year
 
 }
 
-Book *createBook(int id, char *authors, char *title, int year, int copies) {
+Book *createBook(int id, char *authors, char *title, unsigned int year, unsigned int copies) {
     Book *book = (Book *) malloc(sizeof(Book));
     book->id = id;
     book->authors = authors;
