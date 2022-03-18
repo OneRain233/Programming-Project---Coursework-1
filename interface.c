@@ -12,7 +12,7 @@
 #include "user.h"
 #include "library.h"
 #include "admin.h"
-
+#include "book_management.h"
 
 void menu() {
     printf("Welcome to Book Management System!\n");
@@ -42,7 +42,13 @@ void run_interface() {
 //    init(&booklist, &userlist);
 
     wholebooklist = malloc(sizeof(BookList));
-    read_books("books.txt", wholebooklist);
+//    read_books("books.txt", wholebooklist);
+
+    FILE *fp = fopen("books.txt", "r");
+    load_books(fp, wholebooklist);
+    fclose(fp);
+    BookList *recBookList = malloc(sizeof(BookList));
+    memcpy(recBookList, wholebooklist, sizeof(BookList));
 
     read_user(&userlist);
 //    listBook(wholebooklist);
@@ -50,7 +56,7 @@ void run_interface() {
 
 
     int choice;
-    choice = optionChoice   ();
+    choice = optionChoice();
     while (choice != 0) {
 //        printf("%d\n", choice);
         switch (choice) {
@@ -79,14 +85,7 @@ void run_interface() {
                 break;
             case 999:
                 puts("test");
-//                Book *a = findBookByID(wholebooklist, 1);
-//                printf("%s\n", a->title);
-//                printf("%s\n", a->author);
-//                Book *book = findBookByID(&booklist, 1);
-//                if(book != NULL) {
-//                    printf("%s\n", book->title);
-//                }
-                add_books();
+                add_book_interface(wholebooklist);
                 break;
             case 3:
                 puts("Find books by name");
@@ -116,7 +115,7 @@ void run_interface() {
                 puts("Find books by year");
                 unsigned int year;
                 printf("Please input the year: ");
-                scanf("%d", &year);
+                scanf("%u", &year);
                 BookList res3 = find_book_by_year(year);
                 listBook(&res3);
                 break;
@@ -126,10 +125,13 @@ void run_interface() {
         }
         menu();
         printf("\n");
-//        fflush(stdin);
         choice = optionChoice();
 
 
     }
+//    FILE *fp1 = fopen("books.txt", "w");
+//    store_books(fp1, recBookList);
+//    fclose(fp1);
+
 
 }

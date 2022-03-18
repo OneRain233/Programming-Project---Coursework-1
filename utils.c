@@ -50,7 +50,7 @@ void insertBook(BookList *booklist, int id, char *authors, char *title, int year
     } else {
         Book *cur = dummyhead;
         while (cur->next != NULL) {
-            puts(cur->authors);
+//            puts(cur->authors);
             cur = cur->next;
         }
         cur->next = newbook;
@@ -58,7 +58,7 @@ void insertBook(BookList *booklist, int id, char *authors, char *title, int year
 
 }
 
-Book *createBook(int id, char *authors, char *title, unsigned int year, unsigned int copies) {
+Book *createBook(unsigned int id, char *authors, char *title, unsigned int year, unsigned int copies) {
     Book *book = (Book *) malloc(sizeof(Book));
     book->id = id;
     book->authors = authors;
@@ -81,6 +81,23 @@ void deleteBook(BookList *booklist, unsigned int id) {
         cur = cur->next;
     }
 }
+
+
+void deleteBookByPointer(BookList *booklist, Book *book) {
+    Book *cur = booklist->list->next;
+    Book *prev = booklist->list;
+    while (cur != NULL) {
+        if (cur == book) {
+            prev->next = cur->next;
+//            free(cur);
+            break;
+        }
+        prev = cur;
+        cur = cur->next;
+    }
+}
+
+
 
 void insertBookByPointer(BookList *booklist, Book *book) {
     Book *dummyhead = booklist->list;
