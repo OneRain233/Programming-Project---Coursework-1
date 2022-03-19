@@ -41,6 +41,7 @@ void listBook(BookList *booklist) {
     }
 }
 
+
 void insertBook(BookList *booklist, int id, char *authors, char *title, int year, int copies) {
     Book *dummyhead = booklist->list;
     Book *newbook = createBook(id, authors, title, year, copies);
@@ -73,21 +74,6 @@ void deleteBook(BookList *booklist, unsigned int id) {
     Book *prev = booklist->list;
     while (cur != NULL) {
         if (cur->id == id) {
-            prev->next = cur->next;
-//            free(cur);
-            break;
-        }
-        prev = cur;
-        cur = cur->next;
-    }
-}
-
-
-void deleteBookByPointer(BookList *booklist, Book *book) {
-    Book *cur = booklist->list->next;
-    Book *prev = booklist->list;
-    while (cur != NULL) {
-        if (cur == book) {
             prev->next = cur->next;
 //            free(cur);
             break;

@@ -7,9 +7,10 @@
 
 #include "book_management.h"
 #include "datastructure.h"
-
-void add_books();
+void admin_menu_hint();
+void delete_book_interface(BookList *list);
+void admin_menu(BookList *booklist);
 void add_book_interface(BookList *list);
-void admin_menu(BookList *booklist, UserList *userlist);
+
 void auth(BookList *booklist, UserList *userlist);
 #endif //PROJECT1_ADMIN_H

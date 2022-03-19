@@ -5,7 +5,6 @@
 #include <malloc.h>
 #include "admin.h"
 #include "utils.h"
-#include "library.h"
 #include "book_management.h"
 #include <string.h>
 
@@ -22,7 +21,7 @@ void auth(BookList *booklist, UserList *userlist){
     printf("Please input your password: ");
     scanf("%s", input_password);
     if (strcmp(input_username, username) == 0 && strcmp(input_password, password) == 0) {
-        admin_menu(booklist, userlist);
+        admin_menu(booklist);
     } else {
         printf("Wrong username or password!\n");
         return;
@@ -86,7 +85,7 @@ void delete_book_interface(BookList *list) {
     printf("====================================================\n");
 }
 
-void admin_menu(BookList *booklist, UserList *userlist){
+void admin_menu(BookList *booklist){
 
     admin_menu_hint();
 
