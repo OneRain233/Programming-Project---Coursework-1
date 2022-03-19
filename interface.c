@@ -19,7 +19,6 @@ void menu() {
     printf("Welcome to Book Management System!\n");
     printf("1. Register\n");
     printf("2. Login\n");
-    printf("999. Test\n");
     printf("3. Find books by name\n");
     printf("4. Find books by author\n");
     printf("5. Find books by year\n");
@@ -85,10 +84,6 @@ void run_interface() {
                 } else {
                     puts("Login Failed!");
                 }
-                break;
-            case 999:
-                puts("test");
-                add_book_interface(wholebooklist);
                 break;
             case 3:
                 printf("====================================================\n");
