@@ -112,6 +112,7 @@ void insertBookByPointer(BookList *booklist, Book *book) {
         cur->next = book;
         book->next = NULL;
     }
+    booklist->length++;
 
 
 }
@@ -138,6 +139,7 @@ BookList *createBooklist(void) {
     booklist->list = (Book *) malloc(sizeof(Book));
     Book *dummyhead = createBook(999, "", "", 0, 0);
     booklist->list = dummyhead;
+    booklist->length = 0;
     return booklist;
 }
 

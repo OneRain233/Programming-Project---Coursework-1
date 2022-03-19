@@ -12,7 +12,7 @@ BookList find_book_by_title(const char *title) {
     BookList *book_list = malloc(sizeof(BookList));
     read_books("books.txt", book_list);
     BookList *result = createBooklist();
-
+//    result->length = 0;
     Book *dummyhead = book_list -> list;
     Book *cur = dummyhead -> next;
 
@@ -33,7 +33,7 @@ BookList find_book_by_author(const char *author) {
     BookList *book_list = malloc(sizeof(BookList));
     read_books("books.txt", book_list);
     BookList *result = createBooklist();
-
+//    result->length = 0;
     Book *dummyhead = book_list -> list;
     Book *cur = dummyhead -> next;
 
@@ -43,6 +43,7 @@ BookList find_book_by_author(const char *author) {
             memccpy(new_book, cur, sizeof(Book), sizeof(Book));
 
             insertBookByPointer(result, new_book);
+
         }
         cur = cur -> next;
     }
@@ -55,7 +56,7 @@ BookList find_book_by_year(unsigned int year) {
     BookList *book_list = malloc(sizeof(BookList));
     read_books("books.txt", book_list);
     BookList *result = createBooklist();
-
+//    result->length = 0;
     Book *dummyhead = book_list -> list;
     Book *cur = dummyhead -> next;
 
@@ -65,6 +66,7 @@ BookList find_book_by_year(unsigned int year) {
             memccpy(new_book, cur, sizeof(Book), sizeof(Book));
 
             insertBookByPointer(result, new_book);
+//            result -> length++;
         }
         cur = cur -> next;
     }

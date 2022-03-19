@@ -15,6 +15,7 @@
 #include "book_management.h"
 
 void menu() {
+    printf("====================================================\n");
     printf("Welcome to Book Management System!\n");
     printf("1. Register\n");
     printf("2. Login\n");
@@ -22,7 +23,9 @@ void menu() {
     printf("3. Find books by name\n");
     printf("4. Find books by author\n");
     printf("5. Find books by year\n");
+    printf("6. Admin manage\n");
     printf("0. Exit\n");
+    printf("====================================================\n");
     printf("Please input your choice: ");
 }
 //
@@ -88,6 +91,7 @@ void run_interface() {
                 add_book_interface(wholebooklist);
                 break;
             case 3:
+                printf("====================================================\n");
                 puts("Find books by name");
                 char name[100];
                 printf("Please input the name: ");
@@ -96,10 +100,17 @@ void run_interface() {
                 name[strlen(name) - 1] = '\0';
 
                 BookList booklist = find_book_by_title(name);
-                listBook(&booklist);
+                if(booklist.length == 0) {
+                    puts("!!!No books found!!!");
+                } else {
+                    printf("%d\n", booklist.length);
+                    listBook(&booklist);
+                }
+//                listBook(&booklist);
 
                 break;
             case 4:
+                printf("====================================================\n");
                 puts("Find books by author\n");
                 char author[100];
                 printf("Please input the author: ");
@@ -108,20 +119,34 @@ void run_interface() {
 
                 author[strlen(author) - 1] = '\0';
                 BookList res2 = find_book_by_author(author);
-                listBook(&res2);
-                printf("\n");
+                if(booklist.length == 0) {
+                    puts("!!!No books found!!!");
+                } else {
+                    printf("%d\n", res2.length);
+                    listBook(&booklist);
+                }
+
                 break;
             case 5:
+                printf("====================================================\n");
                 puts("Find books by year");
                 unsigned int year;
                 printf("Please input the year: ");
                 scanf("%u", &year);
                 BookList res3 = find_book_by_year(year);
-                listBook(&res3);
+                if(booklist.length == 1) {
+                    puts("!!!No books found!!!");
+                } else {
+                    printf("%d\n", res3.length);
+                    listBook(&booklist);
+                }
                 break;
             default:
                 printf("Invalid choice!\n");
                 break;
+            case 6:
+                puts("Admin");
+                auth(wholebooklist, &userlist);
         }
         menu();
         printf("\n");

@@ -62,7 +62,7 @@ void write2file(User *user) {
     FILE *fp;
     fp = fopen("user.txt", "a");
     if (fp == NULL) {
-        printf("文件打开失败！\n");
+        printf("Failed to open file！\n");
         exit(0);
     }
     fprintf(fp, "%s\t", user->username);
@@ -130,9 +130,6 @@ void register_user(UserList *userlist) {
 
     write2file(new_user);
     free(new_user);
-//    userlist->user[userlist->userNum] = new_user;
-//    free(new_user);
-//    userlist->userNum++;
 
 
 }
