@@ -112,14 +112,19 @@ void borrow_book(User *user, unsigned int id, BookList *wholeBookList) {
         puts("Book not found!");
         return;
     }
+    if(book->copies == 0){
+        puts("This book is not available");
+        return;
+    }
 
 
-    if(user->bookList == NULL){
+    if (user->bookList == NULL) {
         user->bookList = createBooklist();
     }
 
 //    book->next = NULL;
-    deleteBook(wholeBookList, id);
+//    deleteBook(wholeBookList, id);
+    book->copies--;
     insertBookByPointer(user->bookList, book);
     rec2db(book, user);
     puts("Borrow success!");
@@ -136,7 +141,9 @@ void return_book(User *user, unsigned int id, BookList *wholeBookList){
 
 
     deleteBook(user->bookList, id);
-    insertBookByPointer(wholeBookList, book);
+//    insertBookByPointer(wholeBookList, book);
+
+    book->copies ++;
     user->borrowNum--;
     delFromDB(id);
     puts("Return success!");

@@ -42,8 +42,7 @@ void run_interface() {
 
     read_user(&userlist);
     menu();
-
-
+    listUser(&userlist);
     int choice;
     choice = optionChoice();
     while (choice != 0) {

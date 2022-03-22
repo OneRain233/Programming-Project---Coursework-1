@@ -50,7 +50,16 @@ void listUser(UserList *userlist) {
         cur = cur->next;
     }
 }
+User *createUser(unsigned int id, char *username, char *password, int borrowNum, int borrowMax){
+    User *new_user = malloc(sizeof(User));
+    new_user -> username = username;
+    new_user -> password = password;
+    new_user -> borrowNum = borrowNum;
+    new_user -> borrowMax = borrowMax;
+    new_user -> id = id;
+    return new_user;
 
+}
 
 void read_user(UserList *userlist) {
     FILE *fp;

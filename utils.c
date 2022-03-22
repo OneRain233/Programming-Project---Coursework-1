@@ -32,10 +32,12 @@ void removeNewLine(char *string) {
 }
 
 void listBook(BookList *booklist) {
+    if(booklist->list == NULL) return;
     Book *cur = booklist->list->next;
+    printf("%s\t%s\t%s\t%s\t%s\n", "ID", "Authors", "Title", "Year", "Copies");
     while (cur != NULL) {
 
-        printf("%d %s %s %d %d\n", cur->id, cur->authors, cur->title, cur->year, cur->copies);
+        printf("%d\t%s\t%s\t%d\t%d\n", cur->id, cur->authors, cur->title, cur->year, cur->copies);
         cur = cur->next;
 
     }
