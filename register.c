@@ -23,19 +23,6 @@ int check_exist(UserList *userlist, char *username) {
     return 0;
 }
 
-void insertUser(UserList *userlist, User *user) {
-    User *cur = userlist->list;
-    if (cur == NULL) {
-        userlist->list = user;
-        userlist->userNum++;
-        return;
-    }
-    while (cur->next != NULL) {
-        cur = cur->next;
-    }
-    cur->next = user;
-    userlist->userNum++;
-}
 
 void listUser(UserList *userlist) {
     User *cur = userlist->list;
@@ -50,15 +37,30 @@ void listUser(UserList *userlist) {
         cur = cur->next;
     }
 }
-User *createUser(unsigned int id, char *username, char *password, int borrowNum, int borrowMax){
+
+User *createUser(unsigned int id, char *username, char *password, int borrowNum, int borrowMax) {
     User *new_user = malloc(sizeof(User));
-    new_user -> username = username;
-    new_user -> password = password;
-    new_user -> borrowNum = borrowNum;
-    new_user -> borrowMax = borrowMax;
-    new_user -> id = id;
+    new_user->username = username;
+    new_user->password = password;
+    new_user->borrowNum = borrowNum;
+    new_user->borrowMax = borrowMax;
+    new_user->id = id;
+    new_user->next = NULL;
     return new_user;
 
+}
+
+void insertUser(UserList *userlist, unsigned int id, char *username, char *password, int borrowNum, int borrowMax) {
+    User *user = createUser(id, username, password, borrowNum, borrowMax);
+    User *cur = userlist->list;
+    if (cur == NULL) {
+        userlist->list = user;
+        return;
+    }
+    while (cur->next != NULL) {
+        cur = cur->next;
+    }
+    cur->next = user;
 }
 
 void read_user(UserList *userlist) {
@@ -75,14 +77,16 @@ void read_user(UserList *userlist) {
     int user_cnt = 0;
 
     while (fscanf(fp, "%s\t%s\t%d\t%d\n", username, password, &borrowNum, &maxBorrowNum) != EOF) {
-        User *user = malloc(sizeof(User));
-        user->username = username;
-        user->password = password;
-        user->borrowNum = borrowNum;
-        user->borrowMax = maxBorrowNum;
-        user->next = NULL;
-        user->id = user_cnt;
-        insertUser(userlist, user);
+//        User *user = createUser();
+        char *tmp_username = malloc(20 * sizeof(char));
+        char *tmp_password = malloc(20 * sizeof(char));
+        int tmp_borrowNum;
+        int tmp_maxBorrowNum;
+        strcpy(tmp_username, username);
+        strcpy(tmp_password, password);
+        tmp_borrowNum = borrowNum;
+        tmp_maxBorrowNum = maxBorrowNum;
+        insertUser(userlist, userlist->userNum, tmp_username, tmp_password, tmp_borrowNum, tmp_maxBorrowNum);
         user_cnt++;
     }
     userlist->userNum = user_cnt;

@@ -29,7 +29,7 @@ void menu() {
 
 void run_interface() {
 
-    UserList userlist;
+    UserList *userlist = malloc(sizeof(userlist));
     BookList *wholebooklist;
 
     wholebooklist = malloc(sizeof(BookList));
@@ -40,21 +40,21 @@ void run_interface() {
     BookList *recBookList = malloc(sizeof(BookList));
     memcpy(recBookList, wholebooklist, sizeof(BookList));
 
-    read_user(&userlist);
+    read_user(userlist);
     menu();
-    listUser(&userlist);
+    listUser(userlist);
     int choice;
     choice = optionChoice();
     while (choice != 0) {
 //        printf("%d\n", choice);
         switch (choice) {
             case 1:
-                register_user(&userlist);
-                read_user(&userlist);
+                register_user(userlist);
+                read_user(userlist);
                 break;
             case 2:
                 puts("Login");
-                User *user = login(&userlist);
+                User *user = login(userlist);
                 if (user != NULL) {
                     printf("Welcome %s!\n", user->username);
                     printf("%d\n", user->borrowMax);
@@ -120,7 +120,7 @@ void run_interface() {
                 break;
             case 6:
                 puts("Admin");
-                auth(wholebooklist, &userlist);
+                auth(wholebooklist, userlist);
         }
         menu();
         printf("\n");
