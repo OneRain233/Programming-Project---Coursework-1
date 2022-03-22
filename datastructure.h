@@ -9,15 +9,17 @@
 #include "book_management.h"
 
 typedef struct _User {
+    unsigned int id;
     char *username;
     char *password;
     BookList *bookList;
     int borrowNum;
     int borrowMax;
+    struct _User *next;
 } User;
 
 typedef struct _UserList {
-    User *user[100];
+    User *list;
     int userNum;
 //    struct _UserList *next;
 } UserList;

@@ -26,24 +26,13 @@ void menu() {
     printf("====================================================\n");
     printf("Please input your choice: ");
 }
-//
-//void init(BookList *booklist, UserList *userlist) {
-//    puts("Initializing...");
-//    booklist = malloc(sizeof(BookList));
-//    booklist->list = NULL;
-//    read_books("books.txt", booklist);
-//    read_user(userlist);
-//    puts("Initialization finished.");
-//}
 
 void run_interface() {
 
     UserList userlist;
     BookList *wholebooklist;
-//    init(&booklist, &userlist);
 
     wholebooklist = malloc(sizeof(BookList));
-//    read_books("books.txt", wholebooklist);
 
     FILE *fp = fopen("books.txt", "r");
     load_books(fp, wholebooklist);
@@ -52,7 +41,6 @@ void run_interface() {
     memcpy(recBookList, wholebooklist, sizeof(BookList));
 
     read_user(&userlist);
-//    listBook(wholebooklist);
     menu();
 
 
@@ -71,13 +59,6 @@ void run_interface() {
                 if (user != NULL) {
                     printf("Welcome %s!\n", user->username);
                     printf("%d\n", user->borrowMax);
-//                    read_borrow_books(user);
-//                    user->borrowMax = 10;
-//                    printf("%d", user->borrowNum);
-//                    borrow_book(user, 1, wholebooklist);
-//                    listBook(wholebooklist);
-//                    return_book(user, 1, wholebooklist);
-//                    listBook(wholebooklist);
                     user_menu(user, wholebooklist);
 
                 } else {

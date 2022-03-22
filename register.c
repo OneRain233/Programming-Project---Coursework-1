@@ -8,53 +8,77 @@
 
 
 int check_exist(UserList *userlist, char *username) {
-    int size = userlist->userNum;
-    for (int i = 0; i < size; i++) {
-        if (strcmp(userlist->user[i]->username, username) == 0) {
-            return 1;
+    User *cur = userlist->list;
+    if(cur == NULL) {
+        return 0;
+    }
+    else{
+        while(cur != NULL) {
+            if(strcmp(cur->username, username) == 0) {
+                return 1;
+            }
+            cur = cur->next;
         }
     }
     return 0;
 }
 
+void insertUser(UserList *userlist, User *user) {
+    User *cur = userlist->list;
+    if (cur == NULL) {
+        userlist->list = user;
+        userlist->userNum++;
+        return;
+    }
+    while (cur->next != NULL) {
+        cur = cur->next;
+    }
+    cur->next = user;
+    userlist->userNum++;
+}
+
+void listUser(UserList *userlist) {
+    User *cur = userlist->list;
+    if (cur == NULL) {
+        printf("No user\n");
+        return;
+    }
+    printf("User list:\n");
+    printf("%s\t%s", "ID", "Username\n");
+    while (cur != NULL) {
+        printf("%d\t%s\n", cur->id, cur->username);
+        cur = cur->next;
+    }
+}
+
+
 void read_user(UserList *userlist) {
     FILE *fp;
-    fp = fopen("user.txt", "rb");
+    fp = fopen("user.txt", "r");
     if (fp == NULL) {
         printf("Open file error！\n");
         exit(0);
     }
-
-    char username[20];
-    char password[20];
+    char *username = malloc(sizeof(char) * 20);
+    char *password = malloc(sizeof(char) * 20);
+    int borrowNum;
+    int maxBorrowNum;
     int user_cnt = 0;
-//    User *user;
 
-    while (fscanf(fp, "%s", username) != EOF) {
-        User *user;
-//        strcpy(user->username, username);
-        fscanf(fp, "%s", password);
-//        strcpy(user->password, password);
-        int borrowNum = 0;
-        int borrowMax = 10;
-        fscanf(fp, "%d", &borrowNum);
-        fscanf(fp, "%d", &borrowMax);
-
-        user = (User *) malloc(sizeof(User));
-        user->username = (char *) malloc(sizeof(char) * 20);
-        user->password = (char *) malloc(sizeof(char) * 20);
-        strcpy(user->username, username);
-        strcpy(user->password, password);
-        user->borrowMax = borrowMax;
+    while (fscanf(fp, "%s\t%s\t%d\t%d\n", username, password, &borrowNum, &maxBorrowNum) != EOF) {
+        User *user = malloc(sizeof(User));
+        user->username = username;
+        user->password = password;
         user->borrowNum = borrowNum;
-
-        userlist->user[user_cnt] = user;
+        user->borrowMax = maxBorrowNum;
+        user->next = NULL;
+        user->id = user_cnt;
+        insertUser(userlist, user);
         user_cnt++;
-
     }
-
     userlist->userNum = user_cnt;
     fclose(fp);
+//    listUser(userlist);
 }
 
 
@@ -126,7 +150,7 @@ void register_user(UserList *userlist) {
     new_user->borrowMax = 10;
     new_user->borrowNum = 0;
 
-
+    new_user->id = userlist->userNum;
 
     write2file(new_user);
     free(new_user);
