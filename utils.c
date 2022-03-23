@@ -10,14 +10,13 @@
 
 int optionChoice(void) {
 //    fflush(stdin);
-//    int option = -1;
-//    char line[80];
-//
-//    fgets(line, 80, stdin);
-//
-//    option = (int) atoi(line);
     int option = -1;
-    scanf("%d", &option);
+    char line[80];
+
+    fgets(line, 80, stdin);
+
+    option = (int) atoi(line);
+
     return option;
 }
 
@@ -47,7 +46,7 @@ void listBook(BookList *booklist) {
 void insertBook(BookList *booklist, int id, char *authors, char *title, int year, int copies) {
     Book *dummyhead = booklist->list;
     Book *newbook = createBook(id, authors, title, year, copies);
-    newbook->next = NULL;
+//    newbook->next = NULL;
     if (dummyhead->next == NULL) {
         dummyhead->next = newbook;
     } else {
@@ -68,6 +67,7 @@ Book *createBook(unsigned int id, char *authors, char *title, unsigned int year,
     book->title = title;
     book->year = year;
     book->copies = copies;
+    book->next = NULL;
     return book;
 }
 
@@ -106,7 +106,7 @@ void insertBookByPointer(BookList *booklist, Book *book) {
 }
 
 Book *findBookByID(BookList *booklist, unsigned int id){
-    puts("findBookByID");
+//    puts("findBookByID");
     Book *dummyhead = booklist -> list;
 //    Book *cur = dummyhead -> next;
     Book *cur = dummyhead;
@@ -133,7 +133,7 @@ BookList *createBooklist(void) {
 
 void rec2db(Book *book, User *user){
     FILE *fp = fopen("borrow.txt", "a");
-    fprintf(fp, "%d %s\n", book -> id, user -> username);
+    fprintf(fp, "%d\t%s\n", book -> id, user -> username);
     fclose(fp);
 }
 

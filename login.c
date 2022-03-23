@@ -16,7 +16,7 @@ User *login(UserList *userlist) {
     scanf("%s", password);
 
     User *cur = userlist->list;
-    while(cur->next != NULL){
+    while(cur != NULL) {
         if(strcmp(username, cur->username) == 0){
             if(strcmp(password, cur->password) == 0){
                 return cur;

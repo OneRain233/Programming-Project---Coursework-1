@@ -3,16 +3,17 @@
 //
 #include "book_management.h"
 #include "datastructure.h"
+#include "user.h"
+#include "utils.h"
 #include <string.h>
 #include <stdlib.h>
 
 
 int check_exist(UserList *userlist, char *username) {
     User *cur = userlist->list;
-    if(cur == NULL) {
+    if (cur == NULL) {
         return 0;
-    }
-    else{
+    } else {
         while(cur != NULL) {
             if(strcmp(cur->username, username) == 0) {
                 return 1;
@@ -33,7 +34,7 @@ void listUser(UserList *userlist) {
     printf("User list:\n");
     printf("%s\t%s", "ID", "Username\n");
     while (cur != NULL) {
-        printf("%d\t%s\n", cur->id, cur->username);
+        printf("%d\t%s\t%s\n", cur->id, cur->username, cur->password);
         cur = cur->next;
     }
 }
@@ -45,25 +46,27 @@ User *createUser(unsigned int id, char *username, char *password, int borrowNum,
     new_user->borrowNum = borrowNum;
     new_user->borrowMax = borrowMax;
     new_user->id = id;
-    new_user->next = NULL;
+    new_user->next = NULL;;
     return new_user;
 
 }
 
-void insertUser(UserList *userlist, unsigned int id, char *username, char *password, int borrowNum, int borrowMax) {
+User *insertUser(UserList *userlist, unsigned int id, char *username, char *password, int borrowNum, int borrowMax) {
     User *user = createUser(id, username, password, borrowNum, borrowMax);
     User *cur = userlist->list;
     if (cur == NULL) {
         userlist->list = user;
-        return;
+        return user;
     }
     while (cur->next != NULL) {
         cur = cur->next;
     }
     cur->next = user;
+//    userlist->userNum ++;
+    return user;
 }
 
-void read_user(UserList *userlist) {
+void read_user(BookList *booklist, UserList *userlist) {
     FILE *fp;
     fp = fopen("user.txt", "r");
     if (fp == NULL) {
@@ -78,6 +81,7 @@ void read_user(UserList *userlist) {
 
     while (fscanf(fp, "%s\t%s\t%d\t%d\n", username, password, &borrowNum, &maxBorrowNum) != EOF) {
 //        User *user = createUser();
+        char *buf = malloc(sizeof(char) * 20);
         char *tmp_username = malloc(20 * sizeof(char));
         char *tmp_password = malloc(20 * sizeof(char));
         int tmp_borrowNum;
@@ -86,12 +90,17 @@ void read_user(UserList *userlist) {
         strcpy(tmp_password, password);
         tmp_borrowNum = borrowNum;
         tmp_maxBorrowNum = maxBorrowNum;
-        insertUser(userlist, userlist->userNum, tmp_username, tmp_password, tmp_borrowNum, tmp_maxBorrowNum);
+        User *user = insertUser(userlist, user_cnt, tmp_username, tmp_password, tmp_borrowNum, tmp_maxBorrowNum);
         user_cnt++;
+        for(int i = 0; i < user->borrowNum; i++) {
+            fscanf(fp, "%s\n", buf);
+        }
+
     }
     userlist->userNum = user_cnt;
     fclose(fp);
 //    listUser(userlist);
+
 }
 
 

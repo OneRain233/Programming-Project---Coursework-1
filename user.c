@@ -5,6 +5,7 @@
 #include "user.h"
 #include "utils.h"
 #include <string.h>
+#include <malloc.h>
 
 
 void user_menu_hint(){
@@ -65,6 +66,7 @@ void user_borrowed_book_list(User *pUser) {
 
 void user_info(User *pUser) {
     printf("====================================================\n");
+    printf("ID: %d\n", pUser->id);
     printf("Name: %s\n", pUser->username);
     printf("Max borrow num: %d\n", pUser->borrowMax);
     printf("Borrowed num: %d\n", pUser->borrowNum);
@@ -72,32 +74,51 @@ void user_info(User *pUser) {
     printf("====================================================\n");
 }
 
+User *findUserByUsername(UserList *userlist, char *username) {
+    User *pUser = userlist->list;
+    while (pUser != NULL) {
+        if (strcmp(pUser->username, username) == 0) {
+            return pUser;
+        }
+        pUser = pUser->next;
+    }
+    return NULL;
+}
 
-void read_borrow_books(User *user) {
+void read_borrow_books(FILE *fp, UserList *userlist, BookList *wholebooklist) {
 
-    FILE *fp = fopen("borrow.txt", "r");
     if (fp == NULL) {
         puts("File open error!");
         return;
     }
 
-    char line[1024];
-    while (fgets(line, 1024, fp) != NULL) {
-        char *p = strtok(line, "-");
-//        puts(p);
-        if (strcmp(p, user->username) == 0) {
-//            puts(p);
-            p = strtok(NULL, "-");
-            int size = (int) *p - '0';
-            printf("%d\n", size);
-            for (int i = 0; i < size; i++) {
-                p = strtok(NULL, "-");
-                printf("%s\n", p);
+    char *username = malloc(sizeof(char) * 20);
+    char *password = malloc(sizeof(char) * 20);
+    int borrowNum;
+    int maxBorrowNum;
+
+    while (fscanf(fp, "%s\t%s\t%d\t%d\n", username, password, &borrowNum, &maxBorrowNum) != EOF) {
+        for (int i = 0; i < borrowNum; i++) {
+            unsigned int bookId;
+
+            fscanf(fp, "%d\n", &bookId);
+            printf("%d\n", bookId);
+//            listBook(wholebooklist);
+            Book *book = findBookByID(wholebooklist, bookId);
+            if (book == NULL) {
+                puts("Book not found!");
+                continue;
             }
+
+            User *user = findUserByUsername(userlisnzx m                                                         t, username);
+            user->bookList = createBooklist();
+            insertBook(user->bookList, book->id, book->authors, book->title, book->year, book->copies);
         }
     }
 
 }
+
+
 
 void borrow_book(User *user, unsigned int id, BookList *wholeBookList) {
     printf("====================================================\n");
@@ -125,7 +146,9 @@ void borrow_book(User *user, unsigned int id, BookList *wholeBookList) {
 //    book->next = NULL;
 //    deleteBook(wholeBookList, id);
     book->copies--;
-    insertBookByPointer(user->bookList, book);
+    Book *borrowed_book = createBook(book->id, book->authors, book->title, book->year, book->copies);
+
+    insertBookByPointer(user->bookList, borrowed_book);
     rec2db(book, user);
     puts("Borrow success!");
     printf("====================================================\n");
@@ -139,11 +162,11 @@ void return_book(User *user, unsigned int id, BookList *wholeBookList){
         return;
     }
 
-
     deleteBook(user->bookList, id);
 //    insertBookByPointer(wholeBookList, book);
 
-    book->copies ++;
+    Book *originalBook = findBookByID(wholeBookList, id);
+    originalBook->copies++;
     user->borrowNum--;
     delFromDB(id);
     puts("Return success!");

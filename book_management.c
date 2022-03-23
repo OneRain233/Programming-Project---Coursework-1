@@ -81,10 +81,10 @@ BookList find_book_by_year(unsigned int year) {
 
 
 int load_books(FILE *file, BookList* list){
-    if(file == NULL || list == NULL) {
+    if(file == NULL ) {
         return -1;
     }
-    Book *dummyhead = createBook(999, " ", " ", 0, 0);
+    Book *dummyhead = createBook(99999999, " ", " ", 0, 0);
     list->list = dummyhead;
     int cnt = 0;
 

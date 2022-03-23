@@ -30,9 +30,7 @@ void menu() {
 void run_interface() {
 
     UserList *userlist = malloc(sizeof(userlist));
-    BookList *wholebooklist;
-
-    wholebooklist = malloc(sizeof(BookList));
+    BookList *wholebooklist = malloc(sizeof(BookList));
 
     FILE *fp = fopen("books.txt", "r");
     load_books(fp, wholebooklist);
@@ -40,17 +38,21 @@ void run_interface() {
     BookList *recBookList = malloc(sizeof(BookList));
     memcpy(recBookList, wholebooklist, sizeof(BookList));
 
-    read_user(userlist);
-    menu();
+    read_user(wholebooklist, userlist);
+    FILE *user = fopen("user.txt", "r");
     listUser(userlist);
-    int choice;
-    choice = optionChoice();
+    read_borrow_books(user, userlist, wholebooklist);
+    menu();
+
+    int choice = 0;
+//    choice = optionChoice();
+    scanf("%d", &choice);
     while (choice != 0) {
 //        printf("%d\n", choice);
         switch (choice) {
             case 1:
                 register_user(userlist);
-                read_user(userlist);
+                read_user(wholebooklist,userlist);
                 break;
             case 2:
                 puts("Login");
@@ -124,8 +126,8 @@ void run_interface() {
         }
         menu();
         printf("\n");
-        choice = optionChoice();
-
+//        choice = optionChoice();
+        scanf("%d", &choice);
 
     }
 //    FILE *fp1 = fopen("books.txt", "w");
