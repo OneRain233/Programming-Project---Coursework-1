@@ -40,7 +40,7 @@ void listUser(UserList *userlist) {
 }
 
 User *createUser(unsigned int id, char *username, char *password, int borrowNum, int borrowMax) {
-    User *new_user = malloc(sizeof(User));
+    User *new_user = (User *) malloc(sizeof(User));
     new_user->username = username;
     new_user->password = password;
     new_user->borrowNum = borrowNum;
@@ -73,17 +73,17 @@ void read_user(BookList *booklist, UserList *userlist) {
         printf("Open file error！\n");
         exit(0);
     }
-    char *username = malloc(sizeof(char) * 20);
-    char *password = malloc(sizeof(char) * 20);
+    char *username = (char *) malloc(sizeof(char) * 20);
+    char *password = (char *) malloc(sizeof(char) * 20);
     int borrowNum;
     int maxBorrowNum;
     int user_cnt = 0;
 
     while (fscanf(fp, "%s\t%s\t%d\t%d\n", username, password, &borrowNum, &maxBorrowNum) != EOF) {
 //        User *user = createUser();
-        char *buf = malloc(sizeof(char) * 20);
-        char *tmp_username = malloc(20 * sizeof(char));
-        char *tmp_password = malloc(20 * sizeof(char));
+        char *buf = (char *) malloc(sizeof(char) * 20);
+        char *tmp_username = (char *) malloc(20 * sizeof(char));
+        char *tmp_password = (char *) malloc(20 * sizeof(char));
         int tmp_borrowNum;
         int tmp_maxBorrowNum;
         strcpy(tmp_username, username);
@@ -92,7 +92,7 @@ void read_user(BookList *booklist, UserList *userlist) {
         tmp_maxBorrowNum = maxBorrowNum;
         User *user = insertUser(userlist, user_cnt, tmp_username, tmp_password, tmp_borrowNum, tmp_maxBorrowNum);
         user_cnt++;
-        for(int i = 0; i < user->borrowNum; i++) {
+        for (int i = 0; i < user->borrowNum; i++) {
             fscanf(fp, "%s\n", buf);
         }
 

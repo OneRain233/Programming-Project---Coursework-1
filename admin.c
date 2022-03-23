@@ -43,8 +43,8 @@ void admin_menu_hint(){
 
 void add_book_interface(char *book_file, BookList *list){
     printf("====================================================\n");
-    char *title = malloc(sizeof(char) * 100);
-    char *author = malloc(sizeof(char) * 100);
+    char *title = (char *) malloc(sizeof(char) * 100);
+    char *author = (char *) malloc(sizeof(char) * 100);
     unsigned int year;
     unsigned int copies;
 

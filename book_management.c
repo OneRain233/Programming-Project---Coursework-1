@@ -10,13 +10,13 @@
 BookList find_book_by_title(const char *title, BookList *booklist) {
     BookList res;
     res.length = 0;
-    Book *dummyhead = malloc(sizeof(Book));
+    Book *dummyhead = (Book *) malloc(sizeof(Book));
 
     res.list = dummyhead;
     Book *cur = booklist->list;
     while(cur != NULL){
         if(strcmp(cur->title, title) == 0){
-            Book *new_book = malloc(sizeof(Book));
+            Book *new_book = (Book *) malloc(sizeof(Book));
             memccpy(new_book, cur, sizeof(Book), sizeof(Book));
             insertBookByPointer(&res, new_book);
         }
@@ -30,13 +30,13 @@ BookList find_book_by_title(const char *title, BookList *booklist) {
 BookList find_book_by_author(const char *author, BookList *booklist) {
     BookList res;
     res.length = 0;
-    Book *dummyhead = malloc(sizeof(Book));
+    Book *dummyhead = (Book *) malloc(sizeof(Book));
 
     res.list = dummyhead;
     Book *cur = booklist->list;
     while(cur != NULL){
         if(strcmp(cur->authors, author) == 0){
-            Book *new_book = malloc(sizeof(Book));
+            Book *new_book = (Book *) malloc(sizeof(Book));
             memccpy(new_book, cur, sizeof(Book), sizeof(Book));
             insertBookByPointer(&res, new_book);
         }
@@ -51,13 +51,13 @@ BookList find_book_by_author(const char *author, BookList *booklist) {
 BookList find_book_by_year(unsigned int year, BookList *booklist) {
     BookList res;
     res.length = 0;
-    Book *dummyhead = malloc(sizeof(Book));
+    Book *dummyhead = (Book *) malloc(sizeof(Book));
 
     res.list = dummyhead;
     Book *cur = booklist->list;
     while(cur != NULL){
         if(cur->year == year){
-            Book *new_book = malloc(sizeof(Book));
+            Book *new_book = (Book *) malloc(sizeof(Book));
             memccpy(new_book, cur, sizeof(Book), sizeof(Book));
             insertBookByPointer(&res, new_book);
         }
@@ -85,11 +85,11 @@ int load_books(FILE *file, BookList* list){
         unsigned id = atoi(p);
 
         p = strtok(NULL, "-");
-        char *authors = malloc(sizeof(p));
+        char *authors = (char *) malloc(sizeof(p));
         strcpy(authors, p);
 
         p = strtok(NULL, "-");
-        char *title = malloc(sizeof(p));
+        char *title = (char *) malloc(sizeof(p));
         strcpy(title, p);
 
         p = strtok(NULL, "-");

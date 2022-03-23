@@ -101,8 +101,8 @@ void read_borrow_books(FILE *fp, UserList *userlist, BookList *wholebooklist) {
         return;
     }
 
-    char *username = malloc(sizeof(char) * 20);
-    char *password = malloc(sizeof(char) * 20);
+    char *username = (char *) malloc(sizeof(char) * 20);
+    char *password = (char *) malloc(sizeof(char) * 20);
     int borrowNum;
     int maxBorrowNum;
 

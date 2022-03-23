@@ -29,13 +29,13 @@ void menu() {
 
 void run_interface(char *book_file, char *user_file) {
 
-    UserList *userlist = malloc(sizeof(userlist));
-    BookList *wholebooklist = malloc(sizeof(BookList));
+    UserList *userlist = (UserList *) malloc(sizeof(userlist));
+    BookList *wholebooklist = (BookList *) malloc(sizeof(BookList));
 
     FILE *fp = fopen(book_file, "r");
     load_books(fp, wholebooklist);
     fclose(fp);
-    BookList *recBookList = malloc(sizeof(BookList));
+    BookList *recBookList = (BookList *) malloc(sizeof(BookList));
     memcpy(recBookList, wholebooklist, sizeof(BookList));
 
     read_user(wholebooklist, userlist);
