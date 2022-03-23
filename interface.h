@@ -6,5 +6,5 @@
 #define PROJECT1_INTERFACE_H
 void menu();
 
-void run_interface();
+void run_interface(char *book_file, char *user_file);
 #endif //PROJECT1_INTERFACE_H

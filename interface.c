@@ -27,19 +27,19 @@ void menu() {
     printf("Please input your choice: ");
 }
 
-void run_interface() {
+void run_interface(char *book_file, char *user_file) {
 
     UserList *userlist = malloc(sizeof(userlist));
     BookList *wholebooklist = malloc(sizeof(BookList));
 
-    FILE *fp = fopen("books.txt", "r");
+    FILE *fp = fopen(book_file, "r");
     load_books(fp, wholebooklist);
     fclose(fp);
     BookList *recBookList = malloc(sizeof(BookList));
     memcpy(recBookList, wholebooklist, sizeof(BookList));
 
     read_user(wholebooklist, userlist);
-    FILE *user = fopen("user.txt", "r");
+    FILE *user = fopen(user_file, "r");
 //    listUser(userlist);
     read_borrow_books(user, userlist, wholebooklist);
     menu();
@@ -53,10 +53,6 @@ void run_interface() {
             case 1:
                 register_user(userlist);
                 listUser(userlist);
-                FILE *fpp = fopen("user.txt", "w");
-                store_user(fpp, userlist);
-//                listBook(wholebooklist);
-//                read_user(wholebooklist,userlist);
                 break;
             case 2:
                 puts("Login");
@@ -127,7 +123,7 @@ void run_interface() {
                 break;
             case 6:
                 puts("Admin");
-                auth(wholebooklist, userlist);
+                auth(wholebooklist, userlist, book_file);
         }
         menu();
         printf("\n");
@@ -135,9 +131,9 @@ void run_interface() {
         scanf("%d", &choice);
 
     }
-    FILE *fp1 = fopen("books.txt", "w");
+    FILE *fp1 = fopen(book_file, "w");
     store_books(fp1, recBookList);
-    FILE *fp2 = fopen("user.txt", "w");
+    FILE *fp2 = fopen(user_file, "w");
     store_user(fp2, userlist);
     fclose(fp1);
     fclose(fp2);

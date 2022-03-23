@@ -12,7 +12,7 @@ const char *username = "admin";
 const char *password = "admin";
 
 
-void auth(BookList *booklist, UserList *userlist){
+void auth(BookList *booklist, UserList *userlist, char *book_file){
     puts("====================================================");
     char *input_username = (char *)malloc(sizeof(char) * 20);
     char *input_password = (char *)malloc(sizeof(char) * 20);
@@ -21,7 +21,7 @@ void auth(BookList *booklist, UserList *userlist){
     printf("Please input your password: ");
     scanf("%s", input_password);
     if (strcmp(input_username, username) == 0 && strcmp(input_password, password) == 0) {
-        admin_menu(booklist);
+        admin_menu(booklist,book_file);
     } else {
         printf("Wrong username or password!\n");
         return;
@@ -41,7 +41,7 @@ void admin_menu_hint(){
 }
 
 
-void add_book_interface(BookList *list){
+void add_book_interface(char *book_file, BookList *list){
     printf("====================================================\n");
     char *title = malloc(sizeof(char) * 100);
     char *author = malloc(sizeof(char) * 100);
@@ -62,7 +62,7 @@ void add_book_interface(BookList *list){
 
     add_book(book, list);
     listBook(list);
-    FILE *fp = fopen("books.txt", "w");
+    FILE *fp = fopen(book_file, "w");
     store_books(fp,list);
     fclose(fp);
     printf("Add book successfully!\n");
@@ -70,7 +70,7 @@ void add_book_interface(BookList *list){
 }
 
 
-void delete_book_interface(BookList *list) {
+void delete_book_interface(char *book_file, BookList *list) {
     printf("====================================================\n");
     listBook(list);
     unsigned int id;
@@ -79,13 +79,13 @@ void delete_book_interface(BookList *list) {
     deleteBook(list, id);
 
     listBook(list);
-    FILE *fp = fopen("books.txt", "w");
+    FILE *fp = fopen(book_file, "w");
     store_books(fp, list);
     fclose(fp);
     printf("====================================================\n");
 }
 
-void admin_menu(BookList *booklist){
+void admin_menu(BookList *booklist, char *book_file){
 
     admin_menu_hint();
 
@@ -94,10 +94,10 @@ void admin_menu(BookList *booklist){
     while(choice != 0){
         switch (choice) {
             case 1:
-                add_book_interface(booklist);
+                add_book_interface(book_file,booklist);
                 break;
             case 2:
-                delete_book_interface(booklist);
+                delete_book_interface(book_file,booklist);
                 break;
             case 3:
                 listBook(booklist);
