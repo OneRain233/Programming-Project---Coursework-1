@@ -79,8 +79,8 @@ int load_books(FILE *file, BookList* list){
 
     char line[1024];
     while (fgets(line, 1024, file) != NULL) {
-        Book *newbook;
-        newbook = (Book *) malloc(sizeof(Book));
+//        Book *newbook;
+//        newbook = (Book *) malloc(sizeof(Book));
         char *p = strtok(line, "-");
         unsigned id = atoi(p);
 

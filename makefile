@@ -1,10 +1,10 @@
-EXE = ./library
+EXE = bin/library
 SRC = main.c login.c register.c user.c utils.c interface.c admin.c book_management.c
 
 # generic build details
 
 CC = gcc
-CFLAGS= -std=c99 -Wall
+CFLAGS= -Wall
 CLINK=
 
 OBJ= $(SRC:.c=.o)

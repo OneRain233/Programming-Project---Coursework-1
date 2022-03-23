@@ -52,7 +52,7 @@ void run_interface(char *book_file, char *user_file) {
         switch (choice) {
             case 1:
                 register_user(userlist);
-                listUser(userlist);
+//                listUser(userlist);
                 break;
             case 2:
                 puts("Login");
