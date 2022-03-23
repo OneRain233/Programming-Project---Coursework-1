@@ -88,6 +88,9 @@ void deleteBook(BookList *booklist, unsigned int id) {
 
 
 void insertBookByPointer(BookList *booklist, Book *book) {
+    if(booklist == NULL) {
+        booklist->list = createBooklist();
+    }
     Book *dummyhead = booklist->list;
     book->next = NULL;
     if (dummyhead->next == NULL) {

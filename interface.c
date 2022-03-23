@@ -79,7 +79,7 @@ void run_interface() {
                 fgets(name, 100, stdin);
                 name[strlen(name) - 1] = '\0';
 
-                BookList booklist = find_book_by_title(name);
+                BookList booklist = find_book_by_title(name, wholebooklist);
                 if(booklist.length == 0) {
                     puts("!!!No books found!!!");
                 } else {
@@ -98,12 +98,13 @@ void run_interface() {
                 fgets(author, 100, stdin);
 
                 author[strlen(author) - 1] = '\0';
-                BookList res2 = find_book_by_author(author);
-                if(booklist.length == 0) {
+                puts(author);
+                BookList res2 = find_book_by_author(author, wholebooklist);
+                if(res2.length == 0) {
                     puts("!!!No books found!!!");
                 } else {
                     printf("%d\n", res2.length);
-                    listBook(&booklist);
+                    listBook(&res2);
                 }
 
                 break;
@@ -113,12 +114,12 @@ void run_interface() {
                 unsigned int year;
                 printf("Please input the year: ");
                 scanf("%u", &year);
-                BookList res3 = find_book_by_year(year);
-                if(booklist.length == 1) {
+                BookList res3 = find_book_by_year(year, wholebooklist);
+                if(res3.length == 0) {
                     puts("!!!No books found!!!");
                 } else {
                     printf("%d\n", res3.length);
-                    listBook(&booklist);
+                    listBook(&res3);
                 }
                 break;
             default:
@@ -140,7 +141,5 @@ void run_interface() {
     store_user(fp2, userlist);
     fclose(fp1);
     fclose(fp2);
-//    fclose(fp1);
-
 
 }

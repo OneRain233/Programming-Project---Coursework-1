@@ -46,19 +46,19 @@ int remove_book(Book *book, BookList *list);
 //returns a BookList structure, where the field "list" is a list of books, or null if no book with the 
 //provided title can be found. The length of the list is also recorded in the returned structure, with 0 in case
 //list is the NULL pointer.
-BookList find_book_by_title (const char *title);
+BookList find_book_by_title (const char *title, BookList *booklist);
 
 //finds books with the given authors.
-//returns a Booklist structure, where the field "list" is a newly allocated list of books, or null if no book with the 
+//returns a Booklist structure, where the field "list" is a newly allocated list of books, or null if no book with the
 //provided title can be found. The length of the list is also recorded in the returned structure, with 0 in case
 //list is the NULL pointer.
-BookList find_book_by_author (const char *author);
+BookList find_book_by_author (const char *author, BookList *booklist);
 
 //finds books published in the given year.
 //returns a Booklist structure, where the field "list" is a list of books, or null if no book with the 
 //provided title can be found. The length of the list is also recorded in the returned structure, with 0 in case
 //list is the NULL pointer.
-BookList find_book_by_year (unsigned int year);
+BookList find_book_by_year (unsigned int year, BookList *booklist);
 
 
 #endif
