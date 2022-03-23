@@ -35,7 +35,7 @@ void user_menu(User *user, BookList *wholebooklist) {
                 break;
             case 2:
 //            user_book_list(user);
-                user_borrowed_book_list(user);
+                user_borrowed_book_list(wholebooklist, user);
                 break;
             case 3:
                 borrow_book_interface(wholebooklist, user);
@@ -53,14 +53,23 @@ void user_menu(User *user, BookList *wholebooklist) {
 
 }
 
-void user_borrowed_book_list(User *pUser) {
+void user_borrowed_book_list(BookList *booklist, User *pUser) {
     printf("====================================================\n");
     if (pUser->borrowNum == 0) {
         puts("You have not borrowed any book!\n");
         return;
     }
     puts("User borrowed book list:");
-    listBook(pUser->bookList);
+    for (int i = 0; i < pUser->borrowNum; i++) {
+        unsigned int bookId = pUser->bookList[i];
+        if (bookId == 99999) {
+            continue;
+        }
+        Book *pBook = findBookByID(booklist, bookId);
+        printf("%d. %s\n", bookId, pBook->title);
+
+    }
+
     printf("====================================================\n");
 }
 
@@ -102,22 +111,17 @@ void read_borrow_books(FILE *fp, UserList *userlist, BookList *wholebooklist) {
             unsigned int bookId;
 
             fscanf(fp, "%d\n", &bookId);
-            printf("%d\n", bookId);
-//            listBook(wholebooklist);
-            Book *book = findBookByID(wholebooklist, bookId);
-            if (book == NULL) {
-                puts("Book not found!");
-                continue;
+            User *pUser = findUserByUsername(userlist, username);
+            if (pUser == NULL) {
+                puts("User not found!");
+                return;
             }
 
-            User *user = findUserByUsername(userlisnzx m                                                         t, username);
-            user->bookList = createBooklist();
-            insertBook(user->bookList, book->id, book->authors, book->title, book->year, book->copies);
+            pUser->bookList[i] = bookId;
         }
     }
 
 }
-
 
 
 void borrow_book(User *user, unsigned int id, BookList *wholeBookList) {
@@ -126,50 +130,50 @@ void borrow_book(User *user, unsigned int id, BookList *wholeBookList) {
         puts("You have borrowed the max num of books!");
         return;
     }
-
+    for(int i = 0; i < user->borrowNum; i++){
+        if(user->bookList[i] == id){
+            puts("You have already borrowed this book!");
+            return;
+        }
+    }
     user->borrowNum++;
+
+    user->bookList[user->borrowNum - 1] = id;
     Book *book = findBookByID(wholeBookList, id);
-    if (book == NULL) {
-        puts("Book not found!");
-        return;
-    }
-    if(book->copies == 0){
-        puts("This book is not available");
-        return;
-    }
-
-
-    if (user->bookList == NULL) {
-        user->bookList = createBooklist();
-    }
-
-//    book->next = NULL;
-//    deleteBook(wholeBookList, id);
     book->copies--;
-    Book *borrowed_book = createBook(book->id, book->authors, book->title, book->year, book->copies);
 
-    insertBookByPointer(user->bookList, borrowed_book);
-    rec2db(book, user);
     puts("Borrow success!");
     printf("====================================================\n");
 }
 
-void return_book(User *user, unsigned int id, BookList *wholeBookList){
+void return_book(User *user, unsigned int id, BookList *wholeBookList) {
     printf("====================================================\n");
-    Book *book = findBookByID(user->bookList, id);
-    if (book == NULL) {
-        puts("Book not found!");
+    if (user->borrowNum == 0) {
+        puts("You have not borrowed any book!");
         return;
     }
 
-    deleteBook(user->bookList, id);
-//    insertBookByPointer(wholeBookList, book);
+    for (int i = 0; i < user->borrowNum; i++) {
+        if (user->bookList[i] == id) {
+            user->bookList[i] = 9999;
+            user->borrowNum--;
+            break;
+        }
+    }
 
-    Book *originalBook = findBookByID(wholeBookList, id);
-    originalBook->copies++;
-    user->borrowNum--;
-    delFromDB(id);
-    puts("Return success!");
+    for (int i = 0; i < user->borrowNum; i++) {
+        if (user->bookList[i] == 9999) {
+            for (int j = i; j < user->borrowNum; j++) {
+                user->bookList[j] = user->bookList[j + 1];
+            }
+        }
+
+    }
+
+
+    Book *book = findBookByID(wholeBookList, id);
+    book->copies++;
+
 }
 
 void borrow_book_interface(BookList *wholetBookList, User *user) {
@@ -184,7 +188,7 @@ void borrow_book_interface(BookList *wholetBookList, User *user) {
 
 void return_book_interface(BookList *wholetBookList, User *user) {
     printf("====================================================\n");
-    listBook(user->bookList);
+    user_borrowed_book_list(wholetBookList, user);
     puts("Please input the book id:");
     unsigned int id = optionChoice();
     return_book(user, id, wholetBookList);

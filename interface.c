@@ -130,8 +130,8 @@ void run_interface() {
         scanf("%d", &choice);
 
     }
-//    FILE *fp1 = fopen("books.txt", "w");
-//    store_books(fp1, recBookList);
+    FILE *fp1 = fopen("books.txt", "w");
+    store_books(fp1, recBookList);
 //    fclose(fp1);
 
 
