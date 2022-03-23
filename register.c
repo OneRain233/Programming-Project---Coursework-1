@@ -104,20 +104,6 @@ void read_user(BookList *booklist, UserList *userlist) {
 }
 
 
-void write2file(User *user) {
-    FILE *fp;
-    fp = fopen("user.txt", "a");
-    if (fp == NULL) {
-        printf("Failed to open file！\n");
-        exit(0);
-    }
-    fprintf(fp, "%s\t", user->username);
-    fprintf(fp, "%s\t", user->password);
-    fprintf(fp, "%d\t", user->borrowNum);
-    fprintf(fp, "%d\n", user->borrowMax);
-    fclose(fp);
-}
-
 int check_valid(char *username){
     char invalid_char[] = "!@#$%^&*()_+-=[]{}|;':\",./<>?`~";
     for (int i = 0; i < strlen(username); i++) {
@@ -173,9 +159,6 @@ void register_user(UserList *userlist) {
     new_user->borrowNum = 0;
 
     new_user->id = userlist->userNum;
-
-    write2file(new_user);
-    free(new_user);
-
+    insertUser(userlist, new_user->id, new_user->username, new_user->password, new_user->borrowNum, new_user->borrowMax);
 
 }

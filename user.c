@@ -140,6 +140,14 @@ void borrow_book(User *user, unsigned int id, BookList *wholeBookList) {
 
     user->bookList[user->borrowNum - 1] = id;
     Book *book = findBookByID(wholeBookList, id);
+    if(book == NULL){
+        puts("Book not found!");
+        return;
+    }
+    if(book->copies == 0){
+        puts("Book is not available!");
+        return;
+    }
     book->copies--;
 
     puts("Borrow success!");

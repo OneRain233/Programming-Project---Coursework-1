@@ -131,24 +131,14 @@ BookList *createBooklist(void) {
     return booklist;
 }
 
-void rec2db(Book *book, User *user){
-    FILE *fp = fopen("borrow.txt", "a");
-    fprintf(fp, "%d\t%s\n", book -> id, user -> username);
-    fclose(fp);
-}
-
-void delFromDB(unsigned int id){
-    FILE *fp = fopen("borrow.txt", "r");
-    FILE *fp2 = fopen("borrow2.txt", "w");
-    char line[80];
-    while (fgets(line, 80, fp) != NULL){
-        if (atoi(line) != id){
-            fprintf(fp2, "%s", line);
+void store_user(FILE *fp, UserList *userList){
+    User *cur = userList->list;
+    while( cur != NULL){
+        fprintf(fp, "%s\t%s\t%d\t%d\n", cur->username, cur->password, cur->borrowNum, cur->borrowMax);
+        for(int i = 0; i < cur->borrowNum; i++){
+            fprintf(fp, "%d\n", cur->bookList[i]);
         }
-    }
-    fclose(fp);
-    fclose(fp2);
-    remove("borrow.txt");
-    rename("borrow2.txt", "borrow.txt");
+        cur = cur->next;
 
+    }
 }

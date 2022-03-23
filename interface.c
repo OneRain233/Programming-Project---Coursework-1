@@ -40,10 +40,10 @@ void run_interface() {
 
     read_user(wholebooklist, userlist);
     FILE *user = fopen("user.txt", "r");
-    listUser(userlist);
+//    listUser(userlist);
     read_borrow_books(user, userlist, wholebooklist);
     menu();
-
+    fclose(user);
     int choice = 0;
 //    choice = optionChoice();
     scanf("%d", &choice);
@@ -52,7 +52,11 @@ void run_interface() {
         switch (choice) {
             case 1:
                 register_user(userlist);
-                read_user(wholebooklist,userlist);
+                listUser(userlist);
+                FILE *fpp = fopen("user.txt", "w");
+                store_user(fpp, userlist);
+//                listBook(wholebooklist);
+//                read_user(wholebooklist,userlist);
                 break;
             case 2:
                 puts("Login");
@@ -132,6 +136,10 @@ void run_interface() {
     }
     FILE *fp1 = fopen("books.txt", "w");
     store_books(fp1, recBookList);
+    FILE *fp2 = fopen("user.txt", "w");
+    store_user(fp2, userlist);
+    fclose(fp1);
+    fclose(fp2);
 //    fclose(fp1);
 
 

@@ -13,7 +13,7 @@ const char *password = "admin";
 
 
 void auth(BookList *booklist, UserList *userlist){
-    printf("====================================================\n");
+    puts("====================================================");
     char *input_username = (char *)malloc(sizeof(char) * 20);
     char *input_password = (char *)malloc(sizeof(char) * 20);
     printf("Please input your username: ");
@@ -89,7 +89,8 @@ void admin_menu(BookList *booklist){
 
     admin_menu_hint();
 
-    int choice = optionChoice();
+    int choice;
+    scanf("%d", &choice);
     while(choice != 0){
         switch (choice) {
             case 1:
@@ -107,7 +108,7 @@ void admin_menu(BookList *booklist){
                 break;
         }
         admin_menu_hint();
-        choice = optionChoice();
+        scanf("%d", &choice);
     }
 }
 

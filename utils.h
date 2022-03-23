@@ -27,8 +27,6 @@ Book *findBookByID(BookList *booklist, unsigned int id);
 
 BookList *createBooklist(void);
 
-void delFromDB(unsigned int id);
-
-void rec2db(Book *book, User *user);
+void store_user(FILE *fp, UserList *userList);
 
 #endif //PROJECT1_UTILS_H
