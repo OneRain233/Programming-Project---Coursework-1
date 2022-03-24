@@ -9,13 +9,7 @@
 
 int optionChoice(void);
 
-void removeNewLine(char *string);
-
-void formatUser(User *user, char *result);
-
 void listBook(BookList *booklist);
-
-void insertBook(BookList *booklist, int id, char *authors, char *title, int year, int copies);
 
 Book *createBook(unsigned int id, char *authors, char *title, unsigned int year, unsigned int copies);
 

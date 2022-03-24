@@ -43,22 +43,6 @@ void listBook(BookList *booklist) {
 }
 
 
-void insertBook(BookList *booklist, int id, char *authors, char *title, int year, int copies) {
-    Book *dummyhead = booklist->list;
-    Book *newbook = createBook(id, authors, title, year, copies);
-//    newbook->next = NULL;
-    if (dummyhead->next == NULL) {
-        dummyhead->next = newbook;
-    } else {
-        Book *cur = dummyhead;
-        while (cur->next != NULL) {
-//            puts(cur->authors);
-            cur = cur->next;
-        }
-        cur->next = newbook;
-    }
-
-}
 
 Book *createBook(unsigned int id, char *authors, char *title, unsigned int year, unsigned int copies) {
     Book *book = (Book *) malloc(sizeof(Book));

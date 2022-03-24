@@ -98,10 +98,9 @@ int load_books(FILE *file, BookList* list){
         p = strtok(NULL, "-");
         unsigned int copies = atoi(p);
 
-        insertBook(list, id, authors, title, year, copies);
-//        printf("%d, %s, %s, %d, %d\n\n", id, authors, title, year, copies);
+        Book *newbook = createBook(id, authors, title, year, copies);
+        insertBookByPointer(list, newbook);
         cnt++;
-//        booklist -> list = dummyhead;
         list -> length = cnt;
 
     }
