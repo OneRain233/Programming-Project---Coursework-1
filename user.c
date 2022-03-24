@@ -23,34 +23,36 @@ void user_menu_hint(){
 void user_menu(User *user, BookList *wholebooklist) {
 
     user_menu_hint();
+    getc(stdin);
     int choice = optionChoice();
-    while (choice != 1 && choice != 2 && choice != 3 && choice != 4) {
-        puts("Please input a choice!");
-        choice = optionChoice();
-    }
+
     while (choice != 0) {
         switch (choice) {
             case 1:
                 user_info(user);
+//                choice = optionChoice();
                 break;
             case 2:
 //            user_book_list(user);
                 user_borrowed_book_list(wholebooklist, user);
+//                choice = optionChoice();
                 break;
             case 3:
                 borrow_book_interface(wholebooklist, user);
+//                choice = optionChoice();
                 break;
             case 4:
                 return_book_interface(wholebooklist, user);
+//                choice = optionChoice();
                 break;
             default:
                 puts("Invalid choice!");
                 break;
         }
         user_menu_hint();
-        choice = optionChoice();
+//        choice = optionChoice();
     }
-
+//    getc(stdin);
 }
 
 void user_borrowed_book_list(BookList *booklist, User *pUser) {
@@ -136,7 +138,7 @@ void borrow_book(User *user, unsigned int id, BookList *wholeBookList) {
             return;
         }
     }
-    user->borrowNum++;
+
 
     user->bookList[user->borrowNum - 1] = id;
     Book *book = findBookByID(wholeBookList, id);
@@ -149,7 +151,7 @@ void borrow_book(User *user, unsigned int id, BookList *wholeBookList) {
         return;
     }
     book->copies--;
-
+    user->borrowNum++;
     puts("Borrow success!");
     printf("====================================================\n");
 }

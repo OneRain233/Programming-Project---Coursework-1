@@ -23,4 +23,14 @@ BookList *createBooklist(void);
 
 void store_user(FILE *fp, UserList *userList);
 
+int getOptions();
+
+void printf_red(const char *string);
+
+void printf_green(const char *string);
+
+void printf_yellow(const char *string);
+
+void printf_blue(const char *string);
+
 #endif //PROJECT1_UTILS_H

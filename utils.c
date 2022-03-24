@@ -120,12 +120,61 @@ BookList *createBooklist(void) {
 
 void store_user(FILE *fp, UserList *userList){
     User *cur = userList->list;
-    while( cur != NULL){
+    while (cur != NULL) {
         fprintf(fp, "%s\t%s\t%d\t%d\n", cur->username, cur->password, cur->borrowNum, cur->borrowMax);
-        for(int i = 0; i < cur->borrowNum; i++){
+        for (int i = 0; i < cur->borrowNum; i++) {
             fprintf(fp, "%d\n", cur->bookList[i]);
         }
         cur = cur->next;
 
     }
+}
+
+int isNum(const char *string) {
+    int i = 0;
+    while (string[i] != '\0') {
+        if (string[i] < '0' || string[i] > '9') {
+            return 0;
+        }
+        i++;
+    }
+    return 1;
+}
+
+int getOptions() {
+    int option = -1;
+    char line[80];
+    fflush(stdin);
+    fgets(line, 80, stdin);
+    line[strlen(line) - 1] = '\0';
+    if(line[0] == '\n' || line[0] == '\0') return -1;
+    if(isNum(line)) {
+        option = (int) atoi(line);
+    }
+    else{
+
+        option = -1;
+    }
+//    option = (int) atoi(line);
+
+    return option;
+}
+
+
+void printf_red(const char *string) {
+    printf("\033[0;31m%s\033[0m", string);
+}
+
+void printf_green(const char *string) {
+    printf("\033[0;32m%s\033[0m", string);
+}
+
+
+void printf_yellow(const char *string) {
+    printf("\033[0;33m%s\033[0m", string);
+}
+
+
+void printf_blue(const char *string) {
+    printf("\033[0;34m%s\033[0m", string);
 }

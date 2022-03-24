@@ -14,8 +14,8 @@
 #include "book_management.h"
 
 void menu() {
-    printf("====================================================\n");
-    printf("Welcome to Book Management System!\n");
+    printf_green("====================================================\n");
+    printf_red("Welcome to Book Management System!\n");
     printf("1. Register\n");
     printf("2. Login\n");
     printf("3. Find books by name\n");
@@ -23,7 +23,7 @@ void menu() {
     printf("5. Find books by year\n");
     printf("6. Admin manage\n");
     printf("0. Exit\n");
-    printf("====================================================\n");
+    printf_green("====================================================\n");
     printf("Please input your choice: ");
 }
 
@@ -40,22 +40,21 @@ void run_interface(char *book_file, char *user_file) {
 
     read_user(wholebooklist, userlist);
     FILE *user = fopen(user_file, "r");
-//    listUser(userlist);
     read_borrow_books(user, userlist, wholebooklist);
     menu();
     fclose(user);
-    int choice = 0;
-//    choice = optionChoice();
-    scanf("%d", &choice);
+    int choice = getOptions();
+
+//    printf("%d\n", choice);
     while (choice != 0) {
-//        printf("%d\n", choice);
+
         switch (choice) {
             case 1:
                 register_user(userlist);
-//                listUser(userlist);
+                getc(stdin);
                 break;
             case 2:
-                puts("Login");
+                printf_red("Login\n");
                 User *user = login(userlist);
                 if (user != NULL) {
                     printf("Welcome %s!\n", user->username);
@@ -63,8 +62,9 @@ void run_interface(char *book_file, char *user_file) {
                     user_menu(user, wholebooklist);
 
                 } else {
-                    puts("Login Failed!");
+                    printf_red("Login Failed!\n");
                 }
+//                getc(stdin);
                 break;
             case 3:
                 printf("====================================================\n");
@@ -82,8 +82,6 @@ void run_interface(char *book_file, char *user_file) {
                     printf("%d\n", booklist.length);
                     listBook(&booklist);
                 }
-//                listBook(&booklist);
-
                 break;
             case 4:
                 printf("====================================================\n");
@@ -102,7 +100,6 @@ void run_interface(char *book_file, char *user_file) {
                     printf("%d\n", res2.length);
                     listBook(&res2);
                 }
-
                 break;
             case 5:
                 printf("====================================================\n");
@@ -118,18 +115,17 @@ void run_interface(char *book_file, char *user_file) {
                     listBook(&res3);
                 }
                 break;
-            default:
-                printf("Invalid choice!\n");
-                break;
             case 6:
                 puts("Admin");
                 auth(wholebooklist, userlist, book_file);
+                break;
+            default:
+                printf("Your choice is %d!\n", choice);
+                printf("Invalid choice!\n");
+                break;
         }
         menu();
-        printf("\n");
-//        choice = optionChoice();
-        scanf("%d", &choice);
-
+        choice = getOptions();
     }
     FILE *fp1 = fopen(book_file, "w");
     store_books(fp1, recBookList);

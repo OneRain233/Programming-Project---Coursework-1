@@ -58,7 +58,7 @@ void add_book_interface(char *book_file, BookList *list){
     scanf("%d", &copies);
 
     Book *book = createBook(list->length,author, title, year, copies);
-    book->id = list->length + 1;
+    book->id = list->length;
 
     add_book(book, list);
     listBook(list);
@@ -88,9 +88,9 @@ void delete_book_interface(char *book_file, BookList *list) {
 void admin_menu(BookList *booklist, char *book_file){
 
     admin_menu_hint();
+    getc(stdin);
+    int choice = getOptions();
 
-    int choice;
-    scanf("%d", &choice);
     while(choice != 0){
         switch (choice) {
             case 1:
@@ -108,7 +108,7 @@ void admin_menu(BookList *booklist, char *book_file){
                 break;
         }
         admin_menu_hint();
-        scanf("%d", &choice);
+        choice = getOptions();
     }
 }
 

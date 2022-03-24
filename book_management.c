@@ -131,7 +131,7 @@ int add_book(Book *book, BookList *list){
     Book *newbook = (Book *) malloc(sizeof(Book));
     memccpy(newbook, book, sizeof(Book), sizeof(Book));
     insertBookByPointer(list, newbook);
-    list -> length++;
+//    list -> length++;
     return 0;
 }
 

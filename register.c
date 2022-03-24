@@ -131,21 +131,27 @@ void register_user(UserList *userlist) {
     printf("Please enter your username: ");
     scanf("%s", username);
 
-    if (check_exist(userlist, username)) {
+    while(check_exist(userlist, username) == 1) {
         printf("The username has been registered!\n");
-        return;
+        printf("Please enter your username: ");
+        scanf("%s", username);
     }
-    if(check_valid(username) == 0){
-        return;
+
+    while(check_valid(username) == 0) {
+        printf("Please enter your username: ");
+        scanf("%s", username);
     }
     printf("Please enter your password: ");
     scanf("%s", password);
     printf("Please enter your password again: ");
     scanf("%s", password_confirm);
 
-    if (strcmp(password, password_confirm) != 0) {
-        printf("Password not match!\n");
-        return;
+    while(strcmp(password, password_confirm) != 0) {
+        printf("The password is not the same!\n");
+        printf("Please enter your password: ");
+        scanf("%s", password);
+        printf("Please enter your password again: ");
+        scanf("%s", password_confirm);
     }
 
     User *new_user;
@@ -160,5 +166,6 @@ void register_user(UserList *userlist) {
 
     new_user->id = userlist->userNum;
     insertUser(userlist, new_user->id, new_user->username, new_user->password, new_user->borrowNum, new_user->borrowMax);
-
+    fflush(stdin);
+    printf("Register successfully!\n");
 }
