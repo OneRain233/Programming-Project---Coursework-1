@@ -108,6 +108,7 @@ void admin_menu(BookList *booklist, char *book_file){
                 break;
         }
         admin_menu_hint();
+        getc(stdin);
         choice = getOptions();
     }
 }

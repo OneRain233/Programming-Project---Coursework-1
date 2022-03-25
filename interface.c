@@ -51,7 +51,7 @@ void run_interface(char *book_file, char *user_file) {
         switch (choice) {
             case 1:
                 register_user(userlist);
-                getc(stdin);
+//                getc(stdin);
                 break;
             case 2:
                 printf_red("Login\n");
@@ -124,6 +124,8 @@ void run_interface(char *book_file, char *user_file) {
                 printf("Invalid choice!\n");
                 break;
         }
+        getc(stdin);
+//        fflush(stdin);
         menu();
         choice = getOptions();
     }

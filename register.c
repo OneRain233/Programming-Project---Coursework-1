@@ -99,7 +99,7 @@ void read_user(BookList *booklist, UserList *userlist) {
     }
     userlist->userNum = user_cnt;
     fclose(fp);
-//    listUser(userlist);
+    listUser(userlist);
 
 }
 

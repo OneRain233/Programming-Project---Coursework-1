@@ -121,6 +121,7 @@ BookList *createBooklist(void) {
 void store_user(FILE *fp, UserList *userList){
     User *cur = userList->list;
     while (cur != NULL) {
+        puts(cur->password);
         fprintf(fp, "%s\t%s\t%d\t%d\n", cur->username, cur->password, cur->borrowNum, cur->borrowMax);
         for (int i = 0; i < cur->borrowNum; i++) {
             fprintf(fp, "%d\n", cur->bookList[i]);

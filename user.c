@@ -24,7 +24,7 @@ void user_menu(User *user, BookList *wholebooklist) {
 
     user_menu_hint();
     getc(stdin);
-    int choice = optionChoice();
+    int choice = getOptions();
 
     while (choice != 0) {
         switch (choice) {
@@ -50,7 +50,7 @@ void user_menu(User *user, BookList *wholebooklist) {
                 break;
         }
         user_menu_hint();
-//        choice = optionChoice();
+        choice = getOptions();
     }
 //    getc(stdin);
 }
@@ -72,7 +72,7 @@ void user_borrowed_book_list(BookList *booklist, User *pUser) {
 
     }
 
-    printf("====================================================\n");
+//    printf("====================================================\n");
 }
 
 void user_info(User *pUser) {
@@ -140,7 +140,7 @@ void borrow_book(User *user, unsigned int id, BookList *wholeBookList) {
     }
 
 
-    user->bookList[user->borrowNum - 1] = id;
+    user->bookList[user->borrowNum] = id;
     Book *book = findBookByID(wholeBookList, id);
     if(book == NULL){
         puts("Book not found!");
@@ -153,7 +153,7 @@ void borrow_book(User *user, unsigned int id, BookList *wholeBookList) {
     book->copies--;
     user->borrowNum++;
     puts("Borrow success!");
-    printf("====================================================\n");
+//    printf("====================================================\n");
 }
 
 void return_book(User *user, unsigned int id, BookList *wholeBookList) {
@@ -190,7 +190,12 @@ void borrow_book_interface(BookList *wholetBookList, User *user) {
     printf("====================================================\n");
     listBook(wholetBookList);
     puts("Please input the book id:");
-    unsigned int id = optionChoice();
+    unsigned int id = getOptions();
+    printf("%d\n", id);
+    if(id == -1){
+        printf("Please input a valid id!\n");
+        return;
+    }
     borrow_book(user, id, wholetBookList);
     printf("====================================================\n");
 
@@ -200,7 +205,11 @@ void return_book_interface(BookList *wholetBookList, User *user) {
     printf("====================================================\n");
     user_borrowed_book_list(wholetBookList, user);
     puts("Please input the book id:");
-    unsigned int id = optionChoice();
+    unsigned int id = getOptions();
+    if(id == -1){
+        printf("Please input a valid id!\n");
+        return;
+    }
     return_book(user, id, wholetBookList);
     printf("====================================================\n");
 }
