@@ -9,14 +9,14 @@
 
 
 void user_menu_hint(){
-    printf("====================================================\n");
+//    printf("====================================================\n");
     puts("Welcome to user menu!");
     puts("1. View user info");
     puts("2. View user's book list");
     puts("3. Borrow a book");
     puts("4. Return a book");
     puts("0. Exit");
-    printf("====================================================\n");
+//    printf("====================================================\n");
 }
 
 
@@ -56,7 +56,7 @@ void user_menu(User *user, BookList *wholebooklist) {
 }
 
 void user_borrowed_book_list(BookList *booklist, User *pUser) {
-    printf("====================================================\n");
+//    printf("====================================================\n");
     if (pUser->borrowNum == 0) {
         puts("You have not borrowed any book!\n");
         return;
@@ -76,13 +76,13 @@ void user_borrowed_book_list(BookList *booklist, User *pUser) {
 }
 
 void user_info(User *pUser) {
-    printf("====================================================\n");
+//    printf("====================================================\n");
     printf("ID: %d\n", pUser->id);
     printf("Name: %s\n", pUser->username);
     printf("Max borrow num: %d\n", pUser->borrowMax);
     printf("Borrowed num: %d\n", pUser->borrowNum);
     printf("\n");
-    printf("====================================================\n");
+//    printf("====================================================\n");
 }
 
 User *findUserByUsername(UserList *userlist, char *username) {
@@ -127,7 +127,7 @@ void read_borrow_books(FILE *fp, UserList *userlist, BookList *wholebooklist) {
 
 
 void borrow_book(User *user, unsigned int id, BookList *wholeBookList) {
-    printf("====================================================\n");
+//    printf("====================================================\n");
     if (user->borrowNum >= user->borrowMax) {
         puts("You have borrowed the max num of books!");
         return;
@@ -157,7 +157,7 @@ void borrow_book(User *user, unsigned int id, BookList *wholeBookList) {
 }
 
 void return_book(User *user, unsigned int id, BookList *wholeBookList) {
-    printf("====================================================\n");
+//    printf("====================================================\n");
     if (user->borrowNum == 0) {
         puts("You have not borrowed any book!");
         return;
@@ -187,7 +187,7 @@ void return_book(User *user, unsigned int id, BookList *wholeBookList) {
 }
 
 void borrow_book_interface(BookList *wholetBookList, User *user) {
-    printf("====================================================\n");
+//    printf("====================================================\n");
     listBook(wholetBookList);
     puts("Please input the book id:");
     unsigned int id = getOptions();
@@ -197,12 +197,12 @@ void borrow_book_interface(BookList *wholetBookList, User *user) {
         return;
     }
     borrow_book(user, id, wholetBookList);
-    printf("====================================================\n");
+//    printf("====================================================\n");
 
 }
 
 void return_book_interface(BookList *wholetBookList, User *user) {
-    printf("====================================================\n");
+//    printf("====================================================\n");
     user_borrowed_book_list(wholetBookList, user);
     puts("Please input the book id:");
     unsigned int id = getOptions();
@@ -211,5 +211,5 @@ void return_book_interface(BookList *wholetBookList, User *user) {
         return;
     }
     return_book(user, id, wholetBookList);
-    printf("====================================================\n");
+//    printf("====================================================\n");
 }

@@ -14,8 +14,8 @@
 #include "book_management.h"
 
 void menu() {
-    printf_green("====================================================\n");
-    printf_red("Welcome to Book Management System!\n");
+//    printf_green("====================================================\n");
+    printf_green("Welcome to Book Management System!\n");
     printf("1. Register\n");
     printf("2. Login\n");
     printf("3. Find books by name\n");
@@ -23,7 +23,7 @@ void menu() {
     printf("5. Find books by year\n");
     printf("6. Admin manage\n");
     printf("0. Exit\n");
-    printf_green("====================================================\n");
+//    printf_green("====================================================\n");
     printf("Please input your choice: ");
 }
 
@@ -67,7 +67,7 @@ void run_interface(char *book_file, char *user_file) {
 //                getc(stdin);
                 break;
             case 3:
-                printf("====================================================\n");
+//                printf("====================================================\n");
                 puts("Find books by name");
                 char name[100];
                 printf("Please input the name: ");
@@ -84,7 +84,7 @@ void run_interface(char *book_file, char *user_file) {
                 }
                 break;
             case 4:
-                printf("====================================================\n");
+//                printf("====================================================\n");
                 puts("Find books by author\n");
                 char author[100];
                 printf("Please input the author: ");
@@ -102,7 +102,7 @@ void run_interface(char *book_file, char *user_file) {
                 }
                 break;
             case 5:
-                printf("====================================================\n");
+//                printf("====================================================\n");
                 puts("Find books by year");
                 unsigned int year;
                 printf("Please input the year: ");

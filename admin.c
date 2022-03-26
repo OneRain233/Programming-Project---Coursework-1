@@ -14,7 +14,7 @@ const char *password = "admin";
 
 
 void auth(BookList *booklist, UserList *userlist, char *book_file){
-    puts("====================================================");
+//    puts("====================================================");
     char *input_username = (char *)malloc(sizeof(char) * 20);
     char *input_password = (char *)malloc(sizeof(char) * 20);
     printf("Please input your username: ");
@@ -30,7 +30,7 @@ void auth(BookList *booklist, UserList *userlist, char *book_file){
 }
 
 void admin_menu_hint(){
-    printf("====================================================\n");
+//    printf("====================================================\n");
     puts("Welcome to the admin menu!");
     puts("Please choose the operation you want to do:");
     puts("1. Add a book");
@@ -38,12 +38,12 @@ void admin_menu_hint(){
     puts("3. List all books");
 
     puts("0. exit");
-    printf("====================================================\n");
+//    printf("====================================================\n");
 }
 
 
 void add_book_interface(char *book_file, BookList *list) {
-    printf("====================================================\n");
+//    printf("====================================================\n");
     char *title = (char *) malloc(sizeof(char) * 100);
     char *author = (char *) malloc(sizeof(char) * 100);
     char *tmp_year = (char *) malloc(sizeof(char) * 100);
@@ -70,7 +70,7 @@ void add_book_interface(char *book_file, BookList *list) {
         return;
     }
     unsigned int id = getLastID(list) + 1;
-    printf("============================%d=======================\n", id);
+//    printf("============================%d=======================\n", id);
     Book *book = createBook(id, author, title, year, copies);
 //    book->id = list->length;
 
@@ -80,12 +80,12 @@ void add_book_interface(char *book_file, BookList *list) {
     store_books(fp, list);
     fclose(fp);
     printf("Add book successfully!\n");
-    printf("====================================================\n");
+//    printf("====================================================\n");
 }
 
 
 void delete_book_interface(char *book_file, BookList *list) {
-    printf("====================================================\n");
+//    printf("====================================================\n");
     listBook(list);
     int id;
     printf("Please input the book id：");
@@ -101,7 +101,7 @@ void delete_book_interface(char *book_file, BookList *list) {
     FILE *fp = fopen(book_file, "w");
     store_books(fp, list);
     fclose(fp);
-    printf("====================================================\n");
+//    printf("====================================================\n");
 }
 
 void admin_menu(BookList *booklist, char *book_file){
