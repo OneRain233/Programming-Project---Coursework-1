@@ -58,7 +58,7 @@ void run_interface(char *book_file, char *user_file) {
                 User *user = login(userlist);
                 if (user != NULL) {
                     printf("Welcome %s!\n", user->username);
-                    printf("%d\n", user->borrowMax);
+//                    printf("%d\n", user->borrowMax);
                     user_menu(user, wholebooklist);
 
                 } else {
@@ -124,10 +124,12 @@ void run_interface(char *book_file, char *user_file) {
                 printf("Invalid choice!\n");
                 break;
         }
-        getc(stdin);
-//        fflush(stdin);
+
         menu();
         choice = getOptions();
+        while(choice == -1) {
+            choice = getOptions();
+        }
     }
     FILE *fp1 = fopen(book_file, "w");
     store_books(fp1, recBookList);

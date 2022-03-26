@@ -33,4 +33,9 @@ void printf_yellow(const char *string);
 
 void printf_blue(const char *string);
 
+int isNum(const char *string);
+
+void stdinClear();
+
+unsigned int getLastID(BookList *booklist);
 #endif //PROJECT1_UTILS_H

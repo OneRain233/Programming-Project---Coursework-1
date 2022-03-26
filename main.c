@@ -3,7 +3,7 @@
 #include "interface.h"
 
 int main(int argc, char *argv[]){
-    printf("%d\n", argc);
+//    printf("%d\n", argc);
     if(argc != 3){
         printf("Usage: %s <book_file>\n", argv[0]);
         return 1;

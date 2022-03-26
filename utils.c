@@ -121,7 +121,6 @@ BookList *createBooklist(void) {
 void store_user(FILE *fp, UserList *userList){
     User *cur = userList->list;
     while (cur != NULL) {
-        puts(cur->password);
         fprintf(fp, "%s\t%s\t%d\t%d\n", cur->username, cur->password, cur->borrowNum, cur->borrowMax);
         for (int i = 0; i < cur->borrowNum; i++) {
             fprintf(fp, "%d\n", cur->bookList[i]);
@@ -146,6 +145,7 @@ int getOptions() {
     int option = -1;
     char line[80];
     fflush(stdin);
+    rewind(stdin);
     fgets(line, 80, stdin);
     line[strlen(line) - 1] = '\0';
     if(line[0] == '\n' || line[0] == '\0') return -1;
@@ -156,7 +156,6 @@ int getOptions() {
 
         option = -1;
     }
-//    option = (int) atoi(line);
 
     return option;
 }
@@ -178,4 +177,20 @@ void printf_yellow(const char *string) {
 
 void printf_blue(const char *string) {
     printf("\033[0;34m%s\033[0m", string);
+}
+
+void stdinClear(){
+    char c;
+    while ((c = getchar()) != '\n' && c != EOF);
+}
+
+unsigned int getLastID(BookList *booklist) {
+    Book *cur = booklist->list->next;
+    unsigned int id = 0;
+    while (cur != NULL) {
+        id = cur->id;
+        printf("%d\n", id);
+        cur = cur->next;
+    }
+    return id;
 }

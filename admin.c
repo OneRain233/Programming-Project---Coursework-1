@@ -7,6 +7,7 @@
 #include "utils.h"
 #include "book_management.h"
 #include <string.h>
+#include <stdlib.h>
 
 const char *username = "admin";
 const char *password = "admin";
@@ -41,10 +42,13 @@ void admin_menu_hint(){
 }
 
 
-void add_book_interface(char *book_file, BookList *list){
+void add_book_interface(char *book_file, BookList *list) {
     printf("====================================================\n");
     char *title = (char *) malloc(sizeof(char) * 100);
     char *author = (char *) malloc(sizeof(char) * 100);
+    char *tmp_year = (char *) malloc(sizeof(char) * 100);
+    char *tmp_copies = (char *) malloc(sizeof(char) * 100);
+
     unsigned int year;
     unsigned int copies;
 
@@ -53,17 +57,27 @@ void add_book_interface(char *book_file, BookList *list){
     printf("Please input the book author：");
     scanf("%s", author);
     printf("Please input the year of publication：");
-    scanf("%d", &year);
+    scanf("%s", tmp_year);
     printf("Please input the copies：");
-    scanf("%d", &copies);
+    scanf("%s", tmp_copies);
 
-    Book *book = createBook(list->length,author, title, year, copies);
-    book->id = list->length;
+    if (isNum(tmp_year) && isNum(tmp_copies)) {
+        char *buf;
+        year = strtol(tmp_year, &buf, 10);
+        copies = strtol(tmp_copies, &buf, 10);
+    } else {
+        printf("Invalid input!\n");
+        return;
+    }
+    unsigned int id = getLastID(list) + 1;
+    printf("============================%d=======================\n", id);
+    Book *book = createBook(id, author, title, year, copies);
+//    book->id = list->length;
 
     add_book(book, list);
     listBook(list);
     FILE *fp = fopen(book_file, "w");
-    store_books(fp,list);
+    store_books(fp, list);
     fclose(fp);
     printf("Add book successfully!\n");
     printf("====================================================\n");
@@ -73,9 +87,14 @@ void add_book_interface(char *book_file, BookList *list){
 void delete_book_interface(char *book_file, BookList *list) {
     printf("====================================================\n");
     listBook(list);
-    unsigned int id;
+    int id;
     printf("Please input the book id：");
-    scanf("%d", &id);
+
+    id = getOptions();
+    if (id == -1) {
+        printf("Invalid input!\n");
+        return;
+    }
     deleteBook(list, id);
 
     listBook(list);
@@ -88,7 +107,7 @@ void delete_book_interface(char *book_file, BookList *list) {
 void admin_menu(BookList *booklist, char *book_file){
 
     admin_menu_hint();
-    getc(stdin);
+    stdinClear();
     int choice = getOptions();
 
     while(choice != 0){
@@ -102,15 +121,15 @@ void admin_menu(BookList *booklist, char *book_file){
             case 3:
                 listBook(booklist);
                 break;
-
             default:
                 puts("Invalid choice!");
                 break;
         }
         admin_menu_hint();
-        getc(stdin);
+//        stdinClear();
         choice = getOptions();
     }
+
 }
 
 
