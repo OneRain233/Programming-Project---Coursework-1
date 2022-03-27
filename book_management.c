@@ -22,8 +22,6 @@ BookList find_book_by_title(const char *title, BookList *booklist) {
         }
         cur = cur->next;
     }
-//    listBook(&res);
-
     return res;
 }
 
@@ -42,8 +40,6 @@ BookList find_book_by_author(const char *author, BookList *booklist) {
         }
         cur = cur->next;
     }
-//    listBook(&res);
-
     return res;
 }
 
@@ -63,8 +59,6 @@ BookList find_book_by_year(unsigned int year, BookList *booklist) {
         }
         cur = cur->next;
     }
-//    listBook(&res);
-
     return res;
 }
 
@@ -73,14 +67,12 @@ int load_books(FILE *file, BookList* list){
     if(file == NULL ) {
         return -1;
     }
-    Book *dummyhead = createBook(99999999, " ", " ", 0, 0);
+    Book *dummyhead = createBook(99999999, " ", " ", 0, 0,0);
     list->list = dummyhead;
     int cnt = 0;
 
     char line[1024];
     while (fgets(line, 1024, file) != NULL) {
-//        Book *newbook;
-//        newbook = (Book *) malloc(sizeof(Book));
         char *p = strtok(line, "-");
         unsigned id = atoi(p);
 
@@ -98,7 +90,9 @@ int load_books(FILE *file, BookList* list){
         p = strtok(NULL, "-");
         unsigned int copies = atoi(p);
 
-        Book *newbook = createBook(id, authors, title, year, copies);
+        p = strtok(NULL, "-");
+        int borrowed = atoi(p);
+        Book *newbook = createBook(id, authors, title, year, copies,borrowed);
         insertBookByPointer(list, newbook);
         cnt++;
         list -> length = cnt;
@@ -131,7 +125,6 @@ int add_book(Book *book, BookList *list){
     Book *newbook = (Book *) malloc(sizeof(Book));
     memccpy(newbook, book, sizeof(Book), sizeof(Book));
     insertBookByPointer(list, newbook);
-//    list -> length++;
     return 0;
 }
 
@@ -144,7 +137,11 @@ int remove_book(Book *book, BookList *list){
 
     while(cur != NULL) {
         if(cur -> id == book->id) {
-            deleteBook(list, cur->id);
+
+            dummyhead -> next = cur -> next;
+            free(cur);
+            list -> length--;
+
             return 0;
         }
         cur = cur -> next;

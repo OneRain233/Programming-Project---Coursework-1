@@ -14,7 +14,6 @@
 #include "book_management.h"
 
 void menu() {
-//    printf_green("====================================================\n");
     printf_green("Welcome to Book Management System!\n");
     printf("1. Register\n");
     printf("2. Login\n");
@@ -23,7 +22,6 @@ void menu() {
     printf("5. Find books by year\n");
     printf("6. Admin manage\n");
     printf("0. Exit\n");
-//    printf_green("====================================================\n");
     printf("Please input your choice: ");
 }
 

@@ -6,6 +6,7 @@
 #include <stdio.h>
 #include "datastructure.h"
 #include <string.h>
+#include "utils.h"
 
 User *login(UserList *userlist) {
     char username[20];
@@ -22,7 +23,7 @@ User *login(UserList *userlist) {
                 return cur;
             }
             else{
-                printf("Invalid username or password!");
+                printf_red("Invalid username or password!\n");
                 return NULL;
             }
         }

@@ -70,8 +70,9 @@ void add_book_interface(char *book_file, BookList *list) {
         return;
     }
     unsigned int id = getLastID(list) + 1;
+
 //    printf("============================%d=======================\n", id);
-    Book *book = createBook(id, author, title, year, copies);
+    Book *book = createBook(id, author, title, year, copies, 0);
 //    book->id = list->length;
 
     add_book(book, list);
@@ -95,13 +96,13 @@ void delete_book_interface(char *book_file, BookList *list) {
         printf("Invalid input!\n");
         return;
     }
-    deleteBook(list, id);
+    Book *book = findBookByID(list, id);
+    remove_book(book, list);
 
     listBook(list);
     FILE *fp = fopen(book_file, "w");
     store_books(fp, list);
     fclose(fp);
-//    printf("====================================================\n");
 }
 
 void admin_menu(BookList *booklist, char *book_file){

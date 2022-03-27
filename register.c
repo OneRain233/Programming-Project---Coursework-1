@@ -25,20 +25,6 @@ int check_exist(UserList *userlist, char *username) {
 }
 
 
-void listUser(UserList *userlist) {
-    User *cur = userlist->list;
-    if (cur == NULL) {
-        printf("No user\n");
-        return;
-    }
-    printf("User list:\n");
-    printf("%s\t%s", "ID", "Username\n");
-    while (cur != NULL) {
-        printf("%d\t%s\t%s\n", cur->id, cur->username, cur->password);
-        cur = cur->next;
-    }
-}
-
 User *createUser(unsigned int id, char *username, char *password, int borrowNum, int borrowMax) {
     User *new_user = (User *) malloc(sizeof(User));
     new_user->username = username;
@@ -99,7 +85,6 @@ void read_user(BookList *booklist, UserList *userlist) {
     }
     userlist->userNum = user_cnt;
     fclose(fp);
-//    listUser(userlist);
 
 }
 

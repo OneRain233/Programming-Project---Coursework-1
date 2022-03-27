@@ -17,6 +17,7 @@ typedef struct _Book {
 		unsigned int year; // year of publication
 		unsigned int copies; //number of copies the library has
 		struct _Book *next; //pointer to the next book element
+        int borrowed;
 }Book;
 
 typedef struct _BookList {

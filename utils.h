@@ -11,7 +11,7 @@ int optionChoice(void);
 
 void listBook(BookList *booklist);
 
-Book *createBook(unsigned int id, char *authors, char *title, unsigned int year, unsigned int copies);
+Book *createBook(unsigned int id, char *authors, char *title, unsigned int year, unsigned int copies, int borrowed);
 
 void deleteBook(BookList *booklist, unsigned int id);
 

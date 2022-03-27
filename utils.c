@@ -8,27 +8,6 @@
 #include <string.h>
 
 
-int optionChoice(void) {
-//    fflush(stdin);
-    int option = -1;
-    char line[80];
-
-    fgets(line, 80, stdin);
-
-    option = (int) atoi(line);
-
-    return option;
-}
-
-
-void removeNewLine(char *string) {
-
-    size_t length = strlen(string);
-
-    if ((length > 0) && (string[length - 1] == '\n')) {
-        string[length - 1] = '\0';
-    }
-}
 
 void listBook(BookList *booklist) {
     if(booklist->list == NULL) return;
@@ -44,7 +23,7 @@ void listBook(BookList *booklist) {
 
 
 
-Book *createBook(unsigned int id, char *authors, char *title, unsigned int year, unsigned int copies) {
+Book *createBook(unsigned int id, char *authors, char *title, unsigned int year, unsigned int copies, int borrowed) {
     Book *book = (Book *) malloc(sizeof(Book));
     book->id = id;
     book->authors = authors;
@@ -52,27 +31,27 @@ Book *createBook(unsigned int id, char *authors, char *title, unsigned int year,
     book->year = year;
     book->copies = copies;
     book->next = NULL;
+    book->borrowed = borrowed;
     return book;
 }
 
-void deleteBook(BookList *booklist, unsigned int id) {
-    Book *cur = booklist->list->next;
-    Book *prev = booklist->list;
-    while (cur != NULL) {
-        if (cur->id == id) {
-            prev->next = cur->next;
-//            free(cur);
-            break;
-        }
-        prev = cur;
-        cur = cur->next;
-    }
-}
+//void deleteBook(BookList *booklist, unsigned int id) {
+//    Book *cur = booklist->list->next;
+//    Book *prev = booklist->list;
+//    while (cur != NULL) {
+//        if (cur->id == id) {
+//            prev->next = cur->next;
+//            break;
+//        }
+//        prev = cur;
+//        cur = cur->next;
+//    }
+//}
 
 
 
 void insertBookByPointer(BookList *booklist, Book *book) {
-    if(booklist == NULL) {
+    if (booklist == NULL) {
         booklist->list = createBooklist();
     }
     Book *dummyhead = booklist->list;
@@ -98,8 +77,6 @@ Book *findBookByID(BookList *booklist, unsigned int id){
 //    Book *cur = dummyhead -> next;
     Book *cur = dummyhead;
     while (cur != NULL){
-//        puts("finding");
-//        printf("%d", cur -> id);
         if (cur -> id == id){
             return cur;
         }
@@ -112,7 +89,7 @@ Book *findBookByID(BookList *booklist, unsigned int id){
 BookList *createBooklist(void) {
     BookList *booklist = (BookList *) malloc(sizeof(BookList));
     booklist->list = (Book *) malloc(sizeof(Book));
-    Book *dummyhead = createBook(999, "", "", 0, 0);
+    Book *dummyhead = createBook(999, "", "", 0, 0,0);
     booklist->list = dummyhead;
     booklist->length = 0;
     return booklist;
@@ -169,15 +146,6 @@ void printf_green(const char *string) {
     printf("\033[0;32m%s\033[0m", string);
 }
 
-
-void printf_yellow(const char *string) {
-    printf("\033[0;33m%s\033[0m", string);
-}
-
-
-void printf_blue(const char *string) {
-    printf("\033[0;34m%s\033[0m", string);
-}
 
 void stdinClear(){
     char c;
