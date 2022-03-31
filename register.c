@@ -8,7 +8,7 @@
 #include <string.h>
 #include <stdlib.h>
 
-
+/* Check if the username is existed */
 int check_exist(UserList *userlist, char *username) {
     User *cur = userlist->list;
     if (cur == NULL) {
@@ -24,7 +24,7 @@ int check_exist(UserList *userlist, char *username) {
     return 0;
 }
 
-
+/* Create a User */
 User *createUser(unsigned int id, char *username, char *password, int borrowNum, int borrowMax) {
     User *new_user = (User *) malloc(sizeof(User));
     new_user->username = username;
@@ -37,6 +37,7 @@ User *createUser(unsigned int id, char *username, char *password, int borrowNum,
 
 }
 
+/* Insert User to the linked list */
 User *insertUser(UserList *userlist, unsigned int id, char *username, char *password, int borrowNum, int borrowMax) {
     User *user = createUser(id, username, password, borrowNum, borrowMax);
     User *cur = userlist->list;
@@ -51,6 +52,7 @@ User *insertUser(UserList *userlist, unsigned int id, char *username, char *pass
     return user;
 }
 
+/* Read users from file */
 void read_user(BookList *booklist, UserList *userlist) {
     FILE *fp;
     fp = fopen("user.txt", "r");
@@ -91,7 +93,7 @@ void read_user(BookList *booklist, UserList *userlist) {
 
 }
 
-
+/* Check if the username is valid */
 int check_valid(char *username){
     char invalid_char[] = "!@#$%^&*()_+-=[]{}|;':\",./<>?`~";
     for (int i = 0; i < strlen(username); i++) {
@@ -110,6 +112,7 @@ int check_valid(char *username){
     return 1;
 }
 
+/* Register menu */
 void register_user(UserList *userlist) {
 
     char username[20];

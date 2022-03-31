@@ -7,8 +7,7 @@
 #include <stdlib.h>
 #include <string.h>
 
-
-
+/* List books from the linked list */
 void listBook(BookList *booklist) {
     if(booklist->list == NULL) return;
     Book *cur = booklist->list->next;
@@ -21,6 +20,7 @@ void listBook(BookList *booklist) {
     }
 }
 
+/* Create a book */
 Book *createBook(unsigned int id, char *authors, char *title, unsigned int year, unsigned int copies, int borrowed) {
     Book *book = (Book *) malloc(sizeof(Book));
     book->id = id;
@@ -33,6 +33,7 @@ Book *createBook(unsigned int id, char *authors, char *title, unsigned int year,
     return book;
 }
 
+/* Insert a book by a point to the linked list */
 void insertBookByPointer(BookList *booklist, Book *book) {
     if (booklist == NULL) {
         booklist->list = book;
@@ -54,6 +55,7 @@ void insertBookByPointer(BookList *booklist, Book *book) {
 
 }
 
+/* Find book by id */
 Book *findBookByID(BookList *booklist, unsigned int id){
     Book *dummyhead = booklist -> list;
     Book *cur = dummyhead;
@@ -66,16 +68,7 @@ Book *findBookByID(BookList *booklist, unsigned int id){
     return NULL;
 }
 
-
-BookList *createBooklist(void) {
-    BookList *booklist = (BookList *) malloc(sizeof(BookList));
-    booklist->list = (Book *) malloc(sizeof(Book));
-    Book *dummyhead = createBook(999, "", "", 0, 0,0);
-    booklist->list = dummyhead;
-    booklist->length = 0;
-    return booklist;
-}
-
+/* Store users to file */
 void store_user(FILE *fp, UserList *userList){
     User *cur = userList->list;
     while (cur != NULL) {
@@ -88,6 +81,7 @@ void store_user(FILE *fp, UserList *userList){
     }
 }
 
+/* Check a string if it is a number */
 int isNum(const char *string) {
     int i = 0;
     while (string[i] != '\0') {
@@ -99,6 +93,7 @@ int isNum(const char *string) {
     return 1;
 }
 
+/* Get user input options */
 int getOptions() {
     int option = -1;
     char line[80];
@@ -118,19 +113,23 @@ int getOptions() {
     return option;
 }
 
+/* Print in red */
 void printf_red(const char *string) {
     printf("\033[0;31m%s\033[0m", string);
 }
 
+/* Print in green */
 void printf_green(const char *string) {
     printf("\033[0;32m%s\033[0m", string);
 }
 
+/* Clear the stdin */
 void stdinClear(){
     char c;
     while ((c = getchar()) != '\n' && c != EOF);
 }
 
+/* Get the last ID of the booklist */
 unsigned int getLastID(BookList *booklist) {
     Book *cur = booklist->list->next;
     unsigned int id = 0;
@@ -141,6 +140,7 @@ unsigned int getLastID(BookList *booklist) {
     return id;
 }
 
+/* Check a book is existed */
 Book *isExist(BookList *pList, char *title, char *author, unsigned int year) {
     Book *cur = pList->list;
     while (cur != NULL) {

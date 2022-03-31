@@ -12,9 +12,7 @@
 const char *username = "admin";
 const char *password = "admin";
 
-
-
-
+/* Authentication */
 void auth(BookList *booklist, UserList *userlist, char *book_file) {
     char *input_username = (char *) malloc(sizeof(char) * 20);
     char *input_password = (char *) malloc(sizeof(char) * 20);
@@ -30,6 +28,7 @@ void auth(BookList *booklist, UserList *userlist, char *book_file) {
     }
 }
 
+/* Show admin menu */
 void admin_menu_hint(){
     puts("Welcome to the admin menu!");
     puts("Please choose the operation you want to do:");
@@ -41,6 +40,7 @@ void admin_menu_hint(){
 }
 
 
+/* Show the interface of adding books */
 void add_book_interface(char *book_file, BookList *list) {
     char *title = (char *) malloc(sizeof(char) * 100);
     char *author = (char *) malloc(sizeof(char) * 100);
@@ -86,7 +86,7 @@ void add_book_interface(char *book_file, BookList *list) {
 }
 
 
-
+/* Show the interface of delete books */
 void delete_book_interface(char *book_file, BookList *list) {
     listBook(list);
     int id;
@@ -106,6 +106,7 @@ void delete_book_interface(char *book_file, BookList *list) {
     fclose(fp);
 }
 
+/* Show the admin menu */
 void admin_menu(BookList *booklist, char *book_file){
 
     admin_menu_hint();

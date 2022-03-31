@@ -8,6 +8,7 @@
 #include <string.h>
 #include "utils.h"
 
+/* Login interface */
 User *login(UserList *userlist) {
     char username[20];
     char password[20];

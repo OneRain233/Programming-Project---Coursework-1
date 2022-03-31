@@ -13,6 +13,7 @@
 #include "admin.h"
 #include "book_management.h"
 
+/* Show the menu */
 void menu() {
     printf_green("## Welcome to Book Management System! ##\n");
     printf("1. Register\n");
@@ -25,6 +26,7 @@ void menu() {
     printf("Please input your choice: ");
 }
 
+/* Show the interface */
 void run_interface(char *book_file, char *user_file) {
 
     UserList *userlist = (UserList *) malloc(sizeof(userlist));

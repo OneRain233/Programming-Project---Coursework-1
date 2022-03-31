@@ -7,6 +7,7 @@
 #include <stdlib.h>
 #include "utils.h"
 
+/* Find book by title */
 BookList find_book_by_title(const char *title, BookList *booklist) {
     BookList res;
     res.length = 0;
@@ -25,6 +26,7 @@ BookList find_book_by_title(const char *title, BookList *booklist) {
     return res;
 }
 
+/* Find book by authors */
 BookList find_book_by_author(const char *author, BookList *booklist) {
     BookList res;
     res.length = 0;
@@ -43,7 +45,7 @@ BookList find_book_by_author(const char *author, BookList *booklist) {
     return res;
 }
 
-
+/* Find books by year */
 BookList find_book_by_year(unsigned int year, BookList *booklist) {
     BookList res;
     res.length = 0;
@@ -62,7 +64,7 @@ BookList find_book_by_year(unsigned int year, BookList *booklist) {
     return res;
 }
 
-
+/* Load books from file */
 int load_books(FILE *file, BookList* list){
     if(file == NULL ) {
         return -1;
@@ -101,7 +103,7 @@ int load_books(FILE *file, BookList* list){
     return 0;
 }
 
-
+/* Store books to file */
 int store_books(FILE *file, BookList *list){
     if(file == NULL || list == NULL) {
         puts("file or list is NULL");
@@ -118,7 +120,7 @@ int store_books(FILE *file, BookList *list){
     return 0;
 }
 
-
+/* Add books to the linked list */
 int add_book(Book *book, BookList *list){
     if(list == NULL) {
         return -1;
@@ -129,6 +131,7 @@ int add_book(Book *book, BookList *list){
     return 0;
 }
 
+/* Remove book from the linked list */
 int remove_book(Book *book, BookList *list){
     if(list == NULL) {
         return -1;
