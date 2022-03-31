@@ -14,7 +14,7 @@
 #include "book_management.h"
 
 void menu() {
-    printf_green("Welcome to Book Management System!\n");
+    printf_green("## Welcome to Book Management System! ##\n");
     printf("1. Register\n");
     printf("2. Login\n");
     printf("3. Find books by name\n");

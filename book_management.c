@@ -111,8 +111,9 @@ int store_books(FILE *file, BookList *list){
     Book *cur = dummyhead -> next;
 
     while(cur != NULL) {
-        fprintf(file, "%d-%s-%s-%d-%d\n", cur -> id, cur -> authors, cur -> title, cur -> year, cur -> copies);
-        cur = cur -> next;
+        fprintf(file, "%d-%s-%s-%d-%d-%d\n",
+                cur->id, cur->authors, cur->title, cur->year, cur->copies, cur->borrowed);
+        cur = cur->next;
     }
     return 0;
 }

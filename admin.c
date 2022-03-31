@@ -8,21 +8,24 @@
 #include "book_management.h"
 #include <string.h>
 #include <stdlib.h>
+#include <f2fs_fs.h>
 
 const char *username = "admin";
 const char *password = "admin";
 
 
-void auth(BookList *booklist, UserList *userlist, char *book_file){
+Book *isExist(BookList *pList, char *title, char *author, unsigned int year);
+
+void auth(BookList *booklist, UserList *userlist, char *book_file) {
 //    puts("====================================================");
-    char *input_username = (char *)malloc(sizeof(char) * 20);
-    char *input_password = (char *)malloc(sizeof(char) * 20);
+    char *input_username = (char *) malloc(sizeof(char) * 20);
+    char *input_password = (char *) malloc(sizeof(char) * 20);
     printf("Please input your username: ");
     scanf("%s", input_username);
     printf("Please input your password: ");
     scanf("%s", input_password);
     if (strcmp(input_username, username) == 0 && strcmp(input_password, password) == 0) {
-        admin_menu(booklist,book_file);
+        admin_menu(booklist, book_file);
     } else {
         printf("Wrong username or password!\n");
         return;
@@ -71,6 +74,12 @@ void add_book_interface(char *book_file, BookList *list) {
     }
     unsigned int id = getLastID(list) + 1;
 
+    //check if exist
+    Book *pBook = isExist(list, title, author, year);
+    if (pBook != NULL) {
+        pBook->copies += copies;
+        return;
+    }
 //    printf("============================%d=======================\n", id);
     Book *book = createBook(id, author, title, year, copies, 0);
 //    book->id = list->length;
@@ -82,6 +91,18 @@ void add_book_interface(char *book_file, BookList *list) {
     fclose(fp);
     printf("Add book successfully!\n");
 //    printf("====================================================\n");
+}
+
+Book *isExist(BookList *pList, char *title, char *author, unsigned int year) {
+    Book *cur = pList->list;
+    while (cur != NULL) {
+        if (strcmp(cur->title, title) == 0 && strcmp(cur->authors, author) == 0 && cur->year == year) {
+            return cur;
+        }
+        cur = cur->next;
+    }
+    return NULL;
+
 }
 
 
