@@ -8,8 +8,11 @@
 #include "book_management.h"
 #include "datastructure.h"
 void admin_menu_hint();
+
 void delete_book_interface(char *book_file, BookList *list);
+
 void admin_menu(BookList *booklist, char *book_file);
+
 void add_book_interface(char *book_file, BookList *list);
 
 void auth(BookList *booklist, UserList *userlist, char *book_file);

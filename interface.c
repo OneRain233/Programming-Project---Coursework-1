@@ -43,29 +43,24 @@ void run_interface(char *book_file, char *user_file) {
     fclose(user);
     int choice = getOptions();
 
-//    printf("%d\n", choice);
     while (choice != 0) {
 
         switch (choice) {
             case 1:
                 register_user(userlist);
-//                getc(stdin);
                 break;
             case 2:
                 printf_red("Login\n");
                 User *user = login(userlist);
                 if (user != NULL) {
                     printf("Welcome %s!\n", user->username);
-//                    printf("%d\n", user->borrowMax);
                     user_menu(user, wholebooklist);
 
                 } else {
                     printf_red("Login Failed!\n");
                 }
-//                getc(stdin);
                 break;
             case 3:
-//                printf("====================================================\n");
                 puts("Find books by name");
                 char name[100];
                 printf("Please input the name: ");
@@ -75,14 +70,13 @@ void run_interface(char *book_file, char *user_file) {
 
                 BookList booklist = find_book_by_title(name, wholebooklist);
                 if(booklist.length == 0) {
-                    puts("!!!No books found!!!");
+                    printf("!!!No books found!!!\n");
                 } else {
                     printf("%d\n", booklist.length);
                     listBook(&booklist);
                 }
                 break;
             case 4:
-//                printf("====================================================\n");
                 puts("Find books by author\n");
                 char author[100];
                 printf("Please input the author: ");
@@ -93,28 +87,27 @@ void run_interface(char *book_file, char *user_file) {
                 puts(author);
                 BookList res2 = find_book_by_author(author, wholebooklist);
                 if(res2.length == 0) {
-                    puts("!!!No books found!!!");
+                    printf("!!!No books found!!!\n");
                 } else {
                     printf("%d\n", res2.length);
                     listBook(&res2);
                 }
                 break;
             case 5:
-//                printf("====================================================\n");
-                puts("Find books by year");
+                printf("Find books by year\n");
                 unsigned int year;
                 printf("Please input the year: ");
                 scanf("%u", &year);
                 BookList res3 = find_book_by_year(year, wholebooklist);
                 if(res3.length == 0) {
-                    puts("!!!No books found!!!");
+                    printf("!!!No books found!!!\n");
                 } else {
                     printf("%d\n", res3.length);
                     listBook(&res3);
                 }
                 break;
             case 6:
-                puts("Admin");
+                printf("Admin\n");
                 auth(wholebooklist, userlist, book_file);
                 break;
             default:

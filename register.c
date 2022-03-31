@@ -48,7 +48,6 @@ User *insertUser(UserList *userlist, unsigned int id, char *username, char *pass
         cur = cur->next;
     }
     cur->next = user;
-//    userlist->userNum ++;
     return user;
 }
 
@@ -66,7 +65,6 @@ void read_user(BookList *booklist, UserList *userlist) {
     int user_cnt = 0;
 
     while (fscanf(fp, "%s\t%s\t%d\t%d\n", username, password, &borrowNum, &maxBorrowNum) != EOF) {
-//        User *user = createUser();
         char *buf = (char *) malloc(sizeof(char) * 20);
         char *tmp_username = (char *) malloc(20 * sizeof(char));
         char *tmp_password = (char *) malloc(20 * sizeof(char));
@@ -76,7 +74,12 @@ void read_user(BookList *booklist, UserList *userlist) {
         strcpy(tmp_password, password);
         tmp_borrowNum = borrowNum;
         tmp_maxBorrowNum = maxBorrowNum;
-        User *user = insertUser(userlist, user_cnt, tmp_username, tmp_password, tmp_borrowNum, tmp_maxBorrowNum);
+        User *user = insertUser(userlist,
+                                user_cnt,
+                                tmp_username,
+                                tmp_password,
+                                tmp_borrowNum,
+                                tmp_maxBorrowNum);
         user_cnt++;
         for (int i = 0; i < user->borrowNum; i++) {
             fscanf(fp, "%s\n", buf);
@@ -150,7 +153,11 @@ void register_user(UserList *userlist) {
     new_user->borrowNum = 0;
 
     new_user->id = userlist->userNum;
-    insertUser(userlist, new_user->id, new_user->username, new_user->password, new_user->borrowNum, new_user->borrowMax);
+    insertUser(userlist, new_user->id,
+               new_user->username,
+               new_user->password,
+               new_user->borrowNum,
+               new_user->borrowMax);
     fflush(stdin);
     printf("Register successfully!\n");
 }

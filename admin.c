@@ -8,16 +8,14 @@
 #include "book_management.h"
 #include <string.h>
 #include <stdlib.h>
-#include <f2fs_fs.h>
 
 const char *username = "admin";
 const char *password = "admin";
 
 
-Book *isExist(BookList *pList, char *title, char *author, unsigned int year);
+
 
 void auth(BookList *booklist, UserList *userlist, char *book_file) {
-//    puts("====================================================");
     char *input_username = (char *) malloc(sizeof(char) * 20);
     char *input_password = (char *) malloc(sizeof(char) * 20);
     printf("Please input your username: ");
@@ -33,7 +31,6 @@ void auth(BookList *booklist, UserList *userlist, char *book_file) {
 }
 
 void admin_menu_hint(){
-//    printf("====================================================\n");
     puts("Welcome to the admin menu!");
     puts("Please choose the operation you want to do:");
     puts("1. Add a book");
@@ -41,12 +38,10 @@ void admin_menu_hint(){
     puts("3. List all books");
 
     puts("0. exit");
-//    printf("====================================================\n");
 }
 
 
 void add_book_interface(char *book_file, BookList *list) {
-//    printf("====================================================\n");
     char *title = (char *) malloc(sizeof(char) * 100);
     char *author = (char *) malloc(sizeof(char) * 100);
     char *tmp_year = (char *) malloc(sizeof(char) * 100);
@@ -80,9 +75,7 @@ void add_book_interface(char *book_file, BookList *list) {
         pBook->copies += copies;
         return;
     }
-//    printf("============================%d=======================\n", id);
     Book *book = createBook(id, author, title, year, copies, 0);
-//    book->id = list->length;
 
     add_book(book, list);
     listBook(list);
@@ -90,24 +83,11 @@ void add_book_interface(char *book_file, BookList *list) {
     store_books(fp, list);
     fclose(fp);
     printf("Add book successfully!\n");
-//    printf("====================================================\n");
 }
 
-Book *isExist(BookList *pList, char *title, char *author, unsigned int year) {
-    Book *cur = pList->list;
-    while (cur != NULL) {
-        if (strcmp(cur->title, title) == 0 && strcmp(cur->authors, author) == 0 && cur->year == year) {
-            return cur;
-        }
-        cur = cur->next;
-    }
-    return NULL;
-
-}
 
 
 void delete_book_interface(char *book_file, BookList *list) {
-//    printf("====================================================\n");
     listBook(list);
     int id;
     printf("Please input the book id：");
@@ -148,7 +128,6 @@ void admin_menu(BookList *booklist, char *book_file){
                 break;
         }
         admin_menu_hint();
-//        stdinClear();
         choice = getOptions();
     }
 

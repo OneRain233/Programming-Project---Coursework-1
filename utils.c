@@ -21,8 +21,6 @@ void listBook(BookList *booklist) {
     }
 }
 
-
-
 Book *createBook(unsigned int id, char *authors, char *title, unsigned int year, unsigned int copies, int borrowed) {
     Book *book = (Book *) malloc(sizeof(Book));
     book->id = id;
@@ -35,24 +33,9 @@ Book *createBook(unsigned int id, char *authors, char *title, unsigned int year,
     return book;
 }
 
-//void deleteBook(BookList *booklist, unsigned int id) {
-//    Book *cur = booklist->list->next;
-//    Book *prev = booklist->list;
-//    while (cur != NULL) {
-//        if (cur->id == id) {
-//            prev->next = cur->next;
-//            break;
-//        }
-//        prev = cur;
-//        cur = cur->next;
-//    }
-//}
-
-
-
 void insertBookByPointer(BookList *booklist, Book *book) {
     if (booklist == NULL) {
-        booklist->list = createBooklist();
+        booklist->list = book;
     }
     Book *dummyhead = booklist->list;
     book->next = NULL;
@@ -72,9 +55,7 @@ void insertBookByPointer(BookList *booklist, Book *book) {
 }
 
 Book *findBookByID(BookList *booklist, unsigned int id){
-//    puts("findBookByID");
     Book *dummyhead = booklist -> list;
-//    Book *cur = dummyhead -> next;
     Book *cur = dummyhead;
     while (cur != NULL){
         if (cur -> id == id){
@@ -137,7 +118,6 @@ int getOptions() {
     return option;
 }
 
-
 void printf_red(const char *string) {
     printf("\033[0;31m%s\033[0m", string);
 }
@@ -145,7 +125,6 @@ void printf_red(const char *string) {
 void printf_green(const char *string) {
     printf("\033[0;32m%s\033[0m", string);
 }
-
 
 void stdinClear(){
     char c;
@@ -157,8 +136,21 @@ unsigned int getLastID(BookList *booklist) {
     unsigned int id = 0;
     while (cur != NULL) {
         id = cur->id;
-        printf("%d\n", id);
         cur = cur->next;
     }
     return id;
+}
+
+Book *isExist(BookList *pList, char *title, char *author, unsigned int year) {
+    Book *cur = pList->list;
+    while (cur != NULL) {
+        if (strcmp(cur->title, title) == 0
+            && strcmp(cur->authors, author) == 0
+            && cur->year == year) {
+            return cur;
+        }
+        cur = cur->next;
+    }
+    return NULL;
+
 }

@@ -37,5 +37,6 @@ int isNum(const char *string);
 
 void stdinClear();
 
+Book *isExist(BookList *pList, char *title, char *author, unsigned int year);
 unsigned int getLastID(BookList *booklist);
 #endif //PROJECT1_UTILS_H
