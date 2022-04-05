@@ -6,6 +6,7 @@
 #include "utils.h"
 #include <string.h>
 #include <malloc.h>
+#include <stdlib.h>
 
 /* User menu */
 void user_menu_hint(){
@@ -63,11 +64,11 @@ void user_borrowed_book_list(BookList *booklist, User *pUser) {
 
 /* List the user info */
 void user_info(User *pUser) {
+    printf_green("\n====User info====\n");
     printf("ID: %d\n", pUser->id);
     printf("Name: %s\n", pUser->username);
     printf("Max borrow num: %d\n", pUser->borrowMax);
     printf("Borrowed num: %d\n", pUser->borrowNum);
-    printf("\n");
 }
 
 /* Find user by username */
@@ -86,8 +87,8 @@ User *findUserByUsername(UserList *userlist, char *username) {
 void read_borrow_books(FILE *fp, UserList *userlist, BookList *wholebooklist) {
 
     if (fp == NULL) {
-        fprintf(stderr,"File open error!\n");
-        return;
+        fprintf(stderr, "File open error!\n");
+        exit(1);
     }
 
     char *username = (char *) malloc(sizeof(char) * 20);
@@ -107,13 +108,13 @@ void read_borrow_books(FILE *fp, UserList *userlist, BookList *wholebooklist) {
             fscanf(fp, "%d\n", &bookId);
             User *pUser = findUserByUsername(userlist, username);
             if (pUser == NULL) {
-                puts("User not found!");
+                fprintf(stderr, "User not found!");
                 return;
             }
 
             Book *pBook = findBookByID(wholebooklist, bookId);
             if (pBook == NULL) {
-                puts("Book not found!");
+                fprintf(stderr, "Book not found!");
                 return;
             }
             Book *newBook = (Book *) malloc(sizeof(Book));
@@ -136,7 +137,7 @@ void read_borrow_books(FILE *fp, UserList *userlist, BookList *wholebooklist) {
 /* Borrow book Logic */
 void borrow_book(User *user, unsigned int id, BookList *wholeBookList) {
     if (user->borrowNum >= user->borrowMax) {
-        printf("You have borrowed the max num of books!\n");
+        printf_red("You have borrowed the max num of books!\n");
         return;
     }
 
@@ -144,11 +145,11 @@ void borrow_book(User *user, unsigned int id, BookList *wholeBookList) {
 
     Book *book = findBookByID(wholeBookList, id);
     if (book == NULL) {
-        printf("Book not found!\n");
+        printf_red("Book not found!\n");
         return;
     }
     if (book->copies == 0) {
-        printf("Book is not available!\n");
+        printf_red("Book is not available!\n");
         return;
     }
 
@@ -166,20 +167,20 @@ void borrow_book(User *user, unsigned int id, BookList *wholeBookList) {
     book->copies--;
     book->borrowed++;
     user->borrowNum++;
-    printf("Borrow success!\n");
+    printf_green("Borrow success!\n");
 }
 
 /* Return book Logic */
 void return_book(User *user, unsigned int id, BookList *wholeBookList) {
     if (user->borrowNum == 0) {
-        printf("You have not borrowed any book!\n");
+        printf_red("You have not borrowed any book!\n");
         return;
     }
 
     BookList *dummyHead = user->bookList;
     Book *delBook = findBookByID(dummyHead, id);
     if (delBook == NULL) {
-        printf("Book not found!\n");
+        printf_red("Book not found!\n");
         return;
     }
 
@@ -187,8 +188,8 @@ void return_book(User *user, unsigned int id, BookList *wholeBookList) {
 
     Book *book = findBookByID(wholeBookList, id);
     book->copies++;
-    book->borrowed --;
-    printf("Return success!\n");
+    book->borrowed--;
+    printf_green("Return success!\n");
 }
 
 /* Borrow book interface */
@@ -197,7 +198,7 @@ void borrow_book_interface(BookList *wholetBookList, User *user) {
     printf("Please input the book id: ");
     unsigned int id = getOptions();
     if(id == -1){
-        printf("Please input a valid id!\n");
+        printf_red("Please input a valid id!\n");
         return;
     }
     borrow_book(user, id, wholetBookList);
@@ -210,7 +211,7 @@ void return_book_interface(BookList *wholetBookList, User *user) {
     printf("Please input the book id:");
     unsigned int id = getOptions();
     if(id == -1){
-        printf("Please input a valid id!\n");
+        printf_red("Please input a valid id!\n");
         return;
     }
     return_book(user, id, wholetBookList);

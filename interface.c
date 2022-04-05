@@ -39,7 +39,7 @@ void run_interface(char *book_file, char *user_file) {
     BookList *recBookList = (BookList *) malloc(sizeof(BookList));
     memcpy(recBookList, wholebooklist, sizeof(BookList));
 
-    read_user(wholebooklist, userlist);
+    read_user(user_file, userlist);
     FILE *user = fopen(user_file, "r");
     read_borrow_books(user, userlist, wholebooklist);
     menu();

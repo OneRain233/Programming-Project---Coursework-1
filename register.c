@@ -55,12 +55,12 @@ User *insertUser(UserList *userlist, unsigned int id, char *username, char *pass
 }
 
 /* Read users from file */
-void read_user(BookList *booklist, UserList *userlist) {
+void read_user(char *user_file, UserList *userlist) {
     FILE *fp;
-    fp = fopen("user.txt", "r");
+    fp = fopen(user_file, "r");
     if (fp == NULL) {
-        printf("Open file error！\n");
-        exit(0);
+        fprintf(stderr, "Open User file error！\n");
+        exit(1);
     }
     char *username = (char *) malloc(sizeof(char) * 20);
     char *password = (char *) malloc(sizeof(char) * 20);
