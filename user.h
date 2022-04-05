@@ -10,8 +10,6 @@
 
 void user_info(User *pUser);
 
-void user_book_list(User *pUser);
-
 void user_borrowed_book_list(BookList *booklist, User *pUser);
 
 void user_menu(User *user, BookList *wholebooklist);

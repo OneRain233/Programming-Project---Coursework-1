@@ -10,10 +10,13 @@
 /* List books from the linked list */
 void listBook(BookList *booklist) {
     if(booklist->list == NULL) return;
-    Book *cur = booklist->list->next;
+    Book *cur = booklist->list;
     printf("%s\t%s\t%s\t%s\t%s\n", "ID", "Authors", "Title", "Year", "Copies");
     while (cur != NULL) {
-
+        if(cur->id == 99999999) {
+            cur = cur->next;
+            continue;
+        }
         printf("%d\t%s\t%s\t%d\t%d\n", cur->id, cur->authors, cur->title, cur->year, cur->copies);
         cur = cur->next;
 
@@ -35,25 +38,17 @@ Book *createBook(unsigned int id, char *authors, char *title, unsigned int year,
 
 /* Insert a book by a point to the linked list */
 void insertBookByPointer(BookList *booklist, Book *book) {
-    if (booklist == NULL) {
+    if (booklist->list == NULL) {
         booklist->list = book;
+        return;
     }
-    Book *dummyhead = booklist->list;
-    book->next = NULL;
-    if (dummyhead->next == NULL) {
-        dummyhead->next = book;
-    } else {
-        Book *cur = dummyhead;
-        while (cur->next != NULL) {
-            cur = cur->next;
-        }
-        cur->next = book;
-        book->next = NULL;
+    Book *cur = booklist->list;
+    while (cur->next != NULL) {
+        cur = cur->next;
     }
-    booklist->length++;
-
-
+    cur->next = book;
 }
+
 
 /* Find book by id */
 Book *findBookByID(BookList *booklist, unsigned int id){
@@ -73,9 +68,13 @@ void store_user(FILE *fp, UserList *userList){
     User *cur = userList->list;
     while (cur != NULL) {
         fprintf(fp, "%s\t%s\t%d\t%d\n", cur->username, cur->password, cur->borrowNum, cur->borrowMax);
-        for (int i = 0; i < cur->borrowNum; i++) {
-            fprintf(fp, "%d\n", cur->bookList[i]);
+        BookList *bookList = cur->bookList;
+        Book *book = bookList->list;
+        while (book != NULL) {
+            fprintf(fp, "%d\n", book->id);
+            book = book->next;
         }
+
         cur = cur->next;
 
     }
@@ -121,12 +120,6 @@ void printf_red(const char *string) {
 /* Print in green */
 void printf_green(const char *string) {
     printf("\033[0;32m%s\033[0m", string);
-}
-
-/* Clear the stdin */
-void stdinClear(){
-    char c;
-    while ((c = getchar()) != '\n' && c != EOF);
 }
 
 /* Get the last ID of the booklist */

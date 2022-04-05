@@ -56,16 +56,8 @@ void user_borrowed_book_list(BookList *booklist, User *pUser) {
         printf("You have not borrowed any book!\n");
         return;
     }
-    printf("User borrowed book list: ");
-    for (int i = 0; i < pUser->borrowNum; i++) {
-        unsigned int bookId = pUser->bookList[i];
-        if (bookId == 99999) {
-            continue;
-        }
-        Book *pBook = findBookByID(booklist, bookId);
-        printf("%d. %s\n", bookId, pBook->title);
-
-    }
+    printf("User borrowed book list: \n");
+    listBook(pUser->bookList);
 }
 
 /* List the user info */
@@ -118,7 +110,23 @@ void read_borrow_books(FILE *fp, UserList *userlist, BookList *wholebooklist) {
                 return;
             }
 
-            pUser->bookList[i] = bookId;
+            Book *pBook = findBookByID(wholebooklist, bookId);
+            if (pBook == NULL) {
+                puts("Book not found!");
+                return;
+            }
+            Book *newBook = (Book *) malloc(sizeof(Book));
+            newBook->id = pBook->id;
+            newBook->title = pBook->title;
+            newBook->authors = pBook->authors;
+            newBook->year = pBook->year;
+            newBook->copies = pBook->copies;
+            newBook->borrowed = pBook->borrowed;
+            newBook->next = NULL;
+
+            pUser->borrowNum = borrowNum;
+            pUser->borrowMax = maxBorrowNum;
+            insertBookByPointer(pUser->bookList, newBook);
         }
     }
 
@@ -130,26 +138,32 @@ void borrow_book(User *user, unsigned int id, BookList *wholeBookList) {
         printf("You have borrowed the max num of books!\n");
         return;
     }
-    for(int i = 0; i < user->borrowNum; i++){
-        if(user->bookList[i] == id){
-            printf("You have already borrowed this book!\n");
-            return;
-        }
-    }
 
+    BookList *dummyHead = user->bookList;
 
-    user->bookList[user->borrowNum] = id;
     Book *book = findBookByID(wholeBookList, id);
-    if(book == NULL){
+    if (book == NULL) {
         printf("Book not found!\n");
         return;
     }
-    if(book->copies == 0){
+    if (book->copies == 0) {
         printf("Book is not available!\n");
         return;
     }
+
+    Book *newBook = (Book *) malloc(sizeof(Book));
+    newBook->id = book->id;
+    newBook->title = book->title;
+    newBook->authors = book->authors;
+    newBook->year = book->year;
+    newBook->copies = book->copies;
+    newBook->borrowed = book->borrowed;
+    newBook->next = NULL;
+
+    insertBookByPointer(dummyHead, newBook);
+
     book->copies--;
-    book->borrowed ++;
+    book->borrowed++;
     user->borrowNum++;
     printf("Borrow success!\n");
 }
@@ -161,23 +175,14 @@ void return_book(User *user, unsigned int id, BookList *wholeBookList) {
         return;
     }
 
-    for (int i = 0; i < user->borrowNum; i++) {
-        if (user->bookList[i] == id) {
-            user->bookList[i] = 9999;
-            user->borrowNum--;
-            break;
-        }
+    BookList *dummyHead = user->bookList;
+    Book *delBook = findBookByID(dummyHead, id);
+    if (delBook == NULL) {
+        printf("Book not found!\n");
+        return;
     }
 
-    for (int i = 0; i < user->borrowNum; i++) {
-        if (user->bookList[i] == 9999) {
-            for (int j = i; j < user->borrowNum; j++) {
-                user->bookList[j] = user->bookList[j + 1];
-            }
-        }
-
-    }
-
+    remove_book(delBook, dummyHead);
 
     Book *book = findBookByID(wholeBookList, id);
     book->copies++;

@@ -12,7 +12,8 @@ typedef struct _User {
     unsigned int id;
     char *username;
     char *password;
-    unsigned int bookList[10];
+//    unsigned int bookList[10];
+    BookList *bookList;
     int borrowNum;
     int borrowMax;
     struct _User *next;

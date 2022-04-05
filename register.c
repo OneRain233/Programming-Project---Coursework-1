@@ -33,6 +33,8 @@ User *createUser(unsigned int id, char *username, char *password, int borrowNum,
     new_user->borrowMax = borrowMax;
     new_user->id = id;
     new_user->next = NULL;;
+    new_user->bookList = (BookList *) malloc(sizeof(BookList));
+    new_user->bookList->list = NULL;
     return new_user;
 
 }
@@ -76,6 +78,7 @@ void read_user(BookList *booklist, UserList *userlist) {
         strcpy(tmp_password, password);
         tmp_borrowNum = borrowNum;
         tmp_maxBorrowNum = maxBorrowNum;
+
         User *user = insertUser(userlist,
                                 user_cnt,
                                 tmp_username,
