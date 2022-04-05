@@ -9,12 +9,13 @@
 
 /* User menu */
 void user_menu_hint(){
-    printf("Welcome to user menu!\n");
+    printf_green("\n====Welcome to user menu!====\n");
     printf("1. View user info\n");
     printf("2. View user's book list\n");
     printf("3. Borrow a book\n");
     printf("4. Return a book\n");
     printf("0. Exit\n");
+    printf("Please input your choice: ");
 }
 
 /* Run user menu */

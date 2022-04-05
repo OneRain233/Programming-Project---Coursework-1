@@ -32,13 +32,13 @@ void auth(BookList *booklist, UserList *userlist, char *book_file) {
 
 /* Show admin menu */
 void admin_menu_hint(){
-    printf("Welcome to the admin menu!\n");
+    printf_green("\n====Welcome to the admin menu!====\n");
     printf("Please choose the operation you want to do:\n");
     printf("1. Add a book\n");
     printf("2. Delete a book\n");
     printf("3. List all books\n");
-
     printf("0. exit\n");
+    printf("Please input your choice: ");
 }
 
 
@@ -128,7 +128,7 @@ void admin_menu(BookList *booklist, char *book_file){
                 listBook(booklist);
                 break;
             default:
-                puts("Invalid choice!");
+                printf("Invalid choice!\n");
                 break;
         }
         admin_menu_hint();

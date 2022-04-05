@@ -6,12 +6,13 @@
 #include <stdio.h>
 #include "datastructure.h"
 #include <string.h>
+#include <malloc.h>
 #include "utils.h"
 
 /* Login interface */
 User *login(UserList *userlist) {
-    char username[20];
-    char password[20];
+    char *username = malloc(sizeof(char) * 20);
+    char *password = malloc(sizeof(char) * 20);
     printf("username: ");
     scanf("%s", username);
     printf("password: ");

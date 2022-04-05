@@ -15,7 +15,7 @@
 
 /* Show the menu */
 void menu() {
-    printf_green("## Welcome to Book Management System! ##\n");
+    printf_green("\n====Welcome to Book Management System!====\n");
     printf("1. Register\n");
     printf("2. Login\n");
     printf("3. Find books by name\n");
@@ -24,6 +24,7 @@ void menu() {
     printf("6. Admin manage\n");
     printf("0. Exit\n");
     printf("Please input your choice: ");
+
 }
 
 /* Show the interface */
@@ -52,10 +53,9 @@ void run_interface(char *book_file, char *user_file) {
                 register_user(userlist);
                 break;
             case 2:
-                printf_red("Login\n");
+                printf_red("\nLogin\n");
                 User *user = login(userlist);
                 if (user != NULL) {
-                    printf("Welcome %s!\n", user->username);
                     user_menu(user, wholebooklist);
 
                 } else {
@@ -109,7 +109,7 @@ void run_interface(char *book_file, char *user_file) {
                 }
                 break;
             case 6:
-                printf("Admin\n");
+                printf_green("Admin\n");
                 auth(wholebooklist, userlist, book_file);
                 break;
             default:
