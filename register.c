@@ -95,7 +95,7 @@ void read_user(BookList *booklist, UserList *userlist) {
 
 /* Check if the username is valid */
 int check_valid(char *username){
-    char invalid_char[] = "!@#$%^&*()_+-=[]{}|;':\",./<>?`~";
+    char invalid_char[] = "!@#$%^&*()_+-=[]{}|;':\",./<>?`~ ";
     for (int i = 0; i < strlen(username); i++) {
         for (int j = 0; j < strlen(invalid_char); j++) {
             if (username[i] == invalid_char[j]) {
@@ -120,29 +120,36 @@ void register_user(UserList *userlist) {
     char password_confirm[20];
 
     printf("Please enter your username: ");
-    scanf("%s", username);
-
+    fgets(username, 20, stdin);
+    username[strlen(username) - 1] = '\0';
+    puts(username);
     while(check_exist(userlist, username) == 1) {
         printf("The username has been registered!\n");
         printf("Please enter your username: ");
-        scanf("%s", username);
+        fgets(username, 20, stdin);
+        username[strlen(username) - 1] = '\0';
     }
 
     while(check_valid(username) == 0) {
         printf("Please enter your username: ");
-        scanf("%s", username);
+        fgets(username, 20, stdin);
+        username[strlen(username) - 1] = '\0';
     }
     printf("Please enter your password: ");
-    scanf("%s", password);
+    fgets(password, 20, stdin);
+    password[strlen(password) - 1] = '\0';
     printf("Please enter your password again: ");
     scanf("%s", password_confirm);
 
     while(strcmp(password, password_confirm) != 0) {
         printf("The password is not the same!\n");
         printf("Please enter your password: ");
-        scanf("%s", password);
+        fgets(password, 20, stdin);
+        password[strlen(password) - 1] = '\0';
         printf("Please enter your password again: ");
-        scanf("%s", password_confirm);
+        fgets(password_confirm, 20, stdin);
+        password_confirm[strlen(password_confirm) - 1] = '\0';
+
     }
 
     User *new_user;

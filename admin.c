@@ -17,9 +17,11 @@ void auth(BookList *booklist, UserList *userlist, char *book_file) {
     char *input_username = (char *) malloc(sizeof(char) * 20);
     char *input_password = (char *) malloc(sizeof(char) * 20);
     printf("Please input your username: ");
-    scanf("%s", input_username);
+    fgets(input_username, 20, stdin);
+    input_username[strlen(input_username) - 1] = '\0';
     printf("Please input your password: ");
-    scanf("%s", input_password);
+    fgets(input_password, 20, stdin);
+    input_password[strlen(input_password) - 1] = '\0';
     if (strcmp(input_username, username) == 0 && strcmp(input_password, password) == 0) {
         admin_menu(booklist, book_file);
     } else {
@@ -30,13 +32,13 @@ void auth(BookList *booklist, UserList *userlist, char *book_file) {
 
 /* Show admin menu */
 void admin_menu_hint(){
-    puts("Welcome to the admin menu!");
-    puts("Please choose the operation you want to do:");
-    puts("1. Add a book");
-    puts("2. Delete a book");
-    puts("3. List all books");
+    printf("Welcome to the admin menu!\n");
+    printf("Please choose the operation you want to do:\n");
+    printf("1. Add a book\n");
+    printf("2. Delete a book\n");
+    printf("3. List all books\n");
 
-    puts("0. exit");
+    printf("0. exit\n");
 }
 
 
@@ -51,9 +53,11 @@ void add_book_interface(char *book_file, BookList *list) {
     unsigned int copies;
 
     printf("Please input the book title：");
-    scanf("%s", title);
+    fgets(title, 100, stdin);
+    title[strlen(title) - 1] = '\0';
     printf("Please input the book author：");
-    scanf("%s", author);
+    fgets(author, 100, stdin);
+    author[strlen(author) - 1] = '\0';
     printf("Please input the year of publication：");
     scanf("%s", tmp_year);
     printf("Please input the copies：");
@@ -110,7 +114,6 @@ void delete_book_interface(char *book_file, BookList *list) {
 void admin_menu(BookList *booklist, char *book_file){
 
     admin_menu_hint();
-    stdinClear();
     int choice = getOptions();
 
     while(choice != 0){
@@ -130,6 +133,10 @@ void admin_menu(BookList *booklist, char *book_file){
         }
         admin_menu_hint();
         choice = getOptions();
+        while(choice == -1){
+
+            choice = getOptions();
+        }
     }
 
 }

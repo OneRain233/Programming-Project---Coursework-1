@@ -99,7 +99,7 @@ void run_interface(char *book_file, char *user_file) {
                 printf("Find books by year\n");
                 unsigned int year;
                 printf("Please input the year: ");
-                scanf("%u", &year);
+                scanf("%d", &year);
                 BookList res3 = find_book_by_year(year, wholebooklist);
                 if(res3.length == 0) {
                     printf("!!!No books found!!!\n");
@@ -120,7 +120,7 @@ void run_interface(char *book_file, char *user_file) {
 
         menu();
         choice = getOptions();
-        while(choice == -1) {
+        while (choice == -1) {
             choice = getOptions();
         }
     }
@@ -130,5 +130,8 @@ void run_interface(char *book_file, char *user_file) {
     store_user(fp2, userlist);
     fclose(fp1);
     fclose(fp2);
+    free(userlist);
+    free(wholebooklist);
+    free(recBookList);
 
 }
