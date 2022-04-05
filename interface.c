@@ -3,8 +3,8 @@
 //
 
 #include <stdio.h>
-#include <malloc.h>
 #include <string.h>
+#include <stdlib.h>
 #include "interface.h"
 #include "utils.h"
 #include "register.h"
@@ -34,6 +34,10 @@ void run_interface(char *book_file, char *user_file) {
     BookList *wholebooklist = (BookList *) malloc(sizeof(BookList));
 
     FILE *fp = fopen(book_file, "r");
+    if (fp == NULL) {
+        printf("Error: Can't open file %s\n", book_file);
+        exit(1);
+    }
     load_books(fp, wholebooklist);
     fclose(fp);
     BookList *recBookList = (BookList *) malloc(sizeof(BookList));
@@ -41,6 +45,10 @@ void run_interface(char *book_file, char *user_file) {
 
     read_user(user_file, userlist);
     FILE *user = fopen(user_file, "r");
+    if (user == NULL) {
+        printf("Error: Can't open file %s\n", user_file);
+        exit(1);
+    }
     read_borrow_books(user, userlist, wholebooklist);
     menu();
     fclose(user);
