@@ -94,7 +94,7 @@ int isNum(const char *string) {
 
 /* Get user input options */
 int getOptions() {
-    int option = -1;
+    int option;
     char line[80];
     fflush(stdin);
     rewind(stdin);

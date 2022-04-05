@@ -54,9 +54,9 @@ void run_interface(char *book_file, char *user_file) {
                 break;
             case 2:
                 printf_red("\nLogin\n");
-                User *user = login(userlist);
+                User *User = login(userlist);
                 if (user != NULL) {
-                    user_menu(user, wholebooklist);
+                    user_menu(User, wholebooklist);
 
                 } else {
                     printf_red("Login Failed!\n");
@@ -110,7 +110,7 @@ void run_interface(char *book_file, char *user_file) {
                 break;
             case 6:
                 printf_green("Admin\n");
-                auth(wholebooklist, userlist, book_file);
+                auth(wholebooklist, book_file);
                 break;
             default:
                 printf("Your choice is %d!\n", choice);

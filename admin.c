@@ -13,7 +13,7 @@ const char *username = "admin";
 const char *password = "admin";
 
 /* Authentication */
-void auth(BookList *booklist, UserList *userlist, char *book_file) {
+void auth(BookList *booklist, char *book_file) {
     char *input_username = (char *) malloc(sizeof(char) * 20);
     char *input_password = (char *) malloc(sizeof(char) * 20);
     printf("Please input your username: ");

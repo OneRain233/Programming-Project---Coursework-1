@@ -3,8 +3,6 @@
 //
 #include "book_management.h"
 #include "datastructure.h"
-#include "user.h"
-#include "utils.h"
 #include <string.h>
 #include <stdlib.h>
 

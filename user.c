@@ -32,7 +32,7 @@ void user_menu(User *user, BookList *wholebooklist) {
                 user_info(user);
                 break;
             case 2:
-                user_borrowed_book_list(wholebooklist, user);
+                user_borrowed_book_list(user);
                 break;
             case 3:
                 borrow_book_interface(wholebooklist, user);
@@ -53,7 +53,7 @@ void user_menu(User *user, BookList *wholebooklist) {
 }
 
 /* List the user borrowed books */
-void user_borrowed_book_list(BookList *booklist, User *pUser) {
+void user_borrowed_book_list(User *pUser) {
     if (pUser->borrowNum == 0) {
         printf("You have not borrowed any book!\n");
         return;
@@ -207,7 +207,7 @@ void borrow_book_interface(BookList *wholetBookList, User *user) {
 
 /* Return Book interface */
 void return_book_interface(BookList *wholetBookList, User *user) {
-    user_borrowed_book_list(wholetBookList, user);
+    user_borrowed_book_list(user);
     printf("Please input the book id:");
     unsigned int id = getOptions();
     if(id == -1){
