@@ -175,28 +175,28 @@ int check_valid(char *username){
 */
 void register_user(UserList *userlist) {
 
-    char *username = malloc(sizeof(char) * 20);
-    char *password = malloc(sizeof(char) * 20);
-    char *password_confirm = malloc(sizeof(char) * 20);
+    char *username = malloc(sizeof(char) * 64);
+    char *password = malloc(sizeof(char) * 64);
+    char *password_confirm = malloc(sizeof(char) * 64);
 
     fprintf(stdout, "Please enter your username: ");
-    fgets(username, 1024, stdin);
+    fgets(username, 64, stdin);
     username[strlen(username) - 1] = '\0';
     while (check_exist(userlist, username) == 1) {
         fprintf(stderr, "The username has been registered!\n");
         fprintf(stdout, "Please enter your username: \n");
-        fgets(username, 1024, stdin);
+        fgets(username, 64, stdin);
         username[strlen(username) - 1] = '\0';
     }
 
     while (check_valid(username) == 0) {
         fprintf(stdout, "Please enter your username: \n");
-        fgets(username, 1024, stdin);
+        fgets(username, 64, stdin);
         username[strlen(username) - 1] = '\0';
     }
 
     fprintf(stdout, "Please enter your password: \n");
-    fgets(password, 1024, stdin);
+    fgets(password, 64, stdin);
     password[strlen(password) - 1] = '\0';
     fprintf(stdout, "Please enter your password again: \n");
     scanf("%s", password_confirm);
@@ -204,18 +204,18 @@ void register_user(UserList *userlist) {
     while (strcmp(password, password_confirm) != 0) {
         fprintf(stderr, "The password is not the same!\n");
         fprintf(stdout, "Please enter your password: \n");
-        fgets(password, 20, stdin);
+        fgets(password, 64, stdin);
         password[strlen(password) - 1] = '\0';
         fprintf(stdout, "Please enter your password again: \n");
-        fgets(password_confirm, 20, stdin);
+        fgets(password_confirm, 64, stdin);
         password_confirm[strlen(password_confirm) - 1] = '\0';
 
     }
 
     User *new_user;
     new_user = (User *) malloc(sizeof(User));
-    new_user->username = (char *) malloc(sizeof(char) * 20);
-    new_user->password = (char *) malloc(sizeof(char) * 20);
+    new_user->username = (char *) malloc(sizeof(char) * 64);
+    new_user->password = (char *) malloc(sizeof(char) * 64);
 
     strcpy(new_user->username, username);
     strcpy(new_user->password, password);

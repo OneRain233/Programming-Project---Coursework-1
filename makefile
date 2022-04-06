@@ -9,6 +9,12 @@ CLINK=
 
 OBJ= $(SRC:.c=.o)
 
+all:
+	@echo "Building library"
+	@echo "Compiling"
+	$(CC) $(CFLAGS) $(SRC) -o $(EXE)
+	@echo "Done"
+
 .c.o:
 	$(CC) $(CFLAGS) -c -o $@ $<
 
