@@ -137,13 +137,14 @@ void run_interface(char *book_file, char *user_file) {
                 break;
             default:
 //                printf("Your choice is %d!\n", choice);
-                fprintf(stdout, "Invalid choice!\n");
+                fprintf(stderr, "Invalid choice!\n");
                 break;
         }
 
         menu();
         choice = getOptions();
         while (choice == -1) {
+            menu();
             fprintf(stderr, "Invalid choice!\n");
             choice = getOptions();
         }

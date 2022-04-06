@@ -200,7 +200,8 @@ void admin_menu(UserList *userlist, BookList *booklist, char *book_file) {
         admin_menu_hint();
         choice = getOptions();
         while (choice == -1) {
-
+            admin_menu_hint();
+            fprintf(stderr, "Invalid choice!\n");
             choice = getOptions();
         }
     }
