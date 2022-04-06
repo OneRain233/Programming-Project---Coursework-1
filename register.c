@@ -33,6 +33,7 @@ User *createUser(unsigned int id, char *username, char *password, int borrowNum,
     new_user->next = NULL;;
     new_user->bookList = (BookList *) malloc(sizeof(BookList));
     new_user->bookList->list = NULL;
+    new_user->bookList->length = 0;
     return new_user;
 
 }
@@ -116,28 +117,28 @@ int check_valid(char *username){
 /* Register menu */
 void register_user(UserList *userlist) {
 
-    char username[20];
-    char password[20];
-    char password_confirm[20];
+    char *username = malloc(sizeof(char) * 20);
+    char *password = malloc(sizeof(char) * 20);
+    char *password_confirm = malloc(sizeof(char) * 20);
 
     printf("Please enter your username: ");
-    fgets(username, 20, stdin);
+    fgets(username, 1024, stdin);
     username[strlen(username) - 1] = '\0';
     puts(username);
     while(check_exist(userlist, username) == 1) {
         printf("The username has been registered!\n");
         printf("Please enter your username: ");
-        fgets(username, 20, stdin);
+        fgets(username, 1024, stdin);
         username[strlen(username) - 1] = '\0';
     }
 
     while(check_valid(username) == 0) {
         printf("Please enter your username: ");
-        fgets(username, 20, stdin);
+        fgets(username, 1024, stdin);
         username[strlen(username) - 1] = '\0';
     }
     printf("Please enter your password: ");
-    fgets(password, 20, stdin);
+    fgets(password, 1024, stdin);
     password[strlen(password) - 1] = '\0';
     printf("Please enter your password again: ");
     scanf("%s", password_confirm);

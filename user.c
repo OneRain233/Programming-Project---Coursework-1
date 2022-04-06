@@ -47,6 +47,7 @@ void user_menu(User *user, BookList *wholebooklist) {
         user_menu_hint();
         choice = getOptions();
         while(choice == -1){
+            printf_red("Invalid choice!\n");
             choice = getOptions();
         }
     }
@@ -54,6 +55,7 @@ void user_menu(User *user, BookList *wholebooklist) {
 
 /* List the user borrowed books */
 void user_borrowed_book_list(User *pUser) {
+    printf_green("\n====User's borrowed books====\n");
     if (pUser->borrowNum == 0) {
         printf("You have not borrowed any book!\n");
         return;
@@ -176,7 +178,7 @@ void return_book(User *user, unsigned int id, BookList *wholeBookList) {
         printf_red("You have not borrowed any book!\n");
         return;
     }
-
+    user_borrowed_book_list(user);
     BookList *dummyHead = user->bookList;
     Book *delBook = findBookByID(dummyHead, id);
     if (delBook == NULL) {
@@ -207,8 +209,13 @@ void borrow_book_interface(BookList *wholetBookList, User *user) {
 
 /* Return Book interface */
 void return_book_interface(BookList *wholetBookList, User *user) {
-    user_borrowed_book_list(user);
-    printf("Please input the book id:");
+    if(user->bookList->length == 0){
+        printf_red("You have not borrowed any book!\n");
+        return;
+    }
+//    printf("%d", user->bookList->length);
+//    printf("Please input the book id:");
+    listBook(user->bookList);
     unsigned int id = getOptions();
     if(id == -1){
         printf_red("Please input a valid id!\n");

@@ -35,7 +35,7 @@ void run_interface(char *book_file, char *user_file) {
 
     FILE *fp = fopen(book_file, "r");
     if (fp == NULL) {
-        printf("Error: Can't open file %s\n", book_file);
+        fprintf(stderr,"Error: Can't open file %s\n", book_file);
         exit(1);
     }
     load_books(fp, wholebooklist);
@@ -46,7 +46,7 @@ void run_interface(char *book_file, char *user_file) {
     read_user(user_file, userlist);
     FILE *user = fopen(user_file, "r");
     if (user == NULL) {
-        printf("Error: Can't open file %s\n", user_file);
+        fprintf(stderr,"Error: Can't open file %s\n", user_file);
         exit(1);
     }
     read_borrow_books(user, userlist, wholebooklist);
@@ -63,7 +63,7 @@ void run_interface(char *book_file, char *user_file) {
             case 2:
                 printf_red("\nLogin\n");
                 User *User = login(userlist);
-                if (user != NULL) {
+                if (User != NULL) {
                     user_menu(User, wholebooklist);
 
                 } else {
@@ -71,7 +71,7 @@ void run_interface(char *book_file, char *user_file) {
                 }
                 break;
             case 3:
-                puts("Find books by name");
+                printf_green("Find books by name");
                 char name[100];
                 printf("Please input the name: ");
                 getc(stdin);
@@ -87,7 +87,7 @@ void run_interface(char *book_file, char *user_file) {
                 }
                 break;
             case 4:
-                puts("Find books by author\n");
+                printf_green("Find books by author\n");
                 char author[100];
                 printf("Please input the author: ");
                 getc(stdin);
@@ -97,7 +97,7 @@ void run_interface(char *book_file, char *user_file) {
                 puts(author);
                 BookList res2 = find_book_by_author(author, wholebooklist);
                 if(res2.length == 0) {
-                    printf("!!!No books found!!!\n");
+                    printf_red("!!!No books found!!!\n");
                 } else {
                     printf("%d\n", res2.length);
                     listBook(&res2);
@@ -110,7 +110,7 @@ void run_interface(char *book_file, char *user_file) {
                 scanf("%d", &year);
                 BookList res3 = find_book_by_year(year, wholebooklist);
                 if(res3.length == 0) {
-                    printf("!!!No books found!!!\n");
+                    printf_red("!!!No books found!!!\n");
                 } else {
                     printf("%d\n", res3.length);
                     listBook(&res3);
@@ -121,14 +121,15 @@ void run_interface(char *book_file, char *user_file) {
                 auth(wholebooklist, book_file);
                 break;
             default:
-                printf("Your choice is %d!\n", choice);
-                printf("Invalid choice!\n");
+//                printf("Your choice is %d!\n", choice);
+                printf_red("Invalid choice!\n");
                 break;
         }
 
         menu();
         choice = getOptions();
         while (choice == -1) {
+            printf_red("Invalid choice!\n");
             choice = getOptions();
         }
     }
