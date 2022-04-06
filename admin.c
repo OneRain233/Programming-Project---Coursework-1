@@ -13,7 +13,7 @@ const char *username = "admin";
 const char *password = "admin";
 
 /* Authentication */
-void auth(BookList *booklist, char *book_file) {
+void auth(UserList *userlist, BookList *booklist, char *book_file) {
     char *input_username = (char *) malloc(sizeof(char) * 20);
     char *input_password = (char *) malloc(sizeof(char) * 20);
     printf("Please input your username: ");
@@ -23,7 +23,7 @@ void auth(BookList *booklist, char *book_file) {
     fgets(input_password, 20, stdin);
     input_password[strlen(input_password) - 1] = '\0';
     if (strcmp(input_username, username) == 0 && strcmp(input_password, password) == 0) {
-        admin_menu(booklist, book_file);
+        admin_menu(userlist, booklist, book_file);
     } else {
         printf("Wrong username or password!\n");
         return;
@@ -31,14 +31,27 @@ void auth(BookList *booklist, char *book_file) {
 }
 
 /* Show admin menu */
-void admin_menu_hint(){
+void admin_menu_hint() {
     printf_green("\n====Welcome to the admin menu!====\n");
     printf("Please choose the operation you want to do:\n");
     printf("1. Add a book\n");
     printf("2. Delete a book\n");
     printf("3. List all books\n");
+    printf("4. Edit a book\n");
+    printf("5. Show user borrowed books\n");
     printf("0. exit\n");
     printf("Please input your choice: ");
+}
+
+/* Show users borrowed books */
+void show_users_booklist(UserList *userlist) {
+    User *cur_user = userlist->list;
+    while (cur_user != NULL) {
+        printf_green("\n=====User borrowed books=====\n");
+        printf("User name: %s\n", cur_user->username);
+        listBook(cur_user->bookList);
+        cur_user = cur_user->next;
+    }
 }
 
 
@@ -111,21 +124,27 @@ void delete_book_interface(char *book_file, BookList *list) {
 }
 
 /* Show the admin menu */
-void admin_menu(BookList *booklist, char *book_file){
+void admin_menu(UserList *userlist, BookList *booklist, char *book_file) {
 
     admin_menu_hint();
     int choice = getOptions();
 
-    while(choice != 0){
+    while (choice != 0) {
         switch (choice) {
             case 1:
-                add_book_interface(book_file,booklist);
+                add_book_interface(book_file, booklist);
                 break;
             case 2:
-                delete_book_interface(book_file,booklist);
+                delete_book_interface(book_file, booklist);
                 break;
             case 3:
                 listBook(booklist);
+                break;
+            case 4:
+                puts("Edit a book");
+                break;
+            case 5:
+                show_users_booklist(userlist);
                 break;
             default:
                 printf("Invalid choice!\n");
@@ -133,12 +152,13 @@ void admin_menu(BookList *booklist, char *book_file){
         }
         admin_menu_hint();
         choice = getOptions();
-        while(choice == -1){
+        while (choice == -1) {
 
             choice = getOptions();
         }
     }
 
 }
+
 
 

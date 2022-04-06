@@ -118,7 +118,7 @@ void run_interface(char *book_file, char *user_file) {
                 break;
             case 6:
                 printf_green("Admin\n");
-                auth(wholebooklist, book_file);
+                auth(userlist, wholebooklist, book_file);
                 break;
             default:
 //                printf("Your choice is %d!\n", choice);
