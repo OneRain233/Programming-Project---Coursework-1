@@ -11,12 +11,12 @@
 /* User menu */
 void user_menu_hint(){
     printf_green("\n====Welcome to user menu!====\n");
-    printf("1. View user info\n");
-    printf("2. View user's book list\n");
-    printf("3. Borrow a book\n");
-    printf("4. Return a book\n");
-    printf("0. Exit\n");
-    printf("Please input your choice: ");
+    fprintf(stdout, "1. View user info\n");
+    fprintf(stdout, "2. View user's book list\n");
+    fprintf(stdout, "3. Borrow a book\n");
+    fprintf(stdout, "4. Return a book\n");
+    fprintf(stdout, "0. Exit\n");
+    fprintf(stdout, "Please input your choice: ");
 }
 
 /* Run user menu */
@@ -41,7 +41,7 @@ void user_menu(User *user, BookList *wholebooklist) {
                 return_book_interface(wholebooklist, user);
                 break;
             default:
-                printf("Invalid choice!\n");
+                fprintf(stderr, "Invalid choice!\n");
                 break;
         }
         user_menu_hint();
@@ -57,20 +57,20 @@ void user_menu(User *user, BookList *wholebooklist) {
 void user_borrowed_book_list(User *pUser) {
     printf_green("\n====User's borrowed books====\n");
     if (pUser->borrowNum == 0) {
-        printf("You have not borrowed any book!\n");
+        fprintf(stderr, "You have not borrowed any book!\n");
         return;
     }
-    printf("User borrowed book list: \n");
+    fprintf(stdout, "User borrowed book list: \n");
     listBook(pUser->bookList);
 }
 
 /* List the user info */
 void user_info(User *pUser) {
     printf_green("\n====User info====\n");
-    printf("ID: %d\n", pUser->id);
-    printf("Name: %s\n", pUser->username);
-    printf("Max borrow num: %d\n", pUser->borrowMax);
-    printf("Borrowed num: %d\n", pUser->borrowNum);
+    fprintf(stdout, "ID: %d\n", pUser->id);
+    fprintf(stdout, "Name: %s\n", pUser->username);
+    fprintf(stdout, "Max borrow num: %d\n", pUser->borrowMax);
+    fprintf(stdout, "Borrowed num: %d\n", pUser->borrowNum);
 }
 
 /* Find user by username */

@@ -33,14 +33,14 @@ void auth(UserList *userlist, BookList *booklist, char *book_file) {
 /* Show admin menu */
 void admin_menu_hint() {
     printf_green("\n====Welcome to the admin menu!====\n");
-    printf("Please choose the operation you want to do:\n");
-    printf("1. Add a book\n");
-    printf("2. Delete a book\n");
-    printf("3. List all books\n");
-    printf("4. Edit a book\n");
-    printf("5. Show user borrowed books\n");
-    printf("0. exit\n");
-    printf("Please input your choice: ");
+    fprintf(stdout, "Please choose the operation you want to do:\n");
+    fprintf(stdout, "1. Add a book\n");
+    fprintf(stdout, "2. Delete a book\n");
+    fprintf(stdout, "3. List all books\n");
+    fprintf(stdout, "4. Edit a book\n");
+    fprintf(stdout, "5. Show user borrowed books\n");
+    fprintf(stdout, "0. exit\n");
+    fprintf(stdout, "Please input your choice: ");
 }
 
 /* Show users borrowed books */
@@ -48,7 +48,7 @@ void show_users_booklist(UserList *userlist) {
     User *cur_user = userlist->list;
     while (cur_user != NULL) {
         printf_green("\n=====User borrowed books=====\n");
-        printf("User name: %s\n", cur_user->username);
+        fprintf(stdout, "User name: %s\n", cur_user->username);
         listBook(cur_user->bookList);
         cur_user = cur_user->next;
     }
@@ -65,15 +65,15 @@ void add_book_interface(char *book_file, BookList *list) {
     unsigned int year;
     unsigned int copies;
 
-    printf("Please input the book title：");
+    fprintf(stdout, "Please input the book title：");
     fgets(title, 100, stdin);
     title[strlen(title) - 1] = '\0';
-    printf("Please input the book author：");
+    fprintf(stdout, "Please input the book author：");
     fgets(author, 100, stdin);
     author[strlen(author) - 1] = '\0';
-    printf("Please input the year of publication：");
+    fprintf(stdout, "Please input the year of publication：");
     scanf("%s", tmp_year);
-    printf("Please input the copies：");
+    fprintf(stdout, "Please input the copies：");
     scanf("%s", tmp_copies);
 
     if (isNum(tmp_year) && isNum(tmp_copies)) {
@@ -81,7 +81,7 @@ void add_book_interface(char *book_file, BookList *list) {
         year = strtol(tmp_year, &buf, 10);
         copies = strtol(tmp_copies, &buf, 10);
     } else {
-        printf("Invalid input!\n");
+        fprintf(stderr, "Invalid input!\n");
         return;
     }
     unsigned int id = getLastID(list) + 1;
@@ -99,7 +99,7 @@ void add_book_interface(char *book_file, BookList *list) {
     FILE *fp = fopen(book_file, "w");
     store_books(fp, list);
     fclose(fp);
-    printf("Add book successfully!\n");
+    fprintf(stdout, "Add book successfully!\n");
 }
 
 
@@ -107,11 +107,11 @@ void add_book_interface(char *book_file, BookList *list) {
 void delete_book_interface(char *book_file, BookList *list) {
     listBook(list);
     int id;
-    printf("Please input the book id：");
+    fprintf(stdout, "Please input the book id：");
 
     id = getOptions();
     if (id == -1) {
-        printf("Invalid input!\n");
+        fprintf(stderr, "Invalid input!\n");
         return;
     }
     Book *book = findBookByID(list, id);
@@ -147,7 +147,7 @@ void admin_menu(UserList *userlist, BookList *booklist, char *book_file) {
                 show_users_booklist(userlist);
                 break;
             default:
-                printf("Invalid choice!\n");
+                fprintf(stderr, "Invalid choice!\n");
                 break;
         }
         admin_menu_hint();

@@ -101,14 +101,14 @@ int check_valid(char *username){
     for (int i = 0; i < strlen(username); i++) {
         for (int j = 0; j < strlen(invalid_char); j++) {
             if (username[i] == invalid_char[j]) {
-                printf("Username cannot contain special char！\n");
+                fprintf(stderr, "Username cannot contain special char！\n");
                 return 0;
             }
         }
     }
 
     if (strlen(username) < 6 || strlen(username) > 20) {
-        printf("Username length should be between 6 and 20！\n");
+        fprintf(stderr, "Username length should be between 6 and 20！\n");
         return 0;
     }
     return 1;
@@ -121,34 +121,34 @@ void register_user(UserList *userlist) {
     char *password = malloc(sizeof(char) * 20);
     char *password_confirm = malloc(sizeof(char) * 20);
 
-    printf("Please enter your username: ");
+    fprintf(stdout, "Please enter your username: ");
     fgets(username, 1024, stdin);
     username[strlen(username) - 1] = '\0';
-    puts(username);
-    while(check_exist(userlist, username) == 1) {
-        printf("The username has been registered!\n");
-        printf("Please enter your username: ");
+    while (check_exist(userlist, username) == 1) {
+        fprintf(stderr, "The username has been registered!\n");
+        fprintf(stdout, "Please enter your username: \n");
         fgets(username, 1024, stdin);
         username[strlen(username) - 1] = '\0';
     }
 
-    while(check_valid(username) == 0) {
-        printf("Please enter your username: ");
+    while (check_valid(username) == 0) {
+        fprintf(stdout, "Please enter your username: \n");
         fgets(username, 1024, stdin);
         username[strlen(username) - 1] = '\0';
     }
-    printf("Please enter your password: ");
+
+    fprintf(stdout, "Please enter your password: \n");
     fgets(password, 1024, stdin);
     password[strlen(password) - 1] = '\0';
-    printf("Please enter your password again: ");
+    fprintf(stdout, "Please enter your password again: \n");
     scanf("%s", password_confirm);
 
-    while(strcmp(password, password_confirm) != 0) {
-        printf("The password is not the same!\n");
-        printf("Please enter your password: ");
+    while (strcmp(password, password_confirm) != 0) {
+        fprintf(stderr, "The password is not the same!\n");
+        fprintf(stdout, "Please enter your password: \n");
         fgets(password, 20, stdin);
         password[strlen(password) - 1] = '\0';
-        printf("Please enter your password again: ");
+        fprintf(stdout, "Please enter your password again: \n");
         fgets(password_confirm, 20, stdin);
         password_confirm[strlen(password_confirm) - 1] = '\0';
 
@@ -171,5 +171,5 @@ void register_user(UserList *userlist) {
                new_user->borrowNum,
                new_user->borrowMax);
     fflush(stdin);
-    printf("Register successfully!\n");
+    fprintf(stdout, "Register successfully!\n");
 }

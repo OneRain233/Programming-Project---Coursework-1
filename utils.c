@@ -114,12 +114,12 @@ int getOptions() {
 
 /* Print in red */
 void printf_red(const char *string) {
-    printf("\033[0;31m%s\033[0m", string);
+    fprintf(stdout,"\033[0;31m%s\033[0m", string);
 }
 
 /* Print in green */
 void printf_green(const char *string) {
-    printf("\033[0;32m%s\033[0m", string);
+    fprintf(stdout,"\033[0;32m%s\033[0m", string);
 }
 
 /* Get the last ID of the booklist */
