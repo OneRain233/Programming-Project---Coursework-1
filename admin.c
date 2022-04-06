@@ -12,7 +12,16 @@
 const char *username = "admin";
 const char *password = "admin";
 
-/* Authentication */
+/* auth()
+ * -------------------------
+ * authenticate the admin
+ *
+ * userlist: the user list
+ * booklist: the book list
+ * book_file: the filename of book file
+ *
+ * return: No return
+*/
 void auth(UserList *userlist, BookList *booklist, char *book_file) {
     char *input_username = (char *) malloc(sizeof(char) * 20);
     char *input_password = (char *) malloc(sizeof(char) * 20);
@@ -30,7 +39,12 @@ void auth(UserList *userlist, BookList *booklist, char *book_file) {
     }
 }
 
-/* Show admin menu */
+/* admin_menu_hint()
+ * ------------------------
+ * show the menu of admin
+ *
+ * return: No return
+*/
 void admin_menu_hint() {
     printf_green("\n====Welcome to the admin menu!====\n");
     fprintf(stdout, "Please choose the operation you want to do:\n");
@@ -43,7 +57,15 @@ void admin_menu_hint() {
     fprintf(stdout, "Please input your choice: ");
 }
 
-/* Show users borrowed books */
+/* show_users_booklist()
+ * ------------------------
+ * show the users borrowed books
+ *
+ * userlist: the user list
+ *
+ *
+ * return: No return
+*/
 void show_users_booklist(UserList *userlist) {
     User *cur_user = userlist->list;
     while (cur_user != NULL) {
@@ -55,7 +77,15 @@ void show_users_booklist(UserList *userlist) {
 }
 
 
-/* Show the interface of adding books */
+/* add_book_interface()
+ * ------------------------
+ * add book interface
+ *
+ * book_file: the filename of book file
+ * list: the book list
+ *
+ * return: No return
+*/
 void add_book_interface(char *book_file, BookList *list) {
     char *title = (char *) malloc(sizeof(char) * 100);
     char *author = (char *) malloc(sizeof(char) * 100);
@@ -103,7 +133,15 @@ void add_book_interface(char *book_file, BookList *list) {
 }
 
 
-/* Show the interface of delete books */
+/* delete_book_interface()
+ * ------------------------
+ * delete book interface
+ *
+ * book_file: the filename of book file
+ * list: the book list
+ *
+ * return: No return
+*/
 void delete_book_interface(char *book_file, BookList *list) {
     listBook(list);
     int id;
@@ -123,7 +161,16 @@ void delete_book_interface(char *book_file, BookList *list) {
     fclose(fp);
 }
 
-/* Show the admin menu */
+/* admin_menu()
+ * ------------------------
+ * show admin menu
+ *
+ * userlist: the user list
+ * booklist: the book list
+ * book_file: the filename of book file
+ *
+ * return: No return
+*/
 void admin_menu(UserList *userlist, BookList *booklist, char *book_file) {
 
     admin_menu_hint();

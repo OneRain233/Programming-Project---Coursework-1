@@ -2,7 +2,11 @@
 
 #include "interface.h"
 
-/* Main logic */
+/* main()
+ * --------------
+ * main login
+ *
+*/
 int main(int argc, char *argv[]){
     if(argc != 3){
         fprintf(stderr, "Usage: %s <book_file> <user_file>\n", argv[0]);

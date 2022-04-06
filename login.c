@@ -9,7 +9,12 @@
 #include <malloc.h>
 #include "utils.h"
 
-/* Login interface */
+/* login()
+ * ---------------
+ * Login interface
+ * userlist: the user list
+ *
+ * return User*/
 User *login(UserList *userlist) {
     char *username = malloc(sizeof(char) * 20);
     char *password = malloc(sizeof(char) * 20);

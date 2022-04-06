@@ -7,7 +7,15 @@
 #include <stdlib.h>
 #include "utils.h"
 
-/* Find book by title */
+/* find_book_by_title()
+ * -------------------------
+ * Find book by title
+ *
+ * title: book title
+ * bookList: the bookList
+ *
+ * return: BookList
+*/
 BookList find_book_by_title(const char *title, BookList *booklist) {
     BookList res;
     res.length = 0;
@@ -26,7 +34,15 @@ BookList find_book_by_title(const char *title, BookList *booklist) {
     return res;
 }
 
-/* Find book by authors */
+/* find_book_by_author()
+ * -------------------------
+ * Find book by authors
+ *
+ * authors: book authors
+ * bookList: the bookList
+ *
+ * return: BookList
+*/
 BookList find_book_by_author(const char *author, BookList *booklist) {
     BookList res;
     res.length = 0;
@@ -45,7 +61,15 @@ BookList find_book_by_author(const char *author, BookList *booklist) {
     return res;
 }
 
-/* Find books by year */
+/* find_book_by_year()
+ * -------------------------
+ * Find book by year
+ *
+ * year: book year
+ * bookList: the bookList
+ *
+ * return: BookList
+*/
 BookList find_book_by_year(unsigned int year, BookList *booklist) {
     BookList res;
     res.length = 0;
@@ -64,7 +88,15 @@ BookList find_book_by_year(unsigned int year, BookList *booklist) {
     return res;
 }
 
-/* Load books from file */
+/* load_books()
+ * -------------------------
+ * Load books from file
+ *
+ * file: file pointer
+ * list: book list
+ *
+ * return: 0 if success, -1 if fail
+*/
 int load_books(FILE *file, BookList* list){
     if(file == NULL ) {
         return -1;
@@ -103,7 +135,15 @@ int load_books(FILE *file, BookList* list){
     return 0;
 }
 
-/* Store books to file */
+/* store_books()
+ * -------------------------
+ * store books to file
+ *
+ * file: file pointer
+ * list: book list
+ *
+ * return: 0 if success, -1 if fail
+*/
 int store_books(FILE *file, BookList *list){
     if(file == NULL || list == NULL) {
         puts("file or list is NULL");
@@ -120,7 +160,15 @@ int store_books(FILE *file, BookList *list){
     return 0;
 }
 
-/* Add books to the linked list */
+/* add_book()
+ * -------------------------
+ * add books to list
+ *
+ * list: book list
+ * book: book
+ *
+ * return: 0 if success, -1 if fail
+*/
 int add_book(Book *book, BookList *list){
     if(list == NULL) {
         return -1;
@@ -131,7 +179,15 @@ int add_book(Book *book, BookList *list){
     return 0;
 }
 
-/* Remove book from the linked list */
+/* remove_book()
+ * -------------------------
+ * remove books from list
+ *
+ * list: book list
+ * book: book
+ *
+ * return: 0 if success, -1 if fail
+*/
 int remove_book(Book *book, BookList *list){
     if(list == NULL) {
         return -1;

@@ -13,7 +13,14 @@
 #include "admin.h"
 #include "book_management.h"
 
-/* Show the menu */
+
+/* menu()
+ * -----------
+ * Show the menu of the interface
+ *
+ * return: No return
+ *
+*/
 void menu() {
     printf_green("\n====Welcome to Book Management System!====\n");
     fprintf(stdout, "1. Register\n");
@@ -27,7 +34,15 @@ void menu() {
 
 }
 
-/* Show the interface */
+/* run_interface()
+ * ------------------
+ *
+ * Run the main interface
+ * book_file: the file of books
+ * user_file: the file of users
+ *
+ * return: No return
+ */
 void run_interface(char *book_file, char *user_file) {
 
     UserList *userlist = (UserList *) malloc(sizeof(userlist));

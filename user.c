@@ -8,7 +8,12 @@
 #include <malloc.h>
 #include <stdlib.h>
 
-/* User menu */
+/* user_menu_hint()
+ * --------------------
+ * print the menu
+ *
+ * return: No return
+*/
 void user_menu_hint(){
     printf_green("\n====Welcome to user menu!====\n");
     fprintf(stdout, "1. View user info\n");
@@ -19,7 +24,12 @@ void user_menu_hint(){
     fprintf(stdout, "Please input your choice: ");
 }
 
-/* Run user menu */
+/* user_menu
+ * --------------
+ * run the user menu
+ *
+ * return: No return
+*/
 void user_menu(User *user, BookList *wholebooklist) {
 
     user_menu_hint();
@@ -53,7 +63,13 @@ void user_menu(User *user, BookList *wholebooklist) {
     }
 }
 
-/* List the user borrowed books */
+/* user_borrowed_book_list()
+ * --------------------------------
+ * List the user borrowed books
+ * pUser: User
+ *
+ * return: No return
+ */
 void user_borrowed_book_list(User *pUser) {
     printf_green("\n====User's borrowed books====\n");
     if (pUser->borrowNum == 0) {
@@ -64,7 +80,14 @@ void user_borrowed_book_list(User *pUser) {
     listBook(pUser->bookList);
 }
 
-/* List the user info */
+/* user_info()
+ * -------------
+ * List the user info
+ * pUser: User
+ *
+ * return: No return
+ *
+ * */
 void user_info(User *pUser) {
     printf_green("\n====User info====\n");
     fprintf(stdout, "ID: %d\n", pUser->id);
@@ -73,7 +96,14 @@ void user_info(User *pUser) {
     fprintf(stdout, "Borrowed num: %d\n", pUser->borrowNum);
 }
 
-/* Find user by username */
+/* findUserByUsername()
+ * --------------------------
+ * Find user by username
+ * userlist: the user list
+ * username: the username should be found
+ *
+ * return: User
+ */
 User *findUserByUsername(UserList *userlist, char *username) {
     User *pUser = userlist->list;
     while (pUser != NULL) {
@@ -85,7 +115,17 @@ User *findUserByUsername(UserList *userlist, char *username) {
     return NULL;
 }
 
-/* Read borrowed books for users */
+/* read_borrow_books()
+ * ---------------------
+ * Read borrowed books for users
+ *
+ * fp: file pointer
+ * userlist: the user list
+ * wholebooklist: the book list
+ *
+ * return: No return
+ *
+ */
 void read_borrow_books(FILE *fp, UserList *userlist, BookList *wholebooklist) {
 
     if (fp == NULL) {
@@ -136,7 +176,16 @@ void read_borrow_books(FILE *fp, UserList *userlist, BookList *wholebooklist) {
 
 }
 
-/* Borrow book Logic */
+/* borrow_book
+ * --------------
+ * borrow books
+ *
+ * user: User
+ * id: the book id
+ * wholeBookList: the book list
+ *
+ * return: No return
+ * */
 void borrow_book(User *user, unsigned int id, BookList *wholeBookList) {
     if (user->borrowNum >= user->borrowMax) {
         printf_red("You have borrowed the max num of books!\n");
@@ -172,7 +221,16 @@ void borrow_book(User *user, unsigned int id, BookList *wholeBookList) {
     printf_green("Borrow success!\n");
 }
 
-/* Return book Logic */
+/* return_book()
+ * --------------
+ * return books
+ *
+ * user: User
+ * id: the book id
+ * wholeBookList: the book list
+ *
+ * return: No return
+ * */
 void return_book(User *user, unsigned int id, BookList *wholeBookList) {
     if (user->borrowNum == 0) {
         printf_red("You have not borrowed any book!\n");
@@ -194,7 +252,15 @@ void return_book(User *user, unsigned int id, BookList *wholeBookList) {
     printf_green("Return success!\n");
 }
 
-/* Borrow book interface */
+/* borrow_book_interface()
+ * --------------
+ * borrow books interface
+ *
+ * user: User
+ * wholeBookList: the book list
+ *
+ * return: No return
+ * */
 void borrow_book_interface(BookList *wholetBookList, User *user) {
     listBook(wholetBookList);
     printf("Please input the book id: ");
@@ -207,7 +273,15 @@ void borrow_book_interface(BookList *wholetBookList, User *user) {
 
 }
 
-/* Return Book interface */
+/* return_book_interface()
+ * --------------
+ * return books interface
+ *
+ * user: User
+ * wholeBookList: the book list
+ *
+ * return: No return
+ * */
 void return_book_interface(BookList *wholetBookList, User *user) {
     if(user->bookList->length == 0){
         printf_red("You have not borrowed any book!\n");

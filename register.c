@@ -6,7 +6,15 @@
 #include <string.h>
 #include <stdlib.h>
 
-/* Check if the username is existed */
+/* check_exist()
+ * --------------
+ * Check if the username is existed
+ *
+ * userlist: User list
+ * username: the username of user
+ *
+ * return: 1 if existed, 0 if not
+ */
 int check_exist(UserList *userlist, char *username) {
     User *cur = userlist->list;
     if (cur == NULL) {
@@ -22,7 +30,19 @@ int check_exist(UserList *userlist, char *username) {
     return 0;
 }
 
-/* Create a User */
+/* createUser()
+ * ----------------
+ * create a user
+ *
+ * id: user id
+ * username: the username
+ * password: the password
+ * borrowNum: the borrowNum
+ * borrowMax: max number of borrowed books
+ *
+ * return: User
+ *
+*/
 User *createUser(unsigned int id, char *username, char *password, int borrowNum, int borrowMax) {
     User *new_user = (User *) malloc(sizeof(User));
     new_user->username = username;
@@ -38,7 +58,21 @@ User *createUser(unsigned int id, char *username, char *password, int borrowNum,
 
 }
 
-/* Insert User to the linked list */
+
+/* insertUser()
+ * ----------------
+ * insert a user
+ *
+ * userlist: UserList
+ * id: user id
+ * username: the username
+ * password: the password
+ * borrowNum: the borrowNum
+ * borrowMax: max number of borrowed books
+ *
+ * return: User
+ *
+*/
 User *insertUser(UserList *userlist, unsigned int id, char *username, char *password, int borrowNum, int borrowMax) {
     User *user = createUser(id, username, password, borrowNum, borrowMax);
     User *cur = userlist->list;
@@ -53,7 +87,16 @@ User *insertUser(UserList *userlist, unsigned int id, char *username, char *pass
     return user;
 }
 
-/* Read users from file */
+/* read_user()
+ * ----------------
+ * read users from file
+ *
+ * user_file: filename
+ * userlist: the user list
+ *
+ * return: No return
+ *
+*/
 void read_user(char *user_file, UserList *userlist) {
     FILE *fp;
     fp = fopen(user_file, "r");
@@ -95,7 +138,14 @@ void read_user(char *user_file, UserList *userlist) {
 
 }
 
-/* Check if the username is valid */
+/* check_valid()
+ * ------------------
+ * check if the username is valid
+ *
+ * username: username
+ *
+ * return 1 if not 0
+*/
 int check_valid(char *username){
     char invalid_char[] = "!@#$%^&*()_+-=[]{}|;':\",./<>?`~ ";
     for (int i = 0; i < strlen(username); i++) {
@@ -114,7 +164,15 @@ int check_valid(char *username){
     return 1;
 }
 
-/* Register menu */
+/* register_user()
+ * -------------------
+ * the logic of registering
+ *
+ * userlist: the linked list of users
+ *
+ * return: No return
+ *
+*/
 void register_user(UserList *userlist) {
 
     char *username = malloc(sizeof(char) * 20);
