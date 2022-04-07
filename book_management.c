@@ -19,15 +19,16 @@
 BookList find_book_by_title(const char *title, BookList *booklist) {
     BookList res;
     res.length = 0;
-    Book *dummyhead = (Book *) malloc(sizeof(Book));
+    Book *dummyhead = createBook(99999999, " ", " ", 0, 10, 0);
 
     res.list = dummyhead;
     Book *cur = booklist->list;
     while(cur != NULL){
         if(strcmp(cur->title, title) == 0){
             Book *new_book = (Book *) malloc(sizeof(Book));
-            memccpy(new_book, cur, sizeof(Book), sizeof(Book));
+            memcpy(new_book, cur, sizeof(Book));
             insertBookByPointer(&res, new_book);
+            res.length++;
         }
         cur = cur->next;
     }
@@ -46,15 +47,16 @@ BookList find_book_by_title(const char *title, BookList *booklist) {
 BookList find_book_by_author(const char *author, BookList *booklist) {
     BookList res;
     res.length = 0;
-    Book *dummyhead = (Book *) malloc(sizeof(Book));
+    Book *dummyhead = createBook(99999999, " ", " ", 0, 10, 0);
 
     res.list = dummyhead;
     Book *cur = booklist->list;
     while(cur != NULL){
         if(strcmp(cur->authors, author) == 0){
             Book *new_book = (Book *) malloc(sizeof(Book));
-            memccpy(new_book, cur, sizeof(Book), sizeof(Book));
+            memcpy(new_book, cur, sizeof(Book));
             insertBookByPointer(&res, new_book);
+            res.length++;
         }
         cur = cur->next;
     }
@@ -73,15 +75,16 @@ BookList find_book_by_author(const char *author, BookList *booklist) {
 BookList find_book_by_year(unsigned int year, BookList *booklist) {
     BookList res;
     res.length = 0;
-    Book *dummyhead = (Book *) malloc(sizeof(Book));
+    Book *dummyhead = createBook(99999999, " ", " ", 0, 10, 0);
 
     res.list = dummyhead;
     Book *cur = booklist->list;
     while (cur != NULL) {
         if (cur->year == year) {
             Book *new_book = (Book *) malloc(sizeof(Book));
-            memccpy(new_book, cur, sizeof(Book), sizeof(Book));
+            memcpy(new_book, cur, sizeof(Book));
             insertBookByPointer(&res, new_book);
+            res.length++;
         }
         cur = cur->next;
     }
@@ -209,24 +212,22 @@ int add_book(Book *book, BookList *list){
  *
  * return: 0 if success, -1 if fail
 */
-int remove_book(Book *book, BookList *list){
-    if(list == NULL) {
+int remove_book(Book *book, BookList *list) {
+    if (list == NULL) {
         return -1;
     }
-    Book *dummyhead = list -> list;
-    Book *cur = dummyhead -> next;
-
-    while(cur != NULL) {
-        if(cur -> id == book->id) {
-
-            dummyhead -> next = cur -> next;
+    Book *cur = list->list;
+    Book *prev = cur;
+    while (cur != NULL) {
+        if (cur->id == book->id) {
+            prev->next = cur->next;
             free(cur);
-            list -> length--;
-
             return 0;
         }
-        cur = cur -> next;
+        prev = cur;
+        cur = cur->next;
     }
     return -1;
+
 }
 

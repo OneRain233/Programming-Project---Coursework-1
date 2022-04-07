@@ -231,7 +231,7 @@ void borrow_book(User *user, unsigned int id, BookList *wholeBookList) {
     newBook->borrowed = book->borrowed;
     newBook->next = NULL;
 
-    insertBookByPointer(dummyHead, newBook);
+    insertBookByPointer1(user->bookList, newBook);
 
     book->copies--;
     book->borrowed++;
@@ -254,15 +254,24 @@ void return_book(User *user, unsigned int id, BookList *wholeBookList) {
         printf_red("You have not borrowed any book!\n");
         return;
     }
-//    user_borrowed_book_list(user);
+
     BookList *dummyHead = user->bookList;
     Book *delBook = findBookByID(dummyHead, id);
     if (delBook == NULL) {
         printf_red("Book not found!\n");
         return;
     }
-
-    remove_book(delBook, dummyHead);
+    remove_book(delBook, user->bookList);
+//    Book *cur = user->bookList->list;
+////    Book *prev = user->bookList->list;
+//    while (cur ->next!= NULL) {
+//        if (cur->next->id == id) {
+//            cur->next = cur->next->next;
+//            break;
+//        }
+////        prev = cur;
+//        cur = cur->next;
+//    }
 
     Book *book = findBookByID(wholeBookList, id);
     book->copies++;

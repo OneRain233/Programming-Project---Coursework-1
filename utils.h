@@ -13,6 +13,8 @@ Book *createBook(unsigned int id, char *authors, char *title, unsigned int year,
 
 void insertBookByPointer(BookList *booklist, Book *book);
 
+void insertBookByPointer1(BookList *booklist, Book *book);
+
 Book *findBookByID(BookList *booklist, unsigned int id);
 
 void store_user(FILE *fp, UserList *userList);

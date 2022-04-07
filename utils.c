@@ -63,6 +63,18 @@ Book *createBook(unsigned int id, char *authors, char *title, unsigned int year,
  * return: No return
  */
 void insertBookByPointer(BookList *booklist, Book *book) {
+    if (booklist->list->next == NULL) {
+        booklist->list->next = book;
+        return;
+    }
+    Book *cur = booklist->list->next;
+    while (cur->next != NULL) {
+        cur = cur->next;
+    }
+    cur->next = book;
+}
+
+void insertBookByPointer1(BookList *booklist, Book *book) {
     if (booklist->list == NULL) {
         booklist->list = book;
         return;
@@ -72,8 +84,8 @@ void insertBookByPointer(BookList *booklist, Book *book) {
         cur = cur->next;
     }
     cur->next = book;
+    cur->next = NULL;
 }
-
 
 /* findBookByID()
  * -----------------
@@ -111,7 +123,7 @@ void store_user(FILE *fp, UserList *userList){
         fprintf(fp, "%s\t%s\t%d\t%d\n", cur->username, cur->password, cur->borrowNum, cur->borrowMax);
         BookList *bookList = cur->bookList;
         Book *book = bookList->list;
-        while (book != NULL) {
+        for (int i = 0; i < cur->borrowNum; i++) {
             if (book->id == 99999999) {
                 book = book->next;
                 continue;

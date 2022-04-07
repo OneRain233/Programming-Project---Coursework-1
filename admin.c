@@ -124,7 +124,7 @@ void add_book_interface(char *book_file, BookList *list) {
     }
     Book *book = createBook(id, author, title, year, copies, 0);
 
-    add_book(book, list);
+    insertBookByPointer(list, book);
     listBook(list);
     FILE *fp = fopen(book_file, "w");
     store_books(fp, list);
@@ -146,13 +146,21 @@ void delete_book_interface(char *book_file, BookList *list) {
     listBook(list);
     int id;
     fprintf(stdout, "Please input the book id：");
-
     id = getOptions();
     if (id == -1) {
         fprintf(stderr, "Invalid input!\n");
         return;
     }
+
     Book *book = findBookByID(list, id);
+    if (book == NULL) {
+        fprintf(stderr, "No such book!\n");
+        return;
+    }
+//    if (book->borrowed != 0) {
+//        fprintf(stderr, "The book is borrowed, can't delete!\n");
+//        return;
+//    }
     remove_book(book, list);
 
     listBook(list);
