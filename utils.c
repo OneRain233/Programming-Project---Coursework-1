@@ -112,6 +112,10 @@ void store_user(FILE *fp, UserList *userList){
         BookList *bookList = cur->bookList;
         Book *book = bookList->list;
         while (book != NULL) {
+            if (book->id == 99999999) {
+                book = book->next;
+                continue;
+            }
             fprintf(fp, "%d\n", book->id);
             book = book->next;
         }
@@ -131,6 +135,7 @@ void store_user(FILE *fp, UserList *userList){
 */
 int isNum(const char *string) {
     int i = 0;
+    if (strlen(string) == 0) return 0;
     while (string[i] != '\0') {
         if (string[i] < '0' || string[i] > '9') {
             return 0;
@@ -148,21 +153,21 @@ int isNum(const char *string) {
 */
 int getOptions() {
     int option;
-    char line[80];
-    fflush(stdin);
-    rewind(stdin);
+    char *line = (char *) malloc(sizeof(char) * 80);
+    line[0] = '\0';
     fgets(line, 80, stdin);
     line[strlen(line) - 1] = '\0';
-    if(line[0] == '\n' || line[0] == '\0') return -1;
-    if(isNum(line)) {
-        option = (int) atoi(line);
+    if (line[0] == '\n' || strlen(line) == 0) {
+        fgets(line, 80, stdin);
+        line[strlen(line) - 1] = '\0';
     }
-    else{
-
+    if (isNum(line)) {
+        option = (int) atoi(line);
+    } else {
         option = -1;
     }
-
     return option;
+
 }
 
 /* print_red()

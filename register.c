@@ -183,7 +183,7 @@ void register_user(UserList *userlist) {
     char *password = malloc(sizeof(char) * 64);
     char *password_confirm = malloc(sizeof(char) * 64);
 
-    fprintf(stdout, "Please enter your username: ");
+    fprintf(stdout, "Please enter your username: \n");
     fgets(username, 64, stdin);
     username[strlen(username) - 1] = '\0';
     while (check_exist(userlist, username) == 1) {
@@ -213,7 +213,7 @@ void register_user(UserList *userlist) {
         fprintf(stdout, "Please enter your password again: \n");
         fgets(password_confirm, 64, stdin);
         password_confirm[strlen(password_confirm) - 1] = '\0';
-
+        fflush(stdin);
     }
 
     User *new_user;
@@ -232,6 +232,5 @@ void register_user(UserList *userlist) {
                new_user->password,
                new_user->borrowNum,
                new_user->borrowMax);
-    fflush(stdin);
-    fprintf(stdout, "Register successfully!\n");
+    fprintf(stdout, "Register successfully!");
 }
