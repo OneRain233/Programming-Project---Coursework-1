@@ -1,4 +1,4 @@
-EXE = bin/library
+EXE = library
 SRC = main.c login.c register.c user.c utils.c interface.c admin.c book_management.c
 
 # generic build details
