@@ -261,17 +261,11 @@ void return_book(User *user, unsigned int id, BookList *wholeBookList) {
         printf_red("Book not found!\n");
         return;
     }
-    remove_book(delBook, user->bookList);
-//    Book *cur = user->bookList->list;
-////    Book *prev = user->bookList->list;
-//    while (cur ->next!= NULL) {
-//        if (cur->next->id == id) {
-//            cur->next = cur->next->next;
-//            break;
-//        }
-////        prev = cur;
-//        cur = cur->next;
-//    }
+    int res = remove_book(delBook, user->bookList);
+    if (res == -1) {
+        fprintf(stderr, "Book not found!\n");
+    }
+    printf("%d\n", res);
 
     Book *book = findBookByID(wholeBookList, id);
     book->copies++;

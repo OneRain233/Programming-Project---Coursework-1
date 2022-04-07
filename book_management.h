@@ -61,5 +61,5 @@ BookList find_book_by_author (const char *author, BookList *booklist);
 //list is the NULL pointer.
 BookList find_book_by_year (unsigned int year, BookList *booklist);
 
-
+void delete_book(unsigned int id, BookList *list);
 #endif

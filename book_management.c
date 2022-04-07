@@ -231,3 +231,16 @@ int remove_book(Book *book, BookList *list) {
 
 }
 
+void delete_book(unsigned int id, BookList *list) {
+    Book *cur = list->list;
+    Book *prev = cur;
+    while (cur != NULL) {
+        if (cur->id == id) {
+            prev->next = cur->next;
+            free(cur);
+            return;
+        }
+        prev = cur;
+        cur = cur->next;
+    }
+}

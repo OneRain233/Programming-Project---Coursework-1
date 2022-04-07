@@ -84,7 +84,7 @@ void insertBookByPointer1(BookList *booklist, Book *book) {
         cur = cur->next;
     }
     cur->next = book;
-    cur->next = NULL;
+    book->next = NULL;
 }
 
 /* findBookByID()
@@ -126,6 +126,7 @@ void store_user(FILE *fp, UserList *userList){
         for (int i = 0; i < cur->borrowNum; i++) {
             if (book->id == 99999999) {
                 book = book->next;
+                i--;
                 continue;
             }
             fprintf(fp, "%d\n", book->id);

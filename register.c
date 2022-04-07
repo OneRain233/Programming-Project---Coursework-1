@@ -3,6 +3,7 @@
 //
 #include "book_management.h"
 #include "datastructure.h"
+#include "utils.h"
 #include <string.h>
 #include <stdlib.h>
 
@@ -52,7 +53,7 @@ User *createUser(unsigned int id, char *username, char *password, int borrowNum,
     new_user->id = id;
     new_user->next = NULL;;
     new_user->bookList = (BookList *) malloc(sizeof(BookList));
-    new_user->bookList->list = NULL;
+    new_user->bookList->list = createBook(99999999, " ", " ", 0, 10, 0);
     new_user->bookList->length = 0;
     return new_user;
 
@@ -225,7 +226,8 @@ void register_user(UserList *userlist) {
     strcpy(new_user->password, password);
     new_user->borrowMax = 10;
     new_user->borrowNum = 0;
-
+    new_user->bookList = malloc(sizeof(Book));
+    new_user->bookList->list = createBook(99999999, " ", " ", 0, 10, 0);
     new_user->id = userlist->userNum;
     insertUser(userlist, new_user->id,
                new_user->username,
