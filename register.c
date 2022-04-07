@@ -106,11 +106,15 @@ void read_user(char *user_file, UserList *userlist) {
     }
     char *username = (char *) malloc(sizeof(char) * 20);
     char *password = (char *) malloc(sizeof(char) * 20);
-    int borrowNum;
-    int maxBorrowNum;
+    int borrowNum = -1;
+    int maxBorrowNum = -1;
     int user_cnt = 0;
 
     while (fscanf(fp, "%s\t%s\t%d\t%d\n", username, password, &borrowNum, &maxBorrowNum) != EOF) {
+        if (borrowNum == -1 || maxBorrowNum == -1) {
+            fprintf(stderr, "Error: User file format error!\n");
+            exit(1);
+        }
         char *buf = (char *) malloc(sizeof(char) * 20);
         char *tmp_username = (char *) malloc(20 * sizeof(char));
         char *tmp_password = (char *) malloc(20 * sizeof(char));

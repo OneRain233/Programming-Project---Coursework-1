@@ -77,8 +77,8 @@ BookList find_book_by_year(unsigned int year, BookList *booklist) {
 
     res.list = dummyhead;
     Book *cur = booklist->list;
-    while(cur != NULL){
-        if(cur->year == year){
+    while (cur != NULL) {
+        if (cur->year == year) {
             Book *new_book = (Book *) malloc(sizeof(Book));
             memccpy(new_book, cur, sizeof(Book), sizeof(Book));
             insertBookByPointer(&res, new_book);
@@ -86,6 +86,22 @@ BookList find_book_by_year(unsigned int year, BookList *booklist) {
         cur = cur->next;
     }
     return res;
+}
+
+/* check_format
+ * -------------------
+ * check the data format
+ *
+ * str: string
+ *
+ * return: No return
+*/
+void check_format(const char *str) {
+    if (str == NULL) {
+        fprintf(stderr, "Error: Book file format error\n");
+        exit(1);
+
+    }
 }
 
 /* load_books()
@@ -111,20 +127,25 @@ int load_books(FILE *file, BookList* list){
         unsigned id = atoi(p);
 
         p = strtok(NULL, "-");
+        check_format(p);
         char *authors = (char *) malloc(sizeof(p));
         strcpy(authors, p);
 
         p = strtok(NULL, "-");
+        check_format(p);
         char *title = (char *) malloc(sizeof(p));
         strcpy(title, p);
 
         p = strtok(NULL, "-");
+        check_format(p);
         unsigned int year = atoi(p);
 
         p = strtok(NULL, "-");
+        check_format(p);
         unsigned int copies = atoi(p);
 
         p = strtok(NULL, "-");
+        check_format(p);
         int borrowed = atoi(p);
         Book *newbook = createBook(id, authors, title, year, copies,borrowed);
         insertBookByPointer(list, newbook);
