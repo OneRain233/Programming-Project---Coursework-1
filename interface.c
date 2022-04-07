@@ -87,13 +87,13 @@ void run_interface(char *book_file, char *user_file) {
                 break;
             case 3:
                 printf_green("Find books by name\n");
-                char name[100];
+                char *name = (char *) malloc(sizeof(char) * 50);
                 fprintf(stdout, "Please input the name: ");
                 fgets(name, 100, stdin);
                 name[strlen(name) - 1] = '\0';
 
                 BookList booklist = find_book_by_title(name, wholebooklist);
-                if(booklist.length == 0) {
+                if (booklist.length == 0) {
                     fprintf(stderr, "!!!No books found!!!\n");
                 } else {
 //                    fprintf(stderr, "%d\n", booklist.length);
@@ -102,14 +102,14 @@ void run_interface(char *book_file, char *user_file) {
                 break;
             case 4:
                 printf_green("Find books by author\n");
-                char author[100];
+                char *author = (char *) malloc(sizeof(char) * 100);;
                 fprintf(stdout, "Please input the author: ");
                 fgets(author, 100, stdin);
 
                 author[strlen(author) - 1] = '\0';
                 puts(author);
                 BookList res2 = find_book_by_author(author, wholebooklist);
-                if(res2.length == 0) {
+                if (res2.length == 0) {
                     fprintf(stderr, "!!!No books found!!!\n");
                 } else {
                     listBook(&res2);

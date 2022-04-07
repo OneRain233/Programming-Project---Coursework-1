@@ -27,6 +27,7 @@ BookList find_book_by_title(const char *title, BookList *booklist) {
         if(strcmp(cur->title, title) == 0){
             Book *new_book = (Book *) malloc(sizeof(Book));
             memcpy(new_book, cur, sizeof(Book));
+            new_book->next = NULL;
             insertBookByPointer(&res, new_book);
             res.length++;
         }
@@ -55,6 +56,7 @@ BookList find_book_by_author(const char *author, BookList *booklist) {
         if(strcmp(cur->authors, author) == 0){
             Book *new_book = (Book *) malloc(sizeof(Book));
             memcpy(new_book, cur, sizeof(Book));
+            new_book->next = NULL;
             insertBookByPointer(&res, new_book);
             res.length++;
         }
@@ -83,6 +85,7 @@ BookList find_book_by_year(unsigned int year, BookList *booklist) {
         if (cur->year == year) {
             Book *new_book = (Book *) malloc(sizeof(Book));
             memcpy(new_book, cur, sizeof(Book));
+            new_book->next = NULL;
             insertBookByPointer(&res, new_book);
             res.length++;
         }
