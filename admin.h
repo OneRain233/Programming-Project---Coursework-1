@@ -20,4 +20,5 @@ void auth(UserList *userlist, BookList *booklist, char *book_file);
 
 void show_users_booklist(UserList *userlist);
 
+void edit_book_interface(BookList *pList);
 #endif //PROJECT1_ADMIN_H

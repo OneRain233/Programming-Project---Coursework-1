@@ -169,6 +169,63 @@ void delete_book_interface(char *book_file, BookList *list) {
     fclose(fp);
 }
 
+/* edit_book_interface()
+ * -----------------------
+ * edit a book
+ *
+ * pList: the book list
+ *
+ * return: No return
+ * */
+void edit_book_interface(BookList *pList) {
+    listBook(pList);
+    int id;
+    fprintf(stdout, "Please input the book id：");
+    id = getOptions();
+    if (id == -1) {
+        fprintf(stderr, "Invalid input!\n");
+        return;
+    }
+    Book *pBook = findBookByID(pList, id);
+    if (pBook == NULL) {
+        fprintf(stderr, "No such book!\n");
+        return;
+    }
+    char *title = (char *) malloc(sizeof(char) * 100);
+    char *author = (char *) malloc(sizeof(char) * 100);
+    char *tmp_year = (char *) malloc(sizeof(char) * 100);
+    char *tmp_copies = (char *) malloc(sizeof(char) * 100);
+
+    unsigned int year;
+    unsigned int copies;
+
+    fprintf(stdout, "Please input the book title：");
+    fgets(title, 100, stdin);
+    title[strlen(title) - 1] = '\0';
+    fprintf(stdout, "Please input the book author：");
+    fgets(author, 100, stdin);
+    author[strlen(author) - 1] = '\0';
+    fprintf(stdout, "Please input the year of publication：");
+    scanf("%s", tmp_year);
+    fprintf(stdout, "Please input the copies：");
+    scanf("%s", tmp_copies);
+
+    if (isNum(tmp_year) && isNum(tmp_copies)) {
+        char *buf;
+        year = strtol(tmp_year, &buf, 10);
+        copies = strtol(tmp_copies, &buf, 10);
+    } else {
+        fprintf(stderr, "Invalid input!\n");
+        return;
+    }
+
+    pBook->title = title;
+    pBook->authors = author;
+    pBook->year = year;
+    pBook->copies = copies;
+
+}
+
 /* admin_menu()
  * ------------------------
  * show admin menu
@@ -196,7 +253,7 @@ void admin_menu(UserList *userlist, BookList *booklist, char *book_file) {
                 listBook(booklist);
                 break;
             case 4:
-                puts("Edit a book");
+                edit_book_interface(booklist);
                 break;
             case 5:
                 show_users_booklist(userlist);
