@@ -89,7 +89,7 @@ void run_interface(char *book_file, char *user_file) {
                 printf_green("Find books by name\n");
                 char *name = (char *) malloc(sizeof(char) * 50);
                 fprintf(stdout, "Please input the name: ");
-                fgets(name, 100, stdin);
+                fgets(name, 50, stdin);
                 name[strlen(name) - 1] = '\0';
 
                 BookList booklist = find_book_by_title(name, wholebooklist);
